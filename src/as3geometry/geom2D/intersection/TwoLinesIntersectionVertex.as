@@ -78,7 +78,7 @@ package as3geometry.geom2D.intersection
 		 */
 		private function calculateIntersection():void
 		{
-			if (!_a.a || !_a.b || !_b.a || !_b.b)
+			if (!(_a.a && _a.b && _b.a && _b.b))
 				return;
 			
 			var multipliers:Vector.<Number> = intersectionMultipliers();
@@ -104,9 +104,6 @@ package as3geometry.geom2D.intersection
 		
 		private function intersectionMultipliers():Vector.<Number>
 		{
-			if (!_a.a || !_a.b || !_b.a || !_b.b)
-				return null;
-			
 			var aVector:SpatialVector = _a.vector;
 			var bVector:SpatialVector = _b.vector;
 			

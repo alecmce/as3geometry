@@ -2,6 +2,9 @@ package as3geometry.geom2D.mutable
 {
 	import as3geometry.geom2D.Vertex;
 
+	import org.osflash.signals.ISignal;
+	import org.osflash.signals.Signal;
+
 	import flash.events.EventDispatcher;
 
 	/**
@@ -12,43 +15,57 @@ package as3geometry.geom2D.mutable
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableVertex extends EventDispatcher implements Vertex 
+	public class MutableVertex extends EventDispatcher implements Vertex, Mutable 
 	{
 		
-		private var x_:Number;
+		private var _x:Number;
 		
-		private var y_:Number;
+		private var _y:Number;
 		
+		private var _changed:ISignal;
 		
 		public function MutableVertex(x:Number, y:Number)
 		{
-			x_ = x;
-			y_ = y;
+			_x = x;
+			_y = y;
+			_changed = new Signal(this, Mutable);
 		}
 		
 		
 		public function set x(value:Number):void
 		{
-			x_ = value;
+			if (_x == value)
+				return;
+			
+			_x = value;
+			_changed.dispatch(this);
 		}
 		
 		
 		public function get x():Number
 		{
-			return x_;
+			return _x;
 		}
 		
 		
 		public function set y(value:Number):void
 		{
-			y_ = value;
+			if (_y == value)
+				return;
+			
+			_y = value;
+			_changed.dispatch(this);
 		}
 		
 		
 		public function get y():Number
 		{
-			return y_;
+			return _y;
 		}
 		
+		public function get changed():ISignal
+		{
+			return _changed;
+		}
 	}
 }
