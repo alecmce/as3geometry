@@ -19,7 +19,7 @@ package examples
 	import flash.display.Sprite;
 
 	/**
-	 * 
+	 * An example of the current state of the as3geometry library.
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
@@ -27,16 +27,21 @@ package examples
 	 */
 	public class ThreePoints extends Sprite 
 	{
-		private var vertexPaint:SolidPaint;		private var circlePaint:SolidPaint;		private var trianglePaint:SolidPaint;
+		private var vertexPaint:SolidPaint;
+		private var circlePaint:SolidPaint;
+		private var trianglePaint:SolidPaint;
 		
 		private var dragMechanism:DragMechanism;
 		
-		private var a:UIVertex;		private var b:UIVertex;		private var c:UIVertex;
+		private var a:UIVertex;
+		private var b:UIVertex;
+		private var c:UIVertex;
 		
 		private var circle:Circle;
 		private var circleDrawer:CircleDrawer;
 		
-		private var circle2:Circle;		private var circleDrawer2:CircleDrawer;
+		private var circle2:Circle;
+		private var circleDrawer2:CircleDrawer;
 		
 		private var line:Line;
 		private var lineDrawer:LineDrawer;
@@ -57,19 +62,24 @@ package examples
 		
 		private function init():void
 		{
-			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);			circlePaint = new SolidPaint(0x66FFEE00, 0xFF0000CD, 2);			trianglePaint = new SolidPaint(0x661E90FF, 0, -1);
+			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
+			circlePaint = new SolidPaint(0x66FFEE00, 0xFF0000CD, 2);
+			trianglePaint = new SolidPaint(0x661E90FF, 0, -1);
 			
 			dragMechanism = new DragMechanism();
 			
 			a = new UIVertex(vertexPaint);
-			dragMechanism.apply(a);			a.x = 80;
+			dragMechanism.apply(a);
+			a.x = 80;
 			a.y = 200;
 			
 			b = new UIVertex(vertexPaint);
-			dragMechanism.apply(b);			b.x = 400;
+			dragMechanism.apply(b);
+			b.x = 400;
 			b.y = 180;
 			
-			c = new UIVertex(vertexPaint);			dragMechanism.apply(c);
+			c = new UIVertex(vertexPaint);
+			dragMechanism.apply(c);
 			c.x = 300;
 			c.y = 340;
 			
@@ -91,8 +101,15 @@ package examples
 			triangle = new MutableTriangle(a, b, c);
 			triangleDrawer = new TriangleDrawer(triangle, trianglePaint);
 			
-			addChild(triangleDrawer);			addChild(circleDrawer);			addChild(lineDrawer);			addChild(segmentDrawer);			addChild(rayDrawer);			addChild(circleDrawer2);
-			addChild(a);			addChild(b);			addChild(c);
+			addChild(triangleDrawer);
+			addChild(circleDrawer);
+			addChild(lineDrawer);
+			addChild(segmentDrawer);
+			addChild(rayDrawer);
+			addChild(circleDrawer2);
+			addChild(a);
+			addChild(b);
+			addChild(c);
 		}
 		
 	}
