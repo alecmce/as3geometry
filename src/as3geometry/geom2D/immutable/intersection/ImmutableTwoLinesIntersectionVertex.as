@@ -1,9 +1,11 @@
-package as3geometry.geom2D.intersection 
+package as3geometry.geom2D.immutable.intersection 
 {
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.errors.MutabilityError;
+	import as3geometry.geom2D.mutable.Mutable;
 
 	/**
 	 * A vertex defined by the intersection of two lines. This is found by resolving the
@@ -18,7 +20,7 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class TwoLinesIntersectionVertex implements Vertex
+	public class ImmutableTwoLinesIntersectionVertex implements Vertex
 	{
 		
 		private var _a:Line;
@@ -29,10 +31,14 @@ package as3geometry.geom2D.intersection
 		
 		private var _y:Number;
 		
-		public function TwoLinesIntersectionVertex(a:Line, b:Line)
+		public function ImmutableTwoLinesIntersectionVertex(a:Line, b:Line)
 		{
 			_a = a;
 			_b = b;
+			
+			if (_a is Mutable || _b is Mutable)
+				throw new MutabilityError("The immutable TwoLinesIntersectionVertex is defined by a Mutable element");
+			
 			_x = Number.NaN;
 			_y = Number.NaN;
 			
@@ -76,7 +82,7 @@ package as3geometry.geom2D.intersection
 		 * intersection abort the calculation, which will leave the values of x
 		 * and y as Number.NaN
 		 */
-		private function calculateIntersection():void
+		protected function calculateIntersection():void
 		{
 			if (!(_a.a && _a.b && _b.a && _b.b))
 				return;
