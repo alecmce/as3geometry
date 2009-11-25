@@ -8,11 +8,11 @@ package as3geometry.geom2D.intersection
 	import asunit.asserts.assertEquals;
 	import asunit.asserts.assertTrue;
 
-	public class TwoLinesIntersectionVertexTest
+	public class IntersectionOfTwoLinesVertexTest
 	{
 		private var a:Line;
 		private var b:Line;
-		private var vertex:TwoLinesIntersectionVertex;
+		private var vertex:IntersectionOfTwoLinesVertex;
 
 		[After]
 		public function tearDown():void
@@ -92,7 +92,7 @@ package as3geometry.geom2D.intersection
 		}
 		
 		[Test]
-		public function raysDoesIntersect_CounterpartToTestRaysDontIntersect():void
+		public function raysDoIntersect_CounterpartToTestRaysDontIntersect():void
 		{
 			a = new ImmutableLine(new ImmutableVertex(0,5), new ImmutableVertex(5,5), LineType.RAY);
 			b = new ImmutableLine(new ImmutableVertex(10,0), new ImmutableVertex(10,10));
@@ -103,13 +103,13 @@ package as3geometry.geom2D.intersection
 		
 		private function resolve(x:Number, y:Number):void
 		{
-			vertex = new TwoLinesIntersectionVertex(a, b);
+			vertex = new IntersectionOfTwoLinesVertex(a, b);
 			assertEquals(x, vertex.x);			assertEquals(y, vertex.y);
 		}
 		
 		private function resolveNoIntersection():void
 		{
-			vertex = new TwoLinesIntersectionVertex(a, b);
+			vertex = new IntersectionOfTwoLinesVertex(a, b);
 			assertTrue(isNaN(vertex.x));
 			assertTrue(isNaN(vertex.y));
 		}

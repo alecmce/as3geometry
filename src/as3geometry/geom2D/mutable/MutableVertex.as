@@ -67,5 +67,12 @@ package as3geometry.geom2D.mutable
 		{
 			return _changed;
 		}
+		
+		public function set(x:Number, y:Number):void
+		{
+			_x = x;
+			_y = y;
+			_changed.dispatch(this);
+		}
 	}
 }

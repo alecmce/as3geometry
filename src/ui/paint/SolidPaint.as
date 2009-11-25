@@ -1,8 +1,8 @@
 package ui.paint 
 {
-	import flash.display.Graphics;
-
 	import ui.Paint;
+
+	import flash.display.Graphics;
 
 	/**
 	 * 
@@ -44,10 +44,10 @@ package ui.paint
 		
 		public function beginPaint(graphics:Graphics):void
 		{
-			graphics.beginFill(_fill & 0xFFFFFF, _fill >>> 24);
+			graphics.beginFill(_fill & 0xFFFFFF, (_fill >>> 24) / 0xFF);
 			
 			if (_width >= 0)
-				graphics.lineStyle(_stroke & 0xFFFFFF, _stroke >>> 24);
+				graphics.lineStyle(_width, _stroke & 0xFFFFFF, (_stroke >>> 24) / 0xFF);
 			else
 				graphics.lineStyle();
 		}

@@ -18,61 +18,46 @@ package as3geometry.geom2D.mutable
 	public class MutableCircle implements Circle, Mutable
 	{
 		
-		/*********************************************************************/
-		// Member Variables
-		/*********************************************************************/
-		
-		
-		/** The center of the circle */
 		private var _center:Vertex;
 				
-		/** The radius of the circle */
 		private var _radius:Number;
 		
 		private var _changed:ISignal;
 
-		
-		/*********************************************************************/
-		// Public Methods
-		/*********************************************************************/
-		
-		
-		/**
-		 * Class Constructor
-		 * 
-		 * @param center The center of the circle
-		 * @param radius The radius of the circle
-		 */
 		public function MutableCircle(center:Vertex = null, radius:Number = 1)
 		{
 			_center = center ? center : new ImmutableVertex(0, 0);
-			_changed = new Signal(this, Mutable);
-			
 			if (_center is Mutable)
 				Mutable(_center).changed.add(onDefinienChanged);
-				
+			
+			_changed = new Signal(this, Mutable);
 			_radius = radius;
 		}
 		
-		/**
-		 * @return The center of the circle
-		 */
 		public function get center():Vertex
 		{
 			return _center;
 		}
 		
-		/**
-		 * @return The radius of the circle
-		 */
+		public function set center(value:Vertex):void
+		{
+			if (_center == value)
+				return;
+			
+			if (_center is Mutable)
+				Mutable(_center).changed.remove(onDefinienChanged);
+			
+			_center = value;
+		
+			if (_center is Mutable)
+				Mutable(_center).changed.add(onDefinienChanged);
+		}
+		
 		public function get radius():Number
 		{
 			return _radius;
 		}
 		
-		/**
-		 * @return A user-readable string describing this circle
-		 */
 		public function toString():String
 		{
 			return "[CIRCLE " + center + ", r=" + radius + "]";
