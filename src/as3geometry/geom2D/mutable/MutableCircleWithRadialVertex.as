@@ -4,9 +4,6 @@ package as3geometry.geom2D.mutable
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.mutable.Mutable;
 
-	import org.osflash.signals.ISignal;
-	import org.osflash.signals.Signal;
-
 	/**
 	 * Defines a circle on a Cartesian plane by center Vertex and radius
 	 *
@@ -14,29 +11,19 @@ package as3geometry.geom2D.mutable
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableCircleWithRadialVertex implements Circle, Mutable
+	public class MutableCircleWithRadialVertex extends AbstractMutable implements Circle, Mutable
 	{
 		private var _center:Vertex;
-				
 		private var _radial:Vertex;
-				
 		private var _radius:Number;
 		
 		private var _invalidated:Boolean;
-		
-		private var _changed:ISignal;
 
 		public function MutableCircleWithRadialVertex(center:Vertex, radial:Vertex)
 		{
-			_center = center;
-			if (_center is Mutable)
-				Mutable(_center).changed.add(onDefinienChanged);
-			
-			_radial = radial;
-			if (_radial is Mutable)
-				Mutable(_radial).changed.add(onDefinienChanged);
-			
-			_changed = new Signal(this, Mutable);
+			addDefinien(_center = center);
+			addDefinien(_radial = radial);
+
 			_radius = calculateRadius();
 			_invalidated = false;
 		}
@@ -51,13 +38,11 @@ package as3geometry.geom2D.mutable
 			if (_center == value)
 				return;
 			
-			if (_center is Mutable)
-				Mutable(_center).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_center);
 			_center = value;
-		
-			if (_center is Mutable)
-				Mutable(_center).changed.add(onDefinienChanged);
+			addDefinien(_center);
+			
+			_changed.dispatch(this);
 		}
 		
 		public function get radial():Vertex
@@ -70,13 +55,11 @@ package as3geometry.geom2D.mutable
 			if (_radial == value)
 				return;
 			
-			if (_radial is Mutable)
-				Mutable(_radial).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_radial);
 			_radial = value;
+			addDefinien(_radial);
 			
-			if (_radial is Mutable)
-				Mutable(_radial).changed.add(onDefinienChanged);
+			_changed.dispatch(this);
 		}
 		
 		public function get radius():Number
@@ -90,10 +73,10 @@ package as3geometry.geom2D.mutable
 			return _radius;
 		}
 		
-		private function onDefinienChanged(mutable:Mutable):void
+		override protected function onDefinienChanged(mutable:Mutable):void
 		{
 			_invalidated = true;
-			_changed.dispatch(mutable);
+			super.onDefinienChanged(mutable);
 		}
 		
 		private function calculateRadius():Number
@@ -102,11 +85,6 @@ package as3geometry.geom2D.mutable
 			var y:Number = _radial.y - _center.y;
 			
 			return Math.sqrt(x * x + y * y);
-		}
-		
-		public function get changed():ISignal
-		{
-			return _changed;
 		}
 		
 		public function toString():String

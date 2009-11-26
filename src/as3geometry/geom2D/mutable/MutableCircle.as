@@ -2,11 +2,7 @@ package as3geometry.geom2D.mutable
 {
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.immutable.ImmutableVertex;
 	import as3geometry.geom2D.mutable.Mutable;
-
-	import org.osflash.signals.ISignal;
-	import org.osflash.signals.Signal;
 
 	/**
 	 * Defines a circle on a Cartesian plane by center Vertex and radius
@@ -15,22 +11,17 @@ package as3geometry.geom2D.mutable
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableCircle implements Circle, Mutable
+	public class MutableCircle extends AbstractMutable implements Circle, Mutable
 	{
 		
 		private var _center:Vertex;
-				
 		private var _radius:Number;
 		
-		private var _changed:ISignal;
-
-		public function MutableCircle(center:Vertex = null, radius:Number = 1)
+		public function MutableCircle(center:Vertex, radius:Number)
 		{
-			_center = center ? center : new ImmutableVertex(0, 0);
-			if (_center is Mutable)
-				Mutable(_center).changed.add(onDefinienChanged);
+			super();
 			
-			_changed = new Signal(this, Mutable);
+			addDefinien(_center = center);
 			_radius = radius;
 		}
 		
@@ -44,13 +35,11 @@ package as3geometry.geom2D.mutable
 			if (_center == value)
 				return;
 			
-			if (_center is Mutable)
-				Mutable(_center).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_center);
 			_center = value;
-		
-			if (_center is Mutable)
-				Mutable(_center).changed.add(onDefinienChanged);
+			addDefinien(_center);
+			
+			_changed.dispatch(this);
 		}
 		
 		public function get radius():Number
@@ -58,19 +47,19 @@ package as3geometry.geom2D.mutable
 			return _radius;
 		}
 		
+		public function set radius(value:Number):void
+		{
+			if (_radius == value)
+				return;
+			
+			_radius = value;
+			_changed.dispatch(this);
+		}
+		
 		public function toString():String
 		{
 			return "[CIRCLE " + center + ", r=" + radius + "]";
 		}
 		
-		private function onDefinienChanged(mutable:Mutable):void
-		{
-			_changed.dispatch(mutable);
-		}
-		
-		public function get changed():ISignal
-		{
-			return _changed;
-		}
 	}
 }

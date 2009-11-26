@@ -19,7 +19,6 @@ package as3geometry.geom2D.mutable
 	{
 		
 		private var _x:Number;
-		
 		private var _y:Number;
 		
 		private var _changed:ISignal;
@@ -31,7 +30,6 @@ package as3geometry.geom2D.mutable
 			_changed = new Signal(this, Mutable);
 		}
 		
-		
 		public function set x(value:Number):void
 		{
 			if (_x == value)
@@ -41,12 +39,10 @@ package as3geometry.geom2D.mutable
 			_changed.dispatch(this);
 		}
 		
-		
 		public function get x():Number
 		{
 			return _x;
 		}
-		
 		
 		public function set y(value:Number):void
 		{
@@ -56,7 +52,6 @@ package as3geometry.geom2D.mutable
 			_y = value;
 			_changed.dispatch(this);
 		}
-		
 		
 		public function get y():Number
 		{

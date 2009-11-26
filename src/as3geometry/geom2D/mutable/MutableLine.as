@@ -4,11 +4,7 @@ package as3geometry.geom2D.mutable
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.immutable.ImmutableVertex;
 	import as3geometry.geom2D.mutable.Mutable;
-
-	import org.osflash.signals.ISignal;
-	import org.osflash.signals.Signal;
 
 	/**
 	 * Defines a line on a Cartesian plane by two vertices
@@ -17,48 +13,21 @@ package as3geometry.geom2D.mutable
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableLine implements Line, SpatialVector, Mutable
+	public class MutableLine extends AbstractMutable implements Line, SpatialVector, Mutable
 	{
 		
-		/*********************************************************************/
-		// Member Variables
-		/*********************************************************************/
-		
-		
-		/** a vertex of the line */
 		private var _a:Vertex;
 		
-		/** a vertex of the line */
 		private var _b:Vertex;
-
-		/** the line type */
+		
 		private var _type:LineType;
 		
-		private var _changed:ISignal;
-		
-		
-		/*********************************************************************/
-		// Public Methods
-		/*********************************************************************/
-		
-		
-		/**
-		 * Class Constructor
-		 * 
-		 * @param a A vertex of the line
-		 * @param b A vertex of the line
-		 */
-		public function MutableLine(a:Vertex = null, b:Vertex = null, type:LineType = null)
+		public function MutableLine(a:Vertex, b:Vertex, type:LineType = null)
 		{
-			_a = a ? a : new ImmutableVertex(0, 0);
-			_b = b ? b : new ImmutableVertex(0, 0);
+			super();
+			addDefinien(_a = a);
+			addDefinien(_b = b);
 			_type = type ? type : LineType.LINE;
-			_changed = new Signal(this, Mutable);
-			
-			if (_a is Mutable)				Mutable(_a).changed.add(onDefinienChanged);
-			
-			if (_b is Mutable)
-				Mutable(_b).changed.add(onDefinienChanged);
 		}
 		
 		public function get a():Vertex
@@ -66,9 +35,33 @@ package as3geometry.geom2D.mutable
 			return _a;
 		}
 		
+		public function set a(a:Vertex):void
+		{
+			if (_a == a)
+				return;
+			
+			removeDefinien(_a);
+			_a = a;
+			addDefinien(_a);
+			
+			_changed.dispatch(this);
+		}
+		
 		public function get b():Vertex
 		{
 			return _b;
+		}
+		
+		public function set b(b:Vertex):void
+		{
+			if (_b == b)
+				return;
+			
+			removeDefinien(_b);
+			_b = b;
+			addDefinien(_b);
+			
+			_changed.dispatch(this);
 		}
 	
 		public function get i():Number
@@ -97,34 +90,14 @@ package as3geometry.geom2D.mutable
 			return _type;
 		}
 		
-		/**
-		 * determine whether two lines are the same iff they share the same
-		 * determinant vertices
-		 * 
-		 * @param line The line to compare this line with
-		 * @return Whether the two lines are the same
-		 */
 		public function isSame(line:Line):Boolean
 		{
 			return (a == line.a && b == line.b) || (a == line.b && b == line.a);
 		}
 		
-		/**
-		 * @return A user-readable string describing this line
-		 */
 		public function toString():String
 		{
 			return "[LINE " + a + ", " + b + "]";
-		}
-		
-		public function get changed():ISignal
-		{
-			return _changed;
-		}
-		
-		private function onDefinienChanged(mutable:Mutable):void
-		{
-			_changed.dispatch(mutable);
 		}
 		
 	}
