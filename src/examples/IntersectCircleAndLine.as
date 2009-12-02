@@ -26,8 +26,8 @@ package examples
 	public class IntersectCircleAndLine extends Sprite 
 	{
 		private var vertexPaint:SolidPaint;
+		private var intersectionPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
-		private var linePaint:SolidPaint;
 		
 		private var dragMechanism:DragMechanism;
 		
@@ -54,7 +54,7 @@ package examples
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			circlePaint = new SolidPaint(0x66FFEE00, 0xFF0000CD, 2);
-			linePaint = new SolidPaint(0x661E90FF, 0, 2);
+			intersectionPaint = new SolidPaint(0xFF0000CD, 0xFF, 2);
 			
 			dragMechanism = new DragMechanism();
 			
@@ -85,10 +85,15 @@ package examples
 			circleDrawer = new CircleDrawer(circle, circlePaint);
 			
 			intersections = new IntersectionOfCircleAndLine(circle, line);
-			n = new VertexDrawer(intersections.first);			m = new VertexDrawer(intersections.second);
+			n = new VertexDrawer(intersections.first, 5, intersectionPaint);			m = new VertexDrawer(intersections.second, 5, intersectionPaint);
+						addChild(lineDrawer);			addChild(circleDrawer);
 			
-			addChild(a);			addChild(b);			addChild(c);			addChild(d);			addChild(lineDrawer);			addChild(circleDrawer);
-						addChild(n);			addChild(m);
+			addChild(n);			addChild(m);
+			
+			addChild(a);
+			addChild(b);
+			addChild(c);
+			addChild(d);
 		}
 	}
 }
