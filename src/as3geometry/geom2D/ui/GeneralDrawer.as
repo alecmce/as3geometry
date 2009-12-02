@@ -16,7 +16,7 @@ package as3geometry.geom2D.ui
 	 */
 	internal class GeneralDrawer extends Shape 
 	{
-		private var _paint:Paint;
+		protected var _paint:Paint;
 		
 		public function GeneralDrawer(paint:Paint = null)
 		{
@@ -47,6 +47,7 @@ package as3geometry.geom2D.ui
 
 		protected function onDefinienChanged(mutable:Mutable):void
 		{
+			mutable; // ignore
 			addEventListener(Event.ENTER_FRAME, redraw);
 		}
 

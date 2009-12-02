@@ -5,11 +5,9 @@ package as3geometry.geom2D.intersection
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.immutable.ImmutableLine;
+	import as3geometry.geom2D.mutable.AbstractMutable;
 	import as3geometry.geom2D.mutable.Mutable;
 	import as3geometry.geom2D.mutable.MutableVertex;
-
-	import org.osflash.signals.ISignal;
-	import org.osflash.signals.Signal;
 
 	/**
 	 * 
@@ -18,46 +16,32 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionsOfLineAndPolygon implements Mutable 
+	public class IntersectionsOfLineAndPolygon extends AbstractMutable implements Mutable 
 	{
 
 		private var _polygon:Polygon;
-		
 		private var _line:Line;
 		
 		private var _potential:Vector.<IntersectionOfTwoLinesVertex>;
-		
 		private var _actual:Vector.<MutableVertex>;
-		
-		private var _changed:ISignal;
 		
 		private var _invalidated:Boolean;
 		
 		public function IntersectionsOfLineAndPolygon(polygon:Polygon, line:Line)
 		{
+			super();
+			
 			_polygon = polygon;
-			if (_polygon is Mutable)
-				Mutable(_polygon).changed.add(onDefinienChanged);
+			addDefinien(_polygon);
 			
 			_line = line;
-			if (_line is Mutable)
-				Mutable(_line).changed.add(onDefinienChanged);
+			addDefinien(_line);
 
 			_potential = calculateVertices();
-			
-			_changed = new Signal(this, Mutable);
-			_invalidated = false;
-			
 			_actual = generateActuals();
 			resolveActuals();
 		}
-		
-		private function onDefinienChanged(mutable:Mutable):void
-		{
-			_invalidated = true;
-			_changed.dispatch(mutable);
-		}
-		
+				
 		public function get potentialIntersections():Vector.<Vertex>
 		{
 			return Vector.<Vertex>(_potential);
@@ -69,11 +53,6 @@ package as3geometry.geom2D.intersection
 				update();
 			
 			return Vector.<Vertex>(_actual);
-		}
-		
-		public function get changed():ISignal
-		{
-			return _changed;
 		}
 		
 		private function update():void
@@ -97,7 +76,7 @@ package as3geometry.geom2D.intersection
 				
 				vertices[i] = vertex;
 			}
-			
+				
 			return vertices;
 		}
 		
@@ -123,8 +102,6 @@ package as3geometry.geom2D.intersection
 				var a:MutableVertex = _actual[i];
 				
 				p = sorted[i];
-				trace(p.x, p.y);
-				
 				if (!nullify)
 				{
 					var p:IntersectionOfTwoLinesVertex = sorted[i];
@@ -157,6 +134,12 @@ package as3geometry.geom2D.intersection
 				return 1;
 			
 			return 0;
+		}
+		
+		override protected function onDefinienChanged(mutable:Mutable):void
+		{
+			_invalidated = true;
+			_changed.dispatch(mutable);
 		}
 		
 	}

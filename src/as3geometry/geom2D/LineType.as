@@ -17,11 +17,41 @@ package as3geometry.geom2D
 	public class LineType 
 	{
 		
-		public static const LINE:LineType = new LineType();
+		public static const LINE:LineType = new LineType(checkLine);
 		
-		public static const RAY:LineType = new LineType();
+		private static function checkLine(n:Number):Boolean
+		{
+			return true;
+		}
 		
-		public static const SEGMENT:LineType = new LineType();
+		public static const RAY:LineType = new LineType(checkRay);
+		
+		private static function checkRay(n:Number):Boolean
+		{
+			return n >= 0;
+		}
+		
+		public static const SEGMENT:LineType = new LineType(checkSegment);
+		
+		private static function checkSegment(n:Number):Boolean
+		{
+			return n >= 0 && n <= 1;
+		}
+		
+		private var fn:Function;
+		
+		public function LineType(fn:Function)
+		{
+			this.fn = fn;
+		}
+		
+		public function isValidPositionMultiplier(n:Number):Boolean
+		{
+			if (isNaN(n))
+				return false;
+			
+			return fn(n);
+		}
 		
 		
 	}
