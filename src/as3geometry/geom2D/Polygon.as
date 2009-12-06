@@ -11,9 +11,13 @@ package as3geometry.geom2D
 	public interface Polygon 
 	{
 		
-		function get count():int;
+		function get count():uint;
 		
-		function get(index:int):Vertex;
+		function getVertex(index:uint):Vertex;
+		
+		function getEdge(index:uint):Line;
+		
+		function contains(vertex:Vertex):Boolean;
 		
 	}
 }

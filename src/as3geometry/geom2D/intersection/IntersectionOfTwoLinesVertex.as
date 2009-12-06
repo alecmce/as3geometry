@@ -26,10 +26,10 @@ package as3geometry.geom2D.intersection
 		private var _b:Line;
 		private var _aMultiplier:Number;
 		private var _bMultiplier:Number;
-		private var _x:Number;
-		private var _y:Number;
+		protected var _x:Number;
+		protected var _y:Number;
 		
-		private var _invalidated:Boolean;
+		protected var _invalidated:Boolean;
 		
 		public function IntersectionOfTwoLinesVertex(a:Line, b:Line)
 		{
@@ -106,7 +106,7 @@ package as3geometry.geom2D.intersection
 		}
 		
 		
-		private function update():void
+		protected function update():void
 		{
 			_invalidated = false;
 			calculateIntersection();

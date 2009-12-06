@@ -66,10 +66,10 @@ package as3geometry.geom2D.intersection
 			var count:int = _polygon.count;
 			var vertices:Vector.<IntersectionOfTwoLinesVertex> = new Vector.<IntersectionOfTwoLinesVertex>(count, true);
 			
-			var b:Vertex = _polygon.get(count - 1);
+			var b:Vertex = _polygon.getVertex(count - 1);
 			for (var i:int = 0; i < count; i++)
 			{
-				var a:Vertex = _polygon.get(i);
+				var a:Vertex = _polygon.getVertex(i);
 				var edge:ImmutableLine = new ImmutableLine(a, b, LineType.SEGMENT);
 				var vertex:IntersectionOfTwoLinesVertex = new IntersectionOfTwoLinesVertex(edge, _line);
 				b = a;

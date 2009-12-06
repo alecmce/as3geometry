@@ -52,13 +52,13 @@ package as3geometry.geom2D.ui
 
 		override protected function draw():void
 		{
-			var v:Vertex = polygon.get(0);
+			var v:Vertex = polygon.getVertex(0);
 			graphics.moveTo(v.x, v.y);
 			
 			var i:int = _polygon.count;
 			while (--i > -1)
 			{
-				v = _polygon.get(i);
+				v = _polygon.getVertex(i);
 				graphics.lineTo(v.x, v.y);	
 			}
 		}
