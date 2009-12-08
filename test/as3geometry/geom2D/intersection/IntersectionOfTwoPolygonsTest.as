@@ -1,5 +1,6 @@
 package as3geometry.geom2D.intersection 
 {
+	import as3geometry.geom2D.intersection.twopolygons.IntersectionOfTwoPolygons;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.immutable.ImmutablePolygon;
@@ -23,7 +24,7 @@ package as3geometry.geom2D.intersection
 			intersections = null;
 		}
 		
-		[_Test]
+		[Test]
 		public function twoSquares():void
 		{
 			var vertices:Vector.<Vertex>;
