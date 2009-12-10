@@ -4,7 +4,7 @@ package as3geometry.geom2D.ui
 
 	import ui.Paint;
 
-	import flash.display.Shape;
+	import flash.display.Sprite;
 	import flash.events.Event;
 
 	/**
@@ -14,7 +14,7 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	internal class GeneralDrawer extends Shape 
+	internal class GeneralDrawer extends Sprite 
 	{
 		protected var _paint:Paint;
 		

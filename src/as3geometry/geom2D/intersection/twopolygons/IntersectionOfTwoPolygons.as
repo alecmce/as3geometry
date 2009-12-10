@@ -3,9 +3,14 @@ package as3geometry.geom2D.intersection.twopolygons
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.collections.CollectionOfPolygons;
 	import as3geometry.geom2D.mutable.AbstractMutable;
 	import as3geometry.geom2D.mutable.Mutable;
 	import as3geometry.geom2D.mutable.MutablePolygon;
+	import as3geometry.geom2D.util.PolygonHelper;
+
+	import org.osflash.signals.ISignal;
+	import org.osflash.signals.Signal;
 
 	/**
 	 * 
@@ -14,35 +19,43 @@ package as3geometry.geom2D.intersection.twopolygons
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfTwoPolygons extends AbstractMutable implements Mutable
+	public class IntersectionOfTwoPolygons extends AbstractMutable implements Mutable, CollectionOfPolygons
 	{
 		private const NULL_POSITION:int = -1;
 		
+		private var _added:ISignal;		private var _removed:ISignal;
+		
+		private var _helper:PolygonHelper;
+		
 		private var _a:Polygon;
-		private var _aCount:uint;
-				private var _b:Polygon;
+		private var _aDirection:Boolean;		private var _aCount:uint;
+		
+		private var _b:Polygon;
+		private var _bDirection:Boolean;
 		private var _bCount:uint;
 		
 		private var _polygonCount:uint;
 		private var _polygons:Vector.<Polygon>;
-
-		private var _vertexCount:uint;		private var _vertices:Vector.<Vertex>;
+		private var _vertexCount:uint;
+		private var _vertices:Vector.<Vertex>;
 		
 		private var _intersectionTable:Vector.<PolygonsIntersectionVertex>;
-		
-		private var _augmentedPolygonA:Vector.<IntersectionOfTwoPolygonsVertex>;
+				private var _augmentedPolygonA:Vector.<IntersectionOfTwoPolygonsVertex>;
 		private var _augmentedPolygonALength:uint;
 		
-		private var _augmentedPolygonB:Vector.<IntersectionOfTwoPolygonsVertex>;
-		private var _augmentedPolygonBLength:uint;
+		private var _augmentedPolygonB:Vector.<IntersectionOfTwoPolygonsVertex>;		private var _augmentedPolygonBLength:uint;
 		
 		public function IntersectionOfTwoPolygons(a:Polygon, b:Polygon)
 		{
 			super();
+			_added = new Signal(this);			_removed = new Signal(this);
+			
+			_helper = new PolygonHelper();
 			
 			addDefinien(_a = a);
-			_aCount = _a.count;
-						addDefinien(_b = b);
+			_aDirection = _helper.isPolygonClockwise(_a);			_aCount = _a.count;
+			
+			addDefinien(_b = b);			_bDirection = _helper.isPolygonClockwise(_b);
 			_bCount = _b.count;
 			
 			_polygons = new Vector.<Polygon>();
@@ -52,12 +65,12 @@ package as3geometry.geom2D.intersection.twopolygons
 			calculate();
 		}
 
-		public function get polygonCount():uint
+		public function get count():uint
 		{
 			return _polygonCount;
 		}
 		
-		public function get(i:uint):Polygon
+		public function getPolygon(i:uint):Polygon
 		{
 			return _polygons[i];
 		}
@@ -103,8 +116,10 @@ package as3geometry.geom2D.intersection.twopolygons
 		private function calculate():void
 		{
 			_augmentedPolygonA = _augmentedPolygonA.sort(compareFunctionA);
-			_augmentedPolygonALength = clearVisitedFlagsAndDetermineLength(_augmentedPolygonA);			
-			_augmentedPolygonB = _augmentedPolygonB.sort(compareFunctionB);			_augmentedPolygonBLength = clearVisitedFlagsAndDetermineLength(_augmentedPolygonB);
+			clearVisitedFlags(_augmentedPolygonA);
+			_augmentedPolygonALength = getLengthOfNonNullList(_augmentedPolygonA);			
+			_augmentedPolygonB = _augmentedPolygonB.sort(compareFunctionB);
+			clearVisitedFlags(_augmentedPolygonB);			_augmentedPolygonBLength = getLengthOfNonNullList(_augmentedPolygonB);
 		
 			var intersection:IntersectionOfTwoPolygonsVertex;
 			while (intersection = findAnUnvisitedIntersection())
@@ -133,6 +148,7 @@ package as3geometry.geom2D.intersection.twopolygons
 			vector.push(intersection);
 			
 			var onBCycle:Boolean = true;
+			var aDirection:int = _aDirection == _bDirection ? -1 : 1;
 			var i:int = _augmentedPolygonB.indexOf(intersection) - 1;
 			if (i < 0)
 				i =_augmentedPolygonBLength - 1;
@@ -149,14 +165,16 @@ package as3geometry.geom2D.intersection.twopolygons
 					if (onBCycle)
 					{
 						i--;
-						if (i < 0)
+						if (i == -1)
 							i = _augmentedPolygonBLength - 1;
 					}
 					else
 					{
-						i = _augmentedPolygonA.indexOf(vertex) - 1;
-						if (i < 0)
+						i = _augmentedPolygonA.indexOf(vertex) + aDirection;
+						if (i == -1)
 							i = _augmentedPolygonALength - 1;
+						else if (i == _augmentedPolygonALength)
+							i = 0;
 					}
 				}
 				else
@@ -165,14 +183,16 @@ package as3geometry.geom2D.intersection.twopolygons
 					if (onBCycle)
 					{
 						i = _augmentedPolygonB.indexOf(vertex) - 1;
-						if (i == 0)
+						if (i == -1)
 							i = _augmentedPolygonBLength - 1;
 					}
 					else
 					{
-						i--;
-						if (i < 0)
+						i += aDirection;
+						if (i == -1)
 							i = _augmentedPolygonALength - 1;
+						else if (i == _augmentedPolygonALength)
+							i = 0;
 					}
 				}
 				
@@ -182,7 +202,7 @@ package as3geometry.geom2D.intersection.twopolygons
 			return new MutablePolygon(Vector.<Vertex>(vector));
 		}
 
-		private function clearVisitedFlagsAndDetermineLength(vector:Vector.<IntersectionOfTwoPolygonsVertex>):uint
+		private function clearVisitedFlags(vector:Vector.<IntersectionOfTwoPolygonsVertex>):void
 		{
 			var length:uint = vector.length;
 			
@@ -190,12 +210,20 @@ package as3geometry.geom2D.intersection.twopolygons
 			while (i < length && vector[i].isReal)
 				vector[i++].visited = false;
 			
-			var functionalLength:uint = i;
-			
 			while (i < length)
 				vector[i++].visited = true;
-				
-			return functionalLength;			
+		}
+		
+		
+		private function getLengthOfNonNullList(vector:Vector.<IntersectionOfTwoPolygonsVertex>):uint
+		{
+			var length:uint = vector.length;
+			
+			var i:uint = 0;
+			while (i < length && vector[i].isReal)
+				i++;
+			
+			return i;
 		}
 
 		private function compareFunctionA(a:IntersectionOfTwoPolygonsVertex, b:IntersectionOfTwoPolygonsVertex):int
@@ -227,9 +255,21 @@ package as3geometry.geom2D.intersection.twopolygons
 		{
 			super.onDefinienChanged(mutable);
 			
-			var vertex:PolygonsIntersectionVertex = PolygonsIntersectionVertex(mutable);
+			var vertex:PolygonsIntersectionVertex = mutable as PolygonsIntersectionVertex;
 			if (vertex && vertex.hasRealValueChanged)
+			{
 				trace("ch ch ch ch changing!");
+			}
+		}
+		
+		public function get added():ISignal
+		{
+			return _added;
+		}		
+		
+		public function get removed():ISignal
+		{
+			return _removed;
 		}
 		
 	}

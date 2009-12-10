@@ -1,10 +1,10 @@
 package as3geometry.geom2D.intersection 
 {
-	import as3geometry.geom2D.intersection.twopolygons.IntersectionOfTwoPolygons;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.immutable.ImmutablePolygon;
 	import as3geometry.geom2D.immutable.ImmutableVertex;
+	import as3geometry.geom2D.intersection.twopolygons.IntersectionOfTwoPolygons;
 
 	import asunit.asserts.assertEquals;
 	import asunit.asserts.assertTrue;
@@ -25,7 +25,7 @@ package as3geometry.geom2D.intersection
 		}
 		
 		[Test]
-		public function twoSquares():void
+		public function twoSquaresWhichIntersectByACornerOverlapping():void
 		{
 			var vertices:Vector.<Vertex>;
 			
@@ -47,14 +47,76 @@ package as3geometry.geom2D.intersection
 		
 			intersections = new IntersectionOfTwoPolygons(a, b);
 			
-			assertEquals(1, intersections.polygonCount);
+			assertEquals(1, intersections.count);
 			
-			var polygon:Polygon = intersections.get(0);
+			var polygon:Polygon = intersections.getPolygon(0);
 			
 			assertEquals(4, polygon.count);
 			assertTrue(polygon, "0,0 5,0 5,5 0,5");
 		}
-
+		
+		[Test]
+		public function twoSquaresWhichIntersectByACornerOverlapping_ButThisTimeOneSquareIsDefinedInTheOppositeDirection():void
+		{
+			var vertices:Vector.<Vertex>;
+			
+			vertices = new Vector.<Vertex>(4);
+			vertices[0] = new ImmutableVertex(0, 0);
+			vertices[1] = new ImmutableVertex(10, 0);
+			vertices[2] = new ImmutableVertex(10, 10);
+			vertices[3] = new ImmutableVertex(0, 10);
+			
+			a = new ImmutablePolygon(vertices);
+			
+			vertices = new Vector.<Vertex>(4);
+			vertices[0] = new ImmutableVertex(5, 5);
+			vertices[1] = new ImmutableVertex(5, 15);
+			vertices[2] = new ImmutableVertex(15, 15);
+			vertices[3] = new ImmutableVertex(15, 5);
+			
+			b = new ImmutablePolygon(vertices);
+		
+			intersections = new IntersectionOfTwoPolygons(a, b);
+			
+			assertEquals(1, intersections.count);
+			
+			var polygon:Polygon = intersections.getPolygon(0);
+			
+			assertEquals(4, polygon.count);
+			assertTrue(polygon, "0,0 5,0 5,5 0,5");
+		}
+		
+		[Test]
+		public function twoSquaresWhichIntersectByOneOverlappingTheEdgeOfTheOther():void
+		{
+			var vertices:Vector.<Vertex>;
+			
+			vertices = new Vector.<Vertex>(4);
+			vertices[0] = new ImmutableVertex(0, 0);
+			vertices[1] = new ImmutableVertex(10, 0);
+			vertices[2] = new ImmutableVertex(10, 10);
+			vertices[3] = new ImmutableVertex(0, 10);
+			
+			a = new ImmutablePolygon(vertices);
+			
+			vertices = new Vector.<Vertex>(4);
+			vertices[0] = new ImmutableVertex(5, 4);
+			vertices[1] = new ImmutableVertex(15, 4);
+			vertices[2] = new ImmutableVertex(15, 6);
+			vertices[3] = new ImmutableVertex(5, 6);
+			
+			b = new ImmutablePolygon(vertices);
+		
+			intersections = new IntersectionOfTwoPolygons(a, b);
+			
+			assertEquals(1, intersections.count);
+			
+			var polygon:Polygon = intersections.getPolygon(0);
+			
+			assertEquals(4, polygon.count);
+			assertTrue(polygon, "5,4 10,4 10,6 5,6");
+		}
+		
 		[Test]
 		public function testPolygonComparisonRoutine():void
 		{

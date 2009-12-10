@@ -37,6 +37,8 @@ package as3geometry.geom2D.intersection.twopolygons
 
 		override protected function update():void
 		{
+			super.update();
+			
 			var newIsIntersection:Boolean = !isNaN(_x) && !isNaN(_y);
 			_hasRealValueChanged = _isReal != newIsIntersection;
 			_isReal = newIsIntersection;
