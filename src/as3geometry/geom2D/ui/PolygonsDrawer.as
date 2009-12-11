@@ -1,5 +1,6 @@
 package as3geometry.geom2D.ui 
 {
+	import as3geometry.geom2D.collections.AdditiveCollection;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.collections.CollectionOfPolygons;
 
@@ -24,7 +25,7 @@ package as3geometry.geom2D.ui
 		public function PolygonsDrawer(polygons:CollectionOfPolygons, paint:Paint = null)
 		{
 			_polygons = polygons;
-			_polygons.added.add(onPolygonAdded);			_polygons.removed.add(onPolygonRemoved);
+			addAdditiveListeners(_polygons);
 			
 			_drawers = new Dictionary();
 			
@@ -32,14 +33,25 @@ package as3geometry.geom2D.ui
 			generateDrawersForExistingPolygons();
 		}
 		
+
 		private function generateDrawersForExistingPolygons():void
 		{
-			var i:uint = _polygons.count;
+			var i:uint = _polygons.countPolygons;
 			while (--i > -1)
 			{
 				var polygon:Polygon = _polygons.getPolygon(i);
 				createPolygonDrawer(polygon);
 			}
+		}
+		
+		private function addAdditiveListeners(polygons:CollectionOfPolygons):void
+		{
+			var additive:AdditiveCollection = polygons as AdditiveCollection;
+			if (!additive)
+				return;
+			
+			additive.added.add(onPolygonAdded);
+			additive.removed.add(onPolygonRemoved);
 		}
 
 		private function onPolygonAdded(polygon:Polygon):void

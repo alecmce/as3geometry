@@ -1,5 +1,6 @@
 package as3geometry.geom2D.mutable 
 {
+	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.Triangle;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.mutable.Mutable;

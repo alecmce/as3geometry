@@ -17,19 +17,19 @@ package as3geometry.geom2D.immutable
 	 */
 	public class ImmutablePolygon implements Polygon
 	{
-		private var _vertices:Vector.<Vertex>;
+		private var _vertices:Array;
 		
-		private var _edges:Vector.<Line>;
+		private var _edges:Array;
 				
 		/**
 		 * Class Constructor
 		 * 
 		 * @param vertices The array of vertices that defines the polygon
 		 */
-		public function ImmutablePolygon(vertices:Vector.<Vertex>)
+		public function ImmutablePolygon(vertices:Array)
 		{
 			_vertices = vertices.concat();
-			_edges = new Vector.<Line>(vertices.length, true);
+			_edges = [];
 			
 			var i:int = vertices.length;
 			while (--i > -1)
@@ -44,7 +44,7 @@ package as3geometry.geom2D.immutable
 		/**
 		 * @return The number of vertices in the polygon
 		 */
-		public function get count():uint
+		public function get countVertices():uint
 		{
 			return _vertices.length;
 		}
@@ -86,5 +86,11 @@ package as3geometry.geom2D.immutable
 			var helper:PolygonHelper = new PolygonHelper();
 			return helper.vertexPolygonContains(_vertices, vertex);
 		}
+		
+		public function indexOfVertex(vertex:Vertex):int
+		{
+			return _vertices.indexOf(vertex);
+		}
+		
 	}
 }

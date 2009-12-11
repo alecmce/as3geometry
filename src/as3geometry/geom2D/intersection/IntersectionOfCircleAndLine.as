@@ -2,7 +2,7 @@ package as3geometry.geom2D.intersection
 {
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Line;
-	import as3geometry.geom2D.mutable.AbstractMutable;
+	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.mutable.Mutable;
 	import as3geometry.geom2D.mutable.MutableVertex;
 

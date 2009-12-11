@@ -24,8 +24,7 @@ package as3geometry.geom2D.immutable
 		{
 			var a:MutableVertex = new MutableVertex(1,0);
 			var b:ImmutableVertex = new ImmutableVertex(1,1);			var c:ImmutableVertex = new ImmutableVertex(0,1);			var d:ImmutableVertex = new ImmutableVertex(0,0);			
-			var vertices:Vector.<Vertex> = new Vector.<Vertex>();
-			vertices[0] = a;			vertices[1] = b;			vertices[2] = c;			vertices[3] = d;
+			var vertices:Array = [a,b,c,d];
 			
 			try
 			{
@@ -95,12 +94,7 @@ package as3geometry.geom2D.immutable
 			var c:ImmutableVertex = new ImmutableVertex(0,10);
 			var d:ImmutableVertex = new ImmutableVertex(0,0);
 			
-			var vertices:Vector.<Vertex> = new Vector.<Vertex>();
-			vertices[0] = a;
-			vertices[1] = b;
-			vertices[2] = c;
-			vertices[3] = d;
-			
+			var vertices:Array = [a,b,c,d];
 			return new ImmutablePolygon(vertices);
 		}
 		

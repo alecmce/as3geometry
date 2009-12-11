@@ -9,8 +9,10 @@ package as3geometry.geom2D.collections
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface CollectionOfPolygons extends AbstractGeometricalCollection
+	public interface CollectionOfPolygons
 	{
+		
+		function get countPolygons():uint;
 		
 		function getPolygon(index:uint):Polygon;
 		

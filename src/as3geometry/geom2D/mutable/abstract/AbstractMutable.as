@@ -1,5 +1,6 @@
-package as3geometry.geom2D.mutable 
+package as3geometry.geom2D.mutable.abstract 
 {
+	import as3geometry.geom2D.mutable.Mutable;
 	
 
 	import org.osflash.signals.ISignal;

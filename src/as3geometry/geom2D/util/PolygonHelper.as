@@ -5,7 +5,7 @@ package as3geometry.geom2D.util
 	import as3geometry.geom2D.Vertex;
 
 	/**
-	 * 
+	 * A collection of methods that are used to determine the properties of Polygons
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
@@ -18,7 +18,7 @@ package as3geometry.geom2D.util
 		public function polygonContains(polygon:Polygon, vertex:Vertex):Boolean
 		{
 			var angleSum:Number = 0;
-			var len:uint = polygon.count;
+			var len:uint = polygon.countVertices;
 			
 			var lineHelper:LineHelper = new LineHelper();
 			var angleHelper:AngleHelper = new AngleHelper();
@@ -38,7 +38,7 @@ package as3geometry.geom2D.util
 				return angleSum > APPROXIMATE_ZERO;
 		}
 		
-		public function vertexPolygonContains(vertices:Vector.<Vertex>, vertex:Vertex):Boolean
+		public function vertexPolygonContains(vertices:Array, vertex:Vertex):Boolean
 		{
 			var angleSum:Number = 0;
 			var len:uint = vertices.length;
@@ -67,7 +67,7 @@ package as3geometry.geom2D.util
 		public function isPolygonClockwise(polygon:Polygon):Boolean
 		{
 			var value:Number = 0;
-			var count:uint = polygon.count;
+			var count:uint = polygon.countVertices;
 			
 			var a:Vertex = polygon.getVertex(0);
 			for (var i:uint = 1; i < count; i++)
@@ -80,12 +80,18 @@ package as3geometry.geom2D.util
 			return value < 0;
 		}
 		
-		public function isVertexPolygonClockwise(vertices:Vector.<Vertex>):Boolean
+		/**
+		 * This method will fail if the vertices are not Vector, but the different
+		 * types of input Vector preclude generic-typing.
+		 */
+		public function isVertexPolygonClockwise(vertices:Array, count:int = -1):Boolean
 		{
 			var value:Number = 0;
-			var count:uint = vertices.length;
 			
-			var a:Vertex = vertices[0];;
+			if (count == -1)
+				count = vertices.length;
+			
+			var a:Vertex = vertices[0];
 			for (var i:uint = 1; i < count; i++)
 			{
 				var b:Vertex = vertices[i];

@@ -5,7 +5,7 @@ package as3geometry.geom2D.intersection
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.immutable.ImmutableLine;
-	import as3geometry.geom2D.mutable.AbstractMutable;
+	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.mutable.Mutable;
 	import as3geometry.geom2D.mutable.MutableVertex;
 
@@ -22,8 +22,8 @@ package as3geometry.geom2D.intersection
 		private var _polygon:Polygon;
 		private var _line:Line;
 		
-		private var _potential:Vector.<IntersectionOfTwoLinesVertex>;
-		private var _actual:Vector.<MutableVertex>;
+		private var _potential:Array;
+		private var _actual:Array;
 		
 		private var _invalidated:Boolean;
 		
@@ -42,17 +42,17 @@ package as3geometry.geom2D.intersection
 			resolveActuals();
 		}
 				
-		public function get potentialIntersections():Vector.<Vertex>
+		public function get potentialIntersections():Array
 		{
-			return Vector.<Vertex>(_potential);
+			return _potential;
 		}
 
-		public function get actualIntersections():Vector.<Vertex>
+		public function get actualIntersections():Array
 		{
 			if (_invalidated)
 				update();
 			
-			return Vector.<Vertex>(_actual);
+			return _actual;
 		}
 		
 		private function update():void
@@ -61,10 +61,10 @@ package as3geometry.geom2D.intersection
 			resolveActuals();
 		}
 		
-		private function calculateVertices():Vector.<IntersectionOfTwoLinesVertex>
+		private function calculateVertices():Array
 		{
-			var count:int = _polygon.count;
-			var vertices:Vector.<IntersectionOfTwoLinesVertex> = new Vector.<IntersectionOfTwoLinesVertex>(count, true);
+			var count:int = _polygon.countVertices;
+			var vertices:Array = [];
 			
 			var b:Vertex = _polygon.getVertex(count - 1);
 			for (var i:int = 0; i < count; i++)
@@ -80,10 +80,10 @@ package as3geometry.geom2D.intersection
 			return vertices;
 		}
 		
-		private function generateActuals():Vector.<MutableVertex>
+		private function generateActuals():Array
 		{
 			var n:int = _potential.length;
-			var actuals:Vector.<MutableVertex> = new Vector.<MutableVertex>(n, true);
+			var actuals:Array = [];
 			
 			while (--n > -1)
 				actuals[n] = new MutableVertex(Number.NaN, Number.NaN);
@@ -93,7 +93,7 @@ package as3geometry.geom2D.intersection
 		
 		private function resolveActuals():void
 		{
-			var sorted:Vector.<IntersectionOfTwoLinesVertex> = _potential.sort(sortByMultipliers);
+			var sorted:Array = _potential.sort(sortByMultipliers);
 			
 			var len:int = _potential.length;
 			var nullify:Boolean = false;

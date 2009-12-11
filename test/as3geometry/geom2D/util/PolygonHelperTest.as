@@ -34,7 +34,7 @@ package as3geometry.geom2D.util
 		[Test]
 		public function polygonIsAnticlockwise():void
 		{
-			var vertices:Vector.<Vertex> = new Vector.<Vertex>();			vertices[0] = new ImmutableVertex(0, 0);			vertices[1] = new ImmutableVertex(10, 0);			vertices[2] = new ImmutableVertex(10, 10);
+			var vertices:Array = [];			vertices[0] = new ImmutableVertex(0, 0);			vertices[1] = new ImmutableVertex(10, 0);			vertices[2] = new ImmutableVertex(10, 10);
 			vertices[3] = new ImmutableVertex(0, 10);
 			
 			var polygon:Polygon = new ImmutablePolygon(vertices);
@@ -45,7 +45,7 @@ package as3geometry.geom2D.util
 		[Test]
 		public function polygonIsClockwise():void
 		{
-			var vertices:Vector.<Vertex> = new Vector.<Vertex>();
+			var vertices:Array = [];
 			vertices[0] = new ImmutableVertex(0, 0);
 			vertices[1] = new ImmutableVertex(0, 10);
 			vertices[2] = new ImmutableVertex(10, 10);

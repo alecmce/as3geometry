@@ -11,14 +11,12 @@ package as3geometry.geom2D.collections
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface AbstractGeometricalCollection
+	public interface AdditiveCollection
 	{
 		
 		function get added():ISignal;
 		
 		function get removed():ISignal;
-		
-		function get count():uint;
 		
 	}
 }

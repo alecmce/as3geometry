@@ -42,7 +42,7 @@ package as3geometry.geom2D.intersection
 			line = new ImmutableLine(a, b);
 			
 			intersections = new IntersectionsOfLineAndPolygon(polygon, line);
-			var vertices:Vector.<Vertex> = intersections.actualIntersections;
+			var vertices:Array = intersections.actualIntersections;
 			
 			a = vertices[0];
 			b = vertices[1];
@@ -61,7 +61,7 @@ package as3geometry.geom2D.intersection
 			line = new ImmutableLine(a, b);
 			
 			intersections = new IntersectionsOfLineAndPolygon(polygon, line);
-			var vertices:Vector.<Vertex> = intersections.actualIntersections;
+			var vertices:Array = intersections.actualIntersections;
 			
 			a = vertices[0];
 			b = vertices[1];
@@ -83,7 +83,7 @@ package as3geometry.geom2D.intersection
 			line = new ImmutableLine(a, b, LineType.SEGMENT);
 			
 			intersections = new IntersectionsOfLineAndPolygon(polygon, line);
-			var vertices:Vector.<Vertex> = intersections.actualIntersections;
+			var vertices:Array = intersections.actualIntersections;
 			
 			a = vertices[0];
 			b = vertices[1];
@@ -98,7 +98,7 @@ package as3geometry.geom2D.intersection
 		
 		private function generateSquare():void
 		{
-			var vertices:Vector.<Vertex> = new Vector.<Vertex>(4, true);
+			var vertices:Array = [];
 			vertices[0] = new ImmutableVertex(2, 2);
 			vertices[1] = new ImmutableVertex(8, 2);
 			vertices[2] = new ImmutableVertex(8, 8);

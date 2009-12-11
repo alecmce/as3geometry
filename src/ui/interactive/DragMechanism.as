@@ -13,7 +13,7 @@ package ui.interactive
 	 */
 	public class DragMechanism 
 	{
-		private var _draggables:Vector.<InteractiveObject>;
+		private var _draggables:Array;
 		
 		private var _offsetX:Number;
 		
@@ -23,7 +23,7 @@ package ui.interactive
 		
 		public function DragMechanism()
 		{
-			_draggables = new Vector.<InteractiveObject>();
+			_draggables = [];
 		}
 		
 		public function apply(target:InteractiveObject):void

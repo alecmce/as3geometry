@@ -1,6 +1,6 @@
 package as3geometry.geom2D.collections 
 {
-	import as3geometry.geom2D.Polygon;
+	import as3geometry.geom2D.Vertex;
 
 	/**
 	 * Describes a collection of vertices
@@ -9,10 +9,14 @@ package as3geometry.geom2D.collections
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface CollectionOfVertices extends AbstractGeometricalCollection
+	public interface CollectionOfVertices
 	{
 		
-		function getPolygon(index:uint):Polygon;
+		function get countVertices():uint;
+		
+		function getVertex(index:uint):Vertex;
+		
+		function indexOfVertex(vertex:Vertex):int;
 		
 	}
 }

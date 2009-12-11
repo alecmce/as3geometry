@@ -20,7 +20,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectTwoQuadrilaterals extends Sprite 
+	public class IntersectTwoQuadrilateralsWithOppositeDirections extends Sprite 
 	{
 		private var vertexPaint:SolidPaint;
 		private var intersectionPaint:SolidPaint;
@@ -44,7 +44,7 @@ package examples
 		
 		private var intersections:IntersectionOfTwoPolygons;
 		private var intersectionsDrawer:PolygonsDrawer;		
-		public function IntersectTwoQuadrilaterals()
+		public function IntersectTwoQuadrilateralsWithOppositeDirections()
 		{
 			init();
 		}
@@ -83,8 +83,8 @@ package examples
 			
 			f = new UIVertex(vertexPaint);
 			dragMechanism.apply(f);
-			f.x = 400;
-			f.y = 150;
+			f.x = 200;
+			f.y = 350;
 			
 			g = new UIVertex(vertexPaint);
 			dragMechanism.apply(g);
@@ -93,8 +93,8 @@ package examples
 			
 			h = new UIVertex(vertexPaint);
 			dragMechanism.apply(h);
-			h.x = 200;
-			h.y = 350;
+			h.x = 400;
+			h.y = 150;
 			
 			var vector:Array;
 			

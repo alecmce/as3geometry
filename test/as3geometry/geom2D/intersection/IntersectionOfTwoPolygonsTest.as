@@ -27,9 +27,9 @@ package as3geometry.geom2D.intersection
 		[Test]
 		public function twoSquaresWhichIntersectByACornerOverlapping():void
 		{
-			var vertices:Vector.<Vertex>;
+			var vertices:Array;
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(0, 0);
 			vertices[1] = new ImmutableVertex(10, 0);
 			vertices[2] = new ImmutableVertex(10, 10);
@@ -37,7 +37,7 @@ package as3geometry.geom2D.intersection
 			
 			a = new ImmutablePolygon(vertices);
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(5, 5);
 			vertices[1] = new ImmutableVertex(15, 5);
 			vertices[2] = new ImmutableVertex(15, 15);
@@ -47,51 +47,49 @@ package as3geometry.geom2D.intersection
 		
 			intersections = new IntersectionOfTwoPolygons(a, b);
 			
-			assertEquals(1, intersections.count);
+			assertEquals(1, intersections.countPolygons);
 			
 			var polygon:Polygon = intersections.getPolygon(0);
 			
-			assertEquals(4, polygon.count);
+			assertEquals(4, polygon.countVertices);
 			assertTrue(polygon, "0,0 5,0 5,5 0,5");
 		}
 		
 		[Test]
 		public function twoSquaresWhichIntersectByACornerOverlapping_ButThisTimeOneSquareIsDefinedInTheOppositeDirection():void
 		{
-			var vertices:Vector.<Vertex>;
+			var vertices:Array;
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(0, 0);
 			vertices[1] = new ImmutableVertex(10, 0);
 			vertices[2] = new ImmutableVertex(10, 10);
 			vertices[3] = new ImmutableVertex(0, 10);
-			
 			a = new ImmutablePolygon(vertices);
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(5, 5);
 			vertices[1] = new ImmutableVertex(5, 15);
 			vertices[2] = new ImmutableVertex(15, 15);
 			vertices[3] = new ImmutableVertex(15, 5);
-			
 			b = new ImmutablePolygon(vertices);
 		
 			intersections = new IntersectionOfTwoPolygons(a, b);
 			
-			assertEquals(1, intersections.count);
+			assertEquals(1, intersections.countPolygons);
 			
 			var polygon:Polygon = intersections.getPolygon(0);
 			
-			assertEquals(4, polygon.count);
+			assertEquals(4, polygon.countVertices);
 			assertTrue(polygon, "0,0 5,0 5,5 0,5");
 		}
 		
 		[Test]
 		public function twoSquaresWhichIntersectByOneOverlappingTheEdgeOfTheOther():void
 		{
-			var vertices:Vector.<Vertex>;
+			var vertices:Array;
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(0, 0);
 			vertices[1] = new ImmutableVertex(10, 0);
 			vertices[2] = new ImmutableVertex(10, 10);
@@ -99,7 +97,7 @@ package as3geometry.geom2D.intersection
 			
 			a = new ImmutablePolygon(vertices);
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(5, 4);
 			vertices[1] = new ImmutableVertex(15, 4);
 			vertices[2] = new ImmutableVertex(15, 6);
@@ -109,25 +107,25 @@ package as3geometry.geom2D.intersection
 		
 			intersections = new IntersectionOfTwoPolygons(a, b);
 			
-			assertEquals(1, intersections.count);
+			assertEquals(1, intersections.countPolygons);
 			
 			var polygon:Polygon = intersections.getPolygon(0);
 			
-			assertEquals(4, polygon.count);
+			assertEquals(4, polygon.countVertices);
 			assertTrue(polygon, "5,4 10,4 10,6 5,6");
 		}
 		
 		[Test]
 		public function testPolygonComparisonRoutine():void
 		{
-			var vertices:Vector.<Vertex>;
+			var vertices:Array;
 			
-			vertices = new Vector.<Vertex>(4);			vertices[0] = new ImmutableVertex(0, 0);			vertices[1] = new ImmutableVertex(5, 0);			vertices[2] = new ImmutableVertex(5, 5);			vertices[3] = new ImmutableVertex(0, 5);
+			vertices = [];			vertices[0] = new ImmutableVertex(0, 0);			vertices[1] = new ImmutableVertex(5, 0);			vertices[2] = new ImmutableVertex(5, 5);			vertices[3] = new ImmutableVertex(0, 5);
 			
 			a = new ImmutablePolygon(vertices);
 			assertPolygonEquals(a, "0,0 5,0 5,5 0,5");
 			
-			vertices = new Vector.<Vertex>(4);
+			vertices = [];
 			vertices[0] = new ImmutableVertex(0, 1);
 			vertices[1] = new ImmutableVertex(5, 0);
 			vertices[2] = new ImmutableVertex(5, 5);
@@ -169,7 +167,7 @@ package as3geometry.geom2D.intersection
 				var x:Number = tmp[0];
 				var y:Number = tmp[1];
 				
-				var j:int = polygon.count;
+				var j:int = polygon.countVertices;
 				var match:Boolean = false;
 				while (j-- && !match)
 				{

@@ -9,7 +9,7 @@ package as3geometry.geom2D.ui
 	import flash.events.Event;
 
 	/**
-	 * 
+	 * Draws a polygon on a Euclidean plane
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
@@ -55,7 +55,7 @@ package as3geometry.geom2D.ui
 			var v:Vertex = polygon.getVertex(0);
 			graphics.moveTo(v.x, v.y);
 			
-			var i:int = _polygon.count;
+			var i:int = _polygon.countVertices;
 			while (--i > -1)
 			{
 				v = _polygon.getVertex(i);

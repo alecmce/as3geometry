@@ -1,5 +1,6 @@
 package as3geometry.geom2D.mutable 
 {
+	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.SpatialVector;

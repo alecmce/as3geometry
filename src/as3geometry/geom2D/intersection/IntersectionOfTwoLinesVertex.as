@@ -3,7 +3,7 @@ package as3geometry.geom2D.intersection
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.mutable.AbstractMutable;
+	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.mutable.Mutable;
 
 	/**
@@ -106,7 +106,7 @@ package as3geometry.geom2D.intersection
 		}
 		
 		
-		protected function update():void
+		public function update():void
 		{
 			_invalidated = false;
 			calculateIntersection();

@@ -5,6 +5,7 @@ package as3geometry.geom2D.mutable
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.mutable.Mutable;
+	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.util.PolygonHelper;
 
 	/**
@@ -17,16 +18,16 @@ package as3geometry.geom2D.mutable
 	public class MutablePolygon extends AbstractMutable implements Polygon, Mutable
 	{
 		
-		private var _vertices:Vector.<Vertex>;
+		protected var _vertices:Array;
 		
-		private var _edges:Vector.<Line>;
-
-		public function MutablePolygon(vertices:Vector.<Vertex>)
+		private var _edges:Array;
+		
+		public function MutablePolygon(vertices:Array)
 		{
 			super();
 			
 			_vertices = vertices.concat();
-			_edges = new Vector.<Line>(_vertices.length, true);
+			_edges = [];
 			
 			var i:int = vertices.length;
 			while (--i > -1)
@@ -36,7 +37,7 @@ package as3geometry.geom2D.mutable
 			}
 		}
 
-		public function get count():uint
+		public function get countVertices():uint
 		{
 			return _vertices.length;
 		}
@@ -67,11 +68,15 @@ package as3geometry.geom2D.mutable
 			return edge;
 		}
 		
-		
 		public function contains(vertex:Vertex):Boolean
 		{
 			var helper:PolygonHelper = new PolygonHelper();
 			return helper.vertexPolygonContains(_vertices, vertex);
+		}
+		
+		public function indexOfVertex(vertex:Vertex):int
+		{
+			return _vertices.indexOf(vertex);
 		}
 	}
 }
