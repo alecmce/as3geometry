@@ -1,15 +1,16 @@
 package examples 
 {
 	import as3geometry.geom2D.Circle;
+	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Line;
-	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.intersection.IntersectionVerticesOfCircleAndLine;
 	import as3geometry.geom2D.mutable.MutableCircleWithRadialVertex;
 	import as3geometry.geom2D.mutable.MutableLine;
+	import as3geometry.geom2D.mutable.circle.IntersectionCircleSegmentOfCircleAndLine;
 	import as3geometry.geom2D.ui.CircleDrawer;
+	import as3geometry.geom2D.ui.CircleSegmentDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
 	import as3geometry.geom2D.ui.UIVertex;
-	import as3geometry.geom2D.ui.VertexDrawer;
 
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
@@ -23,17 +24,18 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectCircleAndLine extends Sprite 
+	public class CircleSegmentFromCircleAndLine extends Sprite 
 	{
 		private var vertexPaint:SolidPaint;
-		private var intersectionPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
+		private var rightSegmentPaint:SolidPaint;		private var leftSegmentPaint:SolidPaint;
 		
 		private var dragMechanism:DragMechanism;
 		
 		private var a:UIVertex;
 		private var b:UIVertex;
-		private var c:UIVertex;		private var d:UIVertex;
+		private var c:UIVertex;
+		private var d:UIVertex;
 		
 		private var circle:Circle;
 		private var circleDrawer:CircleDrawer;
@@ -41,11 +43,13 @@ package examples
 		private var line:Line;
 		private var lineDrawer:LineDrawer;
 		
-		private var intersections:IntersectionVerticesOfCircleAndLine;
+		private var rightSegment:CircleSegment;
+		private var rightSegmentDrawer:CircleSegmentDrawer;
 		
-		private var n:VertexDrawer;		private var m:VertexDrawer;
+		private var leftSegment:CircleSegment;
+		private var leftSegmentDrawer:CircleSegmentDrawer;
 		
-		public function IntersectCircleAndLine()
+		public function CircleSegmentFromCircleAndLine()
 		{
 			init();
 		}
@@ -53,8 +57,8 @@ package examples
 		private function init():void
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
-			circlePaint = new SolidPaint(0x66FFEE00, 0xFF0000CD, 2);
-			intersectionPaint = new SolidPaint(0xFF0000CD, 0xFF, 2);
+			circlePaint = new SolidPaint(0x0, 0xFF000000, 2);
+			rightSegmentPaint = new SolidPaint(0x66FF0000, 0xFF, 2);			leftSegmentPaint = new SolidPaint(0x661E90FF, 0xFF, 2);
 			
 			dragMechanism = new DragMechanism();
 			
@@ -78,17 +82,22 @@ package examples
 			d.x = 340;
 			d.y = 260;
 			
-			line = new MutableLine(a, b, LineType.SEGMENT);
+			line = new MutableLine(a, b);
 			lineDrawer = new LineDrawer(line);
 			
 			circle = new MutableCircleWithRadialVertex(c, d);
 			circleDrawer = new CircleDrawer(circle, circlePaint);
 			
-			intersections = new IntersectionVerticesOfCircleAndLine(circle, line);
-			n = new VertexDrawer(intersections.first, 5, intersectionPaint);			m = new VertexDrawer(intersections.second, 5, intersectionPaint);
-						addChild(lineDrawer);			addChild(circleDrawer);
+			var intersection:IntersectionVerticesOfCircleAndLine = new IntersectionVerticesOfCircleAndLine(circle, line);
+			rightSegment = new IntersectionCircleSegmentOfCircleAndLine(intersection, true);
+			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
 			
-			addChild(n);			addChild(m);
+			leftSegment = new IntersectionCircleSegmentOfCircleAndLine(intersection, false);
+			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
+			
+			addChild(lineDrawer);
+			addChild(circleDrawer);
+			addChild(rightSegmentDrawer);			addChild(leftSegmentDrawer);
 			
 			addChild(a);
 			addChild(b);

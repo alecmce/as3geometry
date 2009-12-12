@@ -40,6 +40,8 @@ package as3geometry.geom2D.intersection.twopolygons
 		
 		private function onVertexChanged(mutable:Mutable):void
 		{
+			mutable; // escape FDT warning
+			
 			_intersection.update();
 			resolve();
 			_changed.dispatch(this);

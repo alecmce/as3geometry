@@ -4,7 +4,7 @@ package examples
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Triangle;
-	import as3geometry.geom2D.mutable.MutableCircle;
+	import as3geometry.geom2D.mutable.circle.MutableCircle;
 	import as3geometry.geom2D.mutable.MutableCircleWithRadialVertex;
 	import as3geometry.geom2D.mutable.MutableLine;
 	import as3geometry.geom2D.mutable.MutableTriangle;

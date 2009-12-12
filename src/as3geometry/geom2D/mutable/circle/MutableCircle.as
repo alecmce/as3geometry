@@ -1,4 +1,4 @@
-package as3geometry.geom2D.mutable 
+package as3geometry.geom2D.mutable.circle 
 {
 	import as3geometry.geom2D.mutable.abstract.AbstractMutable;
 	import as3geometry.geom2D.Circle;

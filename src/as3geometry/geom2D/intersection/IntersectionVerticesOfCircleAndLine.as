@@ -13,7 +13,7 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfCircleAndLine extends AbstractMutable implements Mutable
+	public class IntersectionVerticesOfCircleAndLine extends AbstractMutable implements Mutable
 	{
 		private var _circle:Circle;
 		private var _line:Line;
@@ -21,7 +21,7 @@ package as3geometry.geom2D.intersection
 		private var _first:MutableVertex;
 		private var _second:MutableVertex;
 
-		public function IntersectionOfCircleAndLine(circle:Circle, line:Line)
+		public function IntersectionVerticesOfCircleAndLine(circle:Circle, line:Line)
 		{
 			super();
 			
@@ -85,6 +85,7 @@ package as3geometry.geom2D.intersection
 			update();
 			
 			_first.changed.dispatch(mutable);			_second.changed.dispatch(mutable);
+			super.onDefinienChanged(this);
 		}
 		
 		private function update():void

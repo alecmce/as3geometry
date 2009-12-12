@@ -21,6 +21,7 @@ package as3geometry.geom2D
 		
 		private static function checkLine(n:Number):Boolean
 		{
+			n; // stop FDT warning
 			return true;
 		}
 		
