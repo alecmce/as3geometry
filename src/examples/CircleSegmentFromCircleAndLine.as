@@ -3,10 +3,10 @@ package examples
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Line;
-	import as3geometry.geom2D.intersection.IntersectionVerticesOfCircleAndLine;
-	import as3geometry.geom2D.mutable.MutableCircleWithRadialVertex;
-	import as3geometry.geom2D.mutable.MutableLine;
-	import as3geometry.geom2D.mutable.circle.IntersectionCircleSegmentOfCircleAndLine;
+	import as3geometry.geom2D.intersection.IntersectionOfCircleAndLine;
+	import as3geometry.geom2D.circle.MutableCircleSegment;
+	import as3geometry.geom2D.line.MutableLine;
+	import as3geometry.geom2D.circle.MutableCircleWithRadialVertex;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.CircleSegmentDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
@@ -18,7 +18,7 @@ package examples
 	import flash.display.Sprite;
 
 	/**
-	 * UI test verifies IntersectionOfCircleAndLine class
+	 * UI test verifies MutableVertexOnCircle class
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
@@ -74,13 +74,13 @@ package examples
 			
 			c = new UIVertex(vertexPaint);
 			dragMechanism.apply(c);
-			c.x = 300;
-			c.y = 140;
+			c.x = 275;
+			c.y = 200;
 			
 			d = new UIVertex(vertexPaint);
 			dragMechanism.apply(d);
-			d.x = 340;
-			d.y = 260;
+			d.x = 450;
+			d.y = 180;
 			
 			line = new MutableLine(a, b);
 			lineDrawer = new LineDrawer(line);
@@ -88,11 +88,11 @@ package examples
 			circle = new MutableCircleWithRadialVertex(c, d);
 			circleDrawer = new CircleDrawer(circle, circlePaint);
 			
-			var intersection:IntersectionVerticesOfCircleAndLine = new IntersectionVerticesOfCircleAndLine(circle, line);
-			rightSegment = new IntersectionCircleSegmentOfCircleAndLine(intersection, true);
+			var intersection:IntersectionOfCircleAndLine = new IntersectionOfCircleAndLine(circle, line);
+			rightSegment = new MutableCircleSegment(intersection.first, intersection.second, true);
 			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
 			
-			leftSegment = new IntersectionCircleSegmentOfCircleAndLine(intersection, false);
+			leftSegment = new MutableCircleSegment(intersection.first, intersection.second, false);
 			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
 			
 			addChild(lineDrawer);

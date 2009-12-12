@@ -1,8 +1,9 @@
 package as3geometry.geom2D.ui 
 {
+	import as3geometry.Mutable;
+	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.mutable.Mutable;
 	import as3geometry.geom2D.util.AngleHelper;
 
 	import ui.Paint;
@@ -59,9 +60,10 @@ package as3geometry.geom2D.ui
 
 		override protected function draw():void
 		{
-			var c:Vertex = _segment.circle.center;
-			var radius:Number = _segment.circle.radius;
-			var angle:Number = _segment.angle;			var sweep:Number = _segment.sweep;
+			var circle:Circle = _segment.from.circle;
+			var c:Vertex = circle.center;
+			var radius:Number = circle.radius;
+			var angle:Number = _segment.from.angle;			var sweep:Number = _segment.angle;
 			
 			if (isNaN(c.x) || isNaN(c.y) || isNaN(angle) || isNaN(radius) || isNaN(sweep))
 				return;

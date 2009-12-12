@@ -3,9 +3,9 @@ package examples
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
-	import as3geometry.geom2D.intersection.IntersectionVerticesOfCircleAndLine;
-	import as3geometry.geom2D.mutable.MutableCircleWithRadialVertex;
-	import as3geometry.geom2D.mutable.MutableLine;
+	import as3geometry.geom2D.intersection.IntersectionOfCircleAndLine;
+	import as3geometry.geom2D.circle.MutableCircleWithRadialVertex;
+	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
 	import as3geometry.geom2D.ui.UIVertex;
@@ -41,7 +41,7 @@ package examples
 		private var line:Line;
 		private var lineDrawer:LineDrawer;
 		
-		private var intersections:IntersectionVerticesOfCircleAndLine;
+		private var intersections:IntersectionOfCircleAndLine;
 		
 		private var n:VertexDrawer;		private var m:VertexDrawer;
 		
@@ -84,9 +84,9 @@ package examples
 			circle = new MutableCircleWithRadialVertex(c, d);
 			circleDrawer = new CircleDrawer(circle, circlePaint);
 			
-			intersections = new IntersectionVerticesOfCircleAndLine(circle, line);
+			intersections = new IntersectionOfCircleAndLine(circle, line);
 			n = new VertexDrawer(intersections.first, 5, intersectionPaint);			m = new VertexDrawer(intersections.second, 5, intersectionPaint);
-						addChild(lineDrawer);			addChild(circleDrawer);
+						addChild(circleDrawer);			addChild(lineDrawer);
 			
 			addChild(n);			addChild(m);
 			

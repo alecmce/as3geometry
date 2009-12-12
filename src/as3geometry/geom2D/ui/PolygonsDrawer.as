@@ -1,8 +1,8 @@
 package as3geometry.geom2D.ui 
 {
-	import as3geometry.geom2D.collections.AdditiveCollection;
+	import as3geometry.AdditiveCollection;
 	import as3geometry.geom2D.Polygon;
-	import as3geometry.geom2D.collections.CollectionOfPolygons;
+	import as3geometry.geom2D.CollectionOfPolygons;
 
 	import ui.Paint;
 

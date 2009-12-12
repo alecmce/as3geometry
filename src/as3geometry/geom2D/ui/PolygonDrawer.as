@@ -2,7 +2,7 @@ package as3geometry.geom2D.ui
 {
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.mutable.Mutable;
+	import as3geometry.Mutable;
 
 	import ui.Paint;
 

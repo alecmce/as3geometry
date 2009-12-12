@@ -2,8 +2,8 @@ package as3geometry.geom2D.intersection
 {
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
-	import as3geometry.geom2D.immutable.ImmutableVertex;
-	import as3geometry.geom2D.immutable.ImmutableLine;
+	import as3geometry.geom2D.vertices.ImmutableVertex;
+	import as3geometry.geom2D.line.ImmutableLine;
 
 	import asunit.asserts.assertEquals;
 	import asunit.asserts.assertTrue;

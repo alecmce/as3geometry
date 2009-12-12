@@ -3,7 +3,7 @@ package examples
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.intersection.IntersectionOfTwoLinesVertex;
-	import as3geometry.geom2D.mutable.MutableLine;
+	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.ui.LineDrawer;
 	import as3geometry.geom2D.ui.UIVertex;
 	import as3geometry.geom2D.ui.VertexDrawer;

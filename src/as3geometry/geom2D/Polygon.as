@@ -1,6 +1,6 @@
 package as3geometry.geom2D 
 {
-	import as3geometry.geom2D.collections.CollectionOfVertices;
+	
 	
 	/**
 	 * Defines a polygon on a Cartesian plane by a list of vertices

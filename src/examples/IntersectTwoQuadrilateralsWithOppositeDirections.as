@@ -1,9 +1,8 @@
 package examples 
 {
 	import as3geometry.geom2D.Polygon;
-	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.intersection.twopolygons.IntersectionOfTwoPolygons;
-	import as3geometry.geom2D.mutable.MutablePolygon;
+	import as3geometry.geom2D.polygons.MutablePolygon;
+	import as3geometry.geom2D.polygons.intersection.IntersectionOfTwoPolygons;
 	import as3geometry.geom2D.ui.PolygonDrawer;
 	import as3geometry.geom2D.ui.PolygonsDrawer;
 	import as3geometry.geom2D.ui.UIVertex;

@@ -1,7 +1,8 @@
 package as3geometry.geom2D.mutable 
 {
+	import as3geometry.geom2D.angle.MutableAngleFromVectors;
 	import as3geometry.geom2D.Angle;
-	import as3geometry.geom2D.immutable.ImmutableSpatialVector;
+	import as3geometry.geom2D.vectors.ImmutableSpatialVector;
 
 	import asunit.asserts.assertEquals;
 

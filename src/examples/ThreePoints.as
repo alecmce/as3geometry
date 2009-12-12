@@ -4,10 +4,10 @@ package examples
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Triangle;
-	import as3geometry.geom2D.mutable.circle.MutableCircle;
-	import as3geometry.geom2D.mutable.MutableCircleWithRadialVertex;
-	import as3geometry.geom2D.mutable.MutableLine;
-	import as3geometry.geom2D.mutable.MutableTriangle;
+	import as3geometry.geom2D.circle.MutableCircle;
+	import as3geometry.geom2D.circle.MutableCircleWithRadialVertex;
+	import as3geometry.geom2D.line.MutableLine;
+	import as3geometry.geom2D.polygons.MutableTriangle;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
 	import as3geometry.geom2D.ui.TriangleDrawer;

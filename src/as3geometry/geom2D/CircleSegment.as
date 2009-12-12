@@ -11,11 +11,11 @@ package as3geometry.geom2D
 	public interface CircleSegment 
 	{
 		
-		function get circle():Circle;
+		function get from():VertexOnCircle;
+		
+		function get to():VertexOnCircle;
 		
 		function get angle():Number;
-		
-		function get sweep():Number;
 		
 	}
 }

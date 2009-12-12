@@ -1,9 +1,8 @@
 package as3geometry.geom2D.util 
 {
 	import as3geometry.geom2D.Polygon;
-	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.immutable.ImmutablePolygon;
-	import as3geometry.geom2D.immutable.ImmutableVertex;
+	import as3geometry.geom2D.polygons.ImmutablePolygon;
+	import as3geometry.geom2D.vertices.ImmutableVertex;
 
 	import asunit.asserts.assertFalse;
 	import asunit.asserts.assertTrue;

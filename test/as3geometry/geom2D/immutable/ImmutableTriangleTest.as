@@ -1,7 +1,9 @@
 package as3geometry.geom2D.immutable 
 {
-	import as3geometry.geom2D.errors.MutabilityError;
-	import as3geometry.geom2D.mutable.MutableVertex;
+	import as3geometry.geom2D.polygons.ImmutableTriangle;
+	import as3geometry.errors.MutabilityError;
+	import as3geometry.geom2D.vertices.ImmutableVertex;
+	import as3geometry.geom2D.vertices.MutableVertex;
 
 	import asunit.asserts.fail;
 

@@ -2,9 +2,9 @@ package as3geometry.geom2D.intersection
 {
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.immutable.ImmutablePolygon;
-	import as3geometry.geom2D.immutable.ImmutableVertex;
-	import as3geometry.geom2D.intersection.twopolygons.IntersectionOfTwoPolygons;
+	import as3geometry.geom2D.polygons.ImmutablePolygon;
+	import as3geometry.geom2D.polygons.intersection.IntersectionOfTwoPolygons;
+	import as3geometry.geom2D.vertices.ImmutableVertex;
 
 	import asunit.asserts.assertEquals;
 	import asunit.asserts.assertTrue;
