@@ -1,9 +1,7 @@
 package as3geometry.abstract 
 {
 	import as3geometry.Mutable;
-	
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	/**
@@ -16,11 +14,11 @@ package as3geometry.abstract
 	 */
 	public class AbstractMutable implements Mutable
 	{
-		protected var _changed:ISignal;
+		protected var _changed:Signal;
 		
 		public function AbstractMutable()
 		{
-			_changed = new Signal(this, Mutable);
+			_changed = new Signal(Mutable);
 		}
 		
 		protected function addDefinien(definien:*):void
@@ -40,7 +38,7 @@ package as3geometry.abstract
 			_changed.dispatch(mutable);
 		}
 
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}

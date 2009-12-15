@@ -3,7 +3,6 @@ package as3geometry.geom2D.vertices
 	import as3geometry.Mutable;
 	import as3geometry.geom2D.Vertex;
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	import flash.events.EventDispatcher;
@@ -22,13 +21,13 @@ package as3geometry.geom2D.vertices
 		private var _x:Number;
 		private var _y:Number;
 		
-		private var _changed:ISignal;
+		private var _changed:Signal;
 		
 		public function MutableVertex(x:Number, y:Number)
 		{
 			_x = x;
 			_y = y;
-			_changed = new Signal(this, Mutable);
+			_changed = new Signal(Mutable);
 		}
 		
 		public function set x(value:Number):void
@@ -59,7 +58,7 @@ package as3geometry.geom2D.vertices
 			return _y;
 		}
 		
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}

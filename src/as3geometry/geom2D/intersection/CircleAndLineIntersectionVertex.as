@@ -1,11 +1,10 @@
 package as3geometry.geom2D.intersection 
 {
+	import as3geometry.Mutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.VertexOnCircle;
-	import as3geometry.Mutable;
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	/**
@@ -17,7 +16,7 @@ package as3geometry.geom2D.intersection
 	 */
 	internal class CircleAndLineIntersectionVertex implements VertexOnCircle, Mutable
 	{
-		private var _changed:ISignal;
+		private var _changed:Signal;
 
 		private var _circle:Circle;
 		private var _x:Number;
@@ -26,7 +25,7 @@ package as3geometry.geom2D.intersection
 
 		public function CircleAndLineIntersectionVertex()
 		{
-			_changed = new Signal(this, Mutable);
+			_changed = new Signal(Mutable);
 			_circle = null;
 			_angle = Number.NaN;
 			_x = Number.NaN;
@@ -72,7 +71,7 @@ package as3geometry.geom2D.intersection
 			_changed.dispatch(this);
 		}
 		
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}

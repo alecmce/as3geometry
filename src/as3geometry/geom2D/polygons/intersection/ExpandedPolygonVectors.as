@@ -4,7 +4,6 @@ package as3geometry.geom2D.polygons.intersection
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	/**
@@ -24,7 +23,7 @@ package as3geometry.geom2D.polygons.intersection
 		private var _b:Polygon;
 		private var _bCount:uint;
 		
-		private var _changed:ISignal;
+		private var _changed:Signal;
 		
 		public var polygonA:Array;
 		public var polygonB:Array;
@@ -37,7 +36,7 @@ package as3geometry.geom2D.polygons.intersection
 			_b = b;
 			_bCount = _b.countVertices;
 			
-			_changed = new Signal(this, PotentialIntersectionVertex);
+			_changed = new Signal(PotentialIntersectionVertex);
 			
 			populatePolygonA();
 			populatePolygonB();
@@ -156,7 +155,7 @@ package as3geometry.geom2D.polygons.intersection
 			_changed.dispatch(vertex);
 		}
 		
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}

@@ -8,7 +8,7 @@ package examples
 	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
-	import as3geometry.geom2D.ui.UIVertex;
+	import as3geometry.geom2D.ui.vertices.UIVertex;
 	import as3geometry.geom2D.ui.VertexDrawer;
 
 	import ui.interactive.DragMechanism;

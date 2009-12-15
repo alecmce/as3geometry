@@ -11,7 +11,7 @@ package examples
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
 	import as3geometry.geom2D.ui.TriangleDrawer;
-	import as3geometry.geom2D.ui.UIVertex;
+	import as3geometry.geom2D.ui.vertices.UIVertex;
 
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;

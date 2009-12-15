@@ -1,6 +1,6 @@
 package as3geometry 
 {
-	import org.osflash.signals.ISignal;
+	import org.osflash.signals.Signal;
 
 	/**
 	 * Defines the common functionality which all collections must have. If
@@ -14,9 +14,9 @@ package as3geometry
 	public interface AdditiveCollection
 	{
 		
-		function get added():ISignal;
+		function get added():Signal;
 		
-		function get removed():ISignal;
+		function get removed():Signal;
 		
 	}
 }

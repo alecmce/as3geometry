@@ -2,7 +2,6 @@ package as3geometry.abstract
 {
 	import as3geometry.AdditiveCollection;
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	/**
@@ -15,21 +14,21 @@ package as3geometry.abstract
 	public class AbstractMutableAdditiveCollection extends AbstractMutable implements AdditiveCollection
 	{
 		
-		private var _added:ISignal;
+		private var _added:Signal;
 		
-		private var _removed:ISignal;
+		private var _removed:Signal;
 		
 		public function AbstractMutableAdditiveCollection(collectionClass:Class)
 		{
-			_added = new Signal(this, collectionClass);			_removed = new Signal(this, collectionClass);
+			_added = new Signal(collectionClass);			_removed = new Signal(collectionClass);
 		}
 		
-		public function get added():ISignal
+		public function get added():Signal
 		{
 			return _added;
 		}
 		
-		public function get removed():ISignal
+		public function get removed():Signal
 		{
 			return _removed;
 		}

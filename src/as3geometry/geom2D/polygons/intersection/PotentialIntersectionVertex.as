@@ -18,9 +18,9 @@ package as3geometry.geom2D.polygons.intersection
 	{
 		private var _intersection:IntersectionOfTwoLinesVertex;
 		
-		private var _changed:ISignal;
+		private var _changed:Signal;
 		
-		private var _realityChanged:ISignal;
+		private var _realityChanged:Signal;
 		
 		private var _aIndex:uint;
 		
@@ -31,10 +31,10 @@ package as3geometry.geom2D.polygons.intersection
 			_intersection = new IntersectionOfTwoLinesVertex(a, b);
 			_intersection.changed.add(onVertexChanged);
 			
-			_changed = new Signal(this, Mutable);
+			_changed = new Signal(Mutable);
 			_aIndex = aIndex;			_bIndex = bIndex;
 			
-			_realityChanged = new Signal(this, PotentialIntersectionVertex);
+			_realityChanged = new Signal(PotentialIntersectionVertex);
 			resolve();
 		}
 		
@@ -80,12 +80,12 @@ package as3geometry.geom2D.polygons.intersection
 			return str;
 		}
 		
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}
 		
-		public function get realityChanged():ISignal
+		public function get realityChanged():Signal
 		{
 			return _realityChanged;
 		}

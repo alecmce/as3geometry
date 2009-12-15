@@ -17,12 +17,12 @@ package as3geometry.geom2D.polygons.intersection
 	internal class IntersectionPolygon extends MutablePolygon implements AdditiveCollection
 	{
 
-		private var _added:ISignal;
-		private var _removed:ISignal;
+		private var _added:Signal;
+		private var _removed:Signal;
 
 		public function IntersectionPolygon(vertices:Array)
 		{
-			_added = new Signal(this, Vertex);			_removed = new Signal(this, Vertex);
+			_added = new Signal(Vertex);			_removed = new Signal(Vertex);
 			
 			super(vertices);
 		}
@@ -38,12 +38,12 @@ package as3geometry.geom2D.polygons.intersection
 			_removed.dispatch(vertex);
 		}
 		
-		public function get added():ISignal
+		public function get added():Signal
 		{
 			return _added;
 		}
 		
-		public function get removed():ISignal
+		public function get removed():Signal
 		{
 			return _removed;
 		}

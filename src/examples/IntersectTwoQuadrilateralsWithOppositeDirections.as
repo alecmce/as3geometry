@@ -5,7 +5,7 @@ package examples
 	import as3geometry.geom2D.polygons.intersection.IntersectionOfTwoPolygons;
 	import as3geometry.geom2D.ui.PolygonDrawer;
 	import as3geometry.geom2D.ui.PolygonsDrawer;
-	import as3geometry.geom2D.ui.UIVertex;
+	import as3geometry.geom2D.ui.vertices.UIVertex;
 
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;

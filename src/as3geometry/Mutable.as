@@ -1,6 +1,6 @@
 package as3geometry 
 {
-	import org.osflash.signals.ISignal;
+	import org.osflash.signals.Signal;
 
 	/**
 	 * An interface which all mutable elements should implement
@@ -15,7 +15,7 @@ package as3geometry
 		/**
 		 * @return A signal that emits when a core property of the object is changed
 		 */
-		function get changed():ISignal;
+		function get changed():Signal;
 			
 	}
 }

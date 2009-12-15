@@ -1,11 +1,11 @@
-package as3geometry.geom2D.ui 
+package as3geometry.geom2D.ui.vertices 
 {
-	import as3geometry.geom2D.Vertex;
 	import as3geometry.Mutable;
+	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.ui.DEFAULT_PAINT;
 
 	import ui.Paint;
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	import flash.display.Sprite;
@@ -24,11 +24,11 @@ package as3geometry.geom2D.ui
 		
 		private var _paint:Paint;
 
-		private var _changed:ISignal;
+		private var _changed:Signal;
 		
 		public function UIVertex(paint:Paint = null, radius:uint = 4)
 		{
-			_changed = new Signal(this, Mutable);
+			_changed = new Signal(Mutable);
 			
 			_paint = paint;
 			_radius = radius;
@@ -37,11 +37,17 @@ package as3geometry.geom2D.ui
 
 		override public function set x(value:Number):void
 		{
+			if (super.x == value)
+				return;
+			
 			super.x = value;
 			addEventListener(Event.ENTER_FRAME, update);		}
 
 		override public function set y(value:Number):void
 		{
+			if (super.x == value)
+				return;
+			
 			super.y = value;
 			addEventListener(Event.ENTER_FRAME, update);
 		}
@@ -52,7 +58,7 @@ package as3geometry.geom2D.ui
 			_changed.dispatch(this);
 		}
 
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}

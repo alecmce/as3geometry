@@ -17,12 +17,12 @@ package as3geometry.geom2D.polygons.intersection
 	{
 		private var _original:Vertex;
 
-		private var _changed:ISignal;
+		private var _changed:Signal;
 		
 		public function OrignalPolygonVertexWrapper(target:Vertex, aIndex:int, bIndex:int)
 		{
 			_original = target;
-			_changed = _original is Mutable ? Mutable(_original).changed : new Signal(this);
+			_changed = _original is Mutable ? Mutable(_original).changed : new Signal();
 		
 			positionOnPolygonAAsCycle = aIndex;
 			positionOnPolygonBAsCycle = bIndex;
@@ -40,7 +40,7 @@ package as3geometry.geom2D.polygons.intersection
 			return _original.y;
 		}
 
-		public function get changed():ISignal
+		public function get changed():Signal
 		{
 			return _changed;
 		}

@@ -2,15 +2,11 @@ package examples
 {
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.CircleSegment;
-	import as3geometry.geom2D.Line;
-	import as3geometry.geom2D.intersection.IntersectionOfCircleAndLine;
-	import as3geometry.geom2D.circle.MutableCircleSegment;
-	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.circle.MutableCircleWithRadialVertex;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.CircleSegmentDrawer;
-	import as3geometry.geom2D.ui.LineDrawer;
 	import as3geometry.geom2D.ui.vertices.UIVertex;
+	import as3geometry.geom2D.ui.vertices.UIVertexOnCircle;
 
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
@@ -24,7 +20,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class CircleSegmentFromCircleAndLine extends Sprite 
+	public class CircleSegmentByVertices extends Sprite 
 	{
 		private var vertexPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
@@ -34,14 +30,11 @@ package examples
 		
 		private var a:UIVertex;
 		private var b:UIVertex;
-		private var c:UIVertex;
-		private var d:UIVertex;
+		private var c:UIVertexOnCircle;
+		private var d:UIVertexOnCircle;
 		
 		private var circle:Circle;
 		private var circleDrawer:CircleDrawer;
-		
-		private var line:Line;
-		private var lineDrawer:LineDrawer;
 		
 		private var rightSegment:CircleSegment;
 		private var rightSegmentDrawer:CircleSegmentDrawer;
@@ -49,7 +42,7 @@ package examples
 		private var leftSegment:CircleSegment;
 		private var leftSegmentDrawer:CircleSegmentDrawer;
 		
-		public function CircleSegmentFromCircleAndLine()
+		public function CircleSegmentByVertices()
 		{
 			init();
 		}
@@ -64,40 +57,31 @@ package examples
 			
 			a = new UIVertex(vertexPaint);
 			dragMechanism.apply(a);
-			a.x = 80;
+			a.x = 275;
 			a.y = 200;
 			
 			b = new UIVertex(vertexPaint);
 			dragMechanism.apply(b);
-			b.x = 400;
+			b.x = 450;
 			b.y = 180;
 			
-			c = new UIVertex(vertexPaint);
-			dragMechanism.apply(c);
-			c.x = 275;
-			c.y = 200;
-			
-			d = new UIVertex(vertexPaint);
-			dragMechanism.apply(d);
-			d.x = 450;
-			d.y = 180;
-			
-			line = new MutableLine(a, b);
-			lineDrawer = new LineDrawer(line);
-			
-			circle = new MutableCircleWithRadialVertex(c, d);
+			circle = new MutableCircleWithRadialVertex(a, b);
 			circleDrawer = new CircleDrawer(circle, circlePaint);
 			
-			var intersection:IntersectionOfCircleAndLine = new IntersectionOfCircleAndLine(circle, line);
-			rightSegment = new MutableCircleSegment(intersection.first, intersection.second, true);
-			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
+			c = new UIVertexOnCircle(circle, Math.PI * 0.2, vertexPaint);
+			dragMechanism.apply(c);
 			
-			leftSegment = new MutableCircleSegment(intersection.first, intersection.second, false);
-			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
+			d = new UIVertexOnCircle(circle, Math.PI, vertexPaint);
+			dragMechanism.apply(d);
 			
-			addChild(lineDrawer);
+//			rightSegment = new MutableCircleSegment(c, d, true);
+//			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
+//			
+//			leftSegment = new MutableCircleSegment(c, d, false);
+//			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
+			
 			addChild(circleDrawer);
-			addChild(rightSegmentDrawer);			addChild(leftSegmentDrawer);
+//			addChild(rightSegmentDrawer);//			addChild(leftSegmentDrawer);
 			
 			addChild(a);
 			addChild(b);
