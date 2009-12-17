@@ -3,7 +3,7 @@ package as3geometry.geom2D.ui
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.Mutable;
+	
 
 	import ui.Paint;
 

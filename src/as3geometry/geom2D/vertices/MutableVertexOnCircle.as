@@ -1,6 +1,6 @@
 package as3geometry.geom2D.vertices 
 {
-	import as3geometry.Mutable;
+	
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.VertexOnCircle;
 	import as3geometry.abstract.AbstractMutable;

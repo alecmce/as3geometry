@@ -2,6 +2,7 @@ package examples
 {
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.CircleSegment;
+	import as3geometry.geom2D.circle.MutableCircleSegment;
 	import as3geometry.geom2D.circle.MutableCircleWithRadialVertex;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.CircleSegmentDrawer;
@@ -69,19 +70,21 @@ package examples
 			circleDrawer = new CircleDrawer(circle, circlePaint);
 			
 			c = new UIVertexOnCircle(circle, Math.PI * 0.2, vertexPaint);
+			c.angle = Math.PI;
 			dragMechanism.apply(c);
 			
 			d = new UIVertexOnCircle(circle, Math.PI, vertexPaint);
+			d.angle = Math.PI / 2;
 			dragMechanism.apply(d);
 			
-//			rightSegment = new MutableCircleSegment(c, d, true);
-//			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
-//			
-//			leftSegment = new MutableCircleSegment(c, d, false);
-//			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
+			rightSegment = new MutableCircleSegment(c, d, true);
+			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
+			
+			leftSegment = new MutableCircleSegment(c, d, false);
+			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
 			
 			addChild(circleDrawer);
-//			addChild(rightSegmentDrawer);//			addChild(leftSegmentDrawer);
+			addChild(rightSegmentDrawer);			addChild(leftSegmentDrawer);
 			
 			addChild(a);
 			addChild(b);

@@ -4,7 +4,6 @@ package as3geometry.geom2D.polygons.intersection
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.polygons.MutablePolygon;
 
-	import org.osflash.signals.ISignal;
 	import org.osflash.signals.Signal;
 
 	/**

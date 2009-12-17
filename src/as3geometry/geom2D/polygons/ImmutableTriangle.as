@@ -1,6 +1,6 @@
 package as3geometry.geom2D.polygons 
 {
-	import as3geometry.Mutable;
+	
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.Triangle;
 	import as3geometry.geom2D.Vertex;

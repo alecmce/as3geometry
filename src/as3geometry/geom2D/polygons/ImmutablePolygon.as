@@ -1,7 +1,7 @@
 package as3geometry.geom2D.polygons 
 {
 	import as3geometry.geom2D.line.ImmutableLine;
-	import as3geometry.Mutable;
+	
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;

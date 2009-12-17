@@ -1,4 +1,4 @@
-package as3geometry 
+package  
 {
 	import org.osflash.signals.Signal;
 

@@ -4,7 +4,7 @@ package as3geometry.geom2D.intersection
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.abstract.AbstractMutable;
-	import as3geometry.Mutable;
+	
 
 	/**
 	 * A vertex defined by the intersection of two lines. This is found by resolving the

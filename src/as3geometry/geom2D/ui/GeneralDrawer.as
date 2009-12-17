@@ -1,6 +1,6 @@
 package as3geometry.geom2D.ui 
 {
-	import as3geometry.Mutable;
+	
 
 	import ui.Paint;
 

@@ -1,6 +1,6 @@
 package as3geometry.geom2D.vertices 
 {
-	import as3geometry.Mutable;
+	
 	import as3geometry.geom2D.Vertex;
 
 	import org.osflash.signals.Signal;

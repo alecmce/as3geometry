@@ -1,6 +1,6 @@
 package as3geometry.geom2D.polygons.intersection 
 {
-	import as3geometry.Mutable;
+	
 	import as3geometry.abstract.AbstractMutableAdditiveCollection;
 	import as3geometry.geom2D.CollectionOfPolygons;
 	import as3geometry.geom2D.Polygon;

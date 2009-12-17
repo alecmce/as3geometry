@@ -1,6 +1,6 @@
 package as3geometry.geom2D.ui.vertices 
 {
-	import as3geometry.Mutable;
+	
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.ui.DEFAULT_PAINT;
 
@@ -20,41 +20,58 @@ package as3geometry.geom2D.ui.vertices
 	 */
 	public class UIVertex extends Sprite implements Vertex, Mutable
 	{
+		private var _workingX:Number;
+		
+		private var _workingY:Number;
+		
 		private var _radius:uint;
 		
 		private var _paint:Paint;
-
+		
 		private var _changed:Signal;
 		
 		public function UIVertex(paint:Paint = null, radius:uint = 4)
 		{
 			_changed = new Signal(Mutable);
 			
-			_paint = paint;
+			_paint = paint ? paint : DEFAULT_PAINT;
 			_radius = radius;
 			redraw();
 		}
 
 		override public function set x(value:Number):void
 		{
-			if (super.x == value)
+			if (!stage)
+			{
+				super.x = _workingX = value;
+				return;
+			}
+			
+			if (_workingX == value)
 				return;
 			
-			super.x = value;
+			_workingX = value;
 			addEventListener(Event.ENTER_FRAME, update);		}
 
 		override public function set y(value:Number):void
 		{
-			if (super.x == value)
+			if (!stage)
+			{
+				super.y = _workingY = value;
+				return;
+			}
+			
+			if (_workingY == value)
 				return;
 			
-			super.y = value;
+			_workingY = value;
 			addEventListener(Event.ENTER_FRAME, update);
 		}
 		
 		private function update(event:Event):void
 		{
 			removeEventListener(Event.ENTER_FRAME, update);
+			super.x = _workingX;			super.y = _workingY;
 			_changed.dispatch(this);
 		}
 
@@ -89,10 +106,9 @@ package as3geometry.geom2D.ui.vertices
 			
 			graphics.clear();
 			
-			var p:Paint = _paint ? _paint : DEFAULT_PAINT;
-			p.beginPaint(graphics);
+			_paint.beginPaint(graphics);
 			graphics.drawCircle(0, 0, _radius);
-			p.endPaint(graphics);
+			_paint.endPaint(graphics);
 		}
 	}
 }

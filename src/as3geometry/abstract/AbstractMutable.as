@@ -1,6 +1,6 @@
 package as3geometry.abstract 
 {
-	import as3geometry.Mutable;
+	
 
 	import org.osflash.signals.Signal;
 
