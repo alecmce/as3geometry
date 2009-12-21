@@ -2,7 +2,7 @@ package as3geometry.geom2D.polygons.intersection
 {
 	
 	import as3geometry.geom2D.Line;
-	import as3geometry.geom2D.intersection.IntersectionOfTwoLinesVertex;
+	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
 
 	import org.osflash.signals.Signal;
 

@@ -1,4 +1,4 @@
-package as3geometry.geom2D.intersection 
+package as3geometry.geom2D.line 
 {
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.SpatialVector;

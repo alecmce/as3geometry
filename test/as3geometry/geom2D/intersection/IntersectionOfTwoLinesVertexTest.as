@@ -1,5 +1,6 @@
 package as3geometry.geom2D.intersection 
 {
+	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.vertices.ImmutableVertex;
