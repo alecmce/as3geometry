@@ -18,7 +18,7 @@ package examples
 	import flash.display.Sprite;
 
 	/**
-	 * UI test verifies MutableVertexOnCircle class
+	 * UI test verifies circle segment classes
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
@@ -28,7 +28,8 @@ package examples
 	{
 		private var vertexPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
-		private var rightSegmentPaint:SolidPaint;		private var leftSegmentPaint:SolidPaint;
+		private var rightSegmentPaint:SolidPaint;
+		private var leftSegmentPaint:SolidPaint;
 		
 		private var dragMechanism:DragMechanism;
 		
@@ -58,7 +59,8 @@ package examples
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			circlePaint = new SolidPaint(0x0, 0xFF000000, 2);
-			rightSegmentPaint = new SolidPaint(0x66FF0000, 0xFF, 2);			leftSegmentPaint = new SolidPaint(0x661E90FF, 0xFF, 2);
+			rightSegmentPaint = new SolidPaint(0x66FF0000, 0xFF, 2);
+			leftSegmentPaint = new SolidPaint(0x661E90FF, 0xFF, 2);
 			
 			dragMechanism = new DragMechanism();
 			
@@ -97,7 +99,8 @@ package examples
 			
 			addChild(lineDrawer);
 			addChild(circleDrawer);
-			addChild(rightSegmentDrawer);			addChild(leftSegmentDrawer);
+			addChild(rightSegmentDrawer);
+			addChild(leftSegmentDrawer);
 			
 			addChild(a);
 			addChild(b);
