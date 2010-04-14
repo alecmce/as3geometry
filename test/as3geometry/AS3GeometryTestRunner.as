@@ -6,7 +6,7 @@ package as3geometry
 	{
 		public function AS3GeometryTestRunner()
 		{
-			run(as3geometry.AllTests);
+			run(as3geometry.AllGeometryTests);
 		}
 	}
 }
