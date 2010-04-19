@@ -1,6 +1,7 @@
 package as3geometry.geom2D.circle 
 {
-	
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.abstract.AbstractMutable;
 	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Vertex;

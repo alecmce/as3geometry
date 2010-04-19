@@ -1,6 +1,7 @@
 package as3geometry.geom2D.ui.vertices 
 {
-	
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.ui.DEFAULT_PAINT;
 

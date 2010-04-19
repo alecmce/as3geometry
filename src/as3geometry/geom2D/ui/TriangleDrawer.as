@@ -1,7 +1,8 @@
 package as3geometry.geom2D.ui 
 {
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.geom2D.Triangle;
-	
 
 	import ui.Paint;
 

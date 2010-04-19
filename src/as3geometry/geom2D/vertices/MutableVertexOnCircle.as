@@ -1,9 +1,10 @@
 package as3geometry.geom2D.vertices 
 {
-	
+	import alecmce.invalidation.Mutable;
+
+	import as3geometry.abstract.AbstractMutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.VertexOnCircle;
-	import as3geometry.abstract.AbstractMutable;
 
 	/**
 	 * 

@@ -1,13 +1,14 @@
 package as3geometry.geom2D.intersection 
 {
-	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
+	import alecmce.invalidation.Mutable;
+
+	import as3geometry.abstract.AbstractMutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.line.ImmutableLine;
-	import as3geometry.abstract.AbstractMutable;
-	
+	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
 	import as3geometry.geom2D.vertices.MutableVertex;
 
 	/**

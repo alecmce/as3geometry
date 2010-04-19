@@ -1,12 +1,13 @@
 package as3geometry.geom2D.line 
 {
-	import as3geometry.geom2D.vectors.ImmutableSpatialVector;
-	
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.vectors.ImmutableSpatialVector;
 	import as3geometry.geom2D.vertices.ImmutableVertex;
 
 	/**

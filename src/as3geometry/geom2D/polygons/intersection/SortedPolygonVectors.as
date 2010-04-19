@@ -141,11 +141,18 @@ package as3geometry.geom2D.polygons.intersection
 			var length:uint = vector.length;
 			
 			var i:uint = 0;
-			while (i < length && vector[i].isReal)
-				vector[i++].visited = false;
+			var vertex:ExpandedPolygonVertex;
+			while (i < length && (vertex = vector[i]).isReal)
+			{
+				vertex = vector[i++];
+				vertex.visited = false;
+			}
 			
 			while (i < length)
-				vector[i++].visited = true;
+			{
+				vertex = vector[i++];
+				vertex.visited = true;
+			}
 		}
 		
 		private function getLengthOfNonNullList(vector:Array):uint
@@ -153,7 +160,8 @@ package as3geometry.geom2D.polygons.intersection
 			var length:uint = vector.length;
 			
 			var i:uint = 0;
-			while (i < length && vector[i].isReal)
+			var vertex:ExpandedPolygonVertex;
+			while (i < length && (vertex = vector[i]).isReal)
 				i++;
 			
 			return i;

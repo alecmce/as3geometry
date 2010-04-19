@@ -1,8 +1,9 @@
 package as3geometry.geom2D.ui 
 {
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
-	
 
 	import ui.Paint;
 

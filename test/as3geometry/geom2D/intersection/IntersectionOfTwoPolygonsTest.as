@@ -163,7 +163,8 @@ package as3geometry.geom2D.intersection
 			var matches:Array = [];
 			for (var i:int = 0; i < vertices.length; i++)
 			{
-				var tmp:Array = vertices[i].split(",");
+				var str:String = vertices[i];
+				var tmp:Array = str.split(",");
 				var x:Number = tmp[0];
 				var y:Number = tmp[1];
 				

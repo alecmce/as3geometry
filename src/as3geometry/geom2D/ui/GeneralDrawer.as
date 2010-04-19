@@ -1,6 +1,6 @@
 package as3geometry.geom2D.ui 
 {
-	
+	import alecmce.invalidation.Mutable;
 
 	import ui.Paint;
 

@@ -1,10 +1,11 @@
 package as3geometry.geom2D.line 
 {
+	import alecmce.invalidation.Mutable;
+
+	import as3geometry.abstract.AbstractMutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.abstract.AbstractMutable;
-	
 
 	/**
 	 * A vertex defined by the intersection of two lines. This is found by resolving the

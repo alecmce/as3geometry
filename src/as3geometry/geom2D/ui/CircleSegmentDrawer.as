@@ -1,6 +1,7 @@
 package as3geometry.geom2D.ui 
 {
-	
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Vertex;

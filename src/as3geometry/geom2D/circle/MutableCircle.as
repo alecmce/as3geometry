@@ -1,9 +1,10 @@
 package as3geometry.geom2D.circle 
 {
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.abstract.AbstractMutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
-	
 
 	/**
 	 * Defines a circle on a Cartesian plane by center Vertex and radius

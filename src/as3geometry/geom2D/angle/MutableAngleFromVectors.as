@@ -1,6 +1,7 @@
 package as3geometry.geom2D.angle 
 {
-	
+	import alecmce.invalidation.Mutable;
+
 	import as3geometry.abstract.AbstractMutable;
 	import as3geometry.geom2D.Angle;
 	import as3geometry.geom2D.SpatialVector;

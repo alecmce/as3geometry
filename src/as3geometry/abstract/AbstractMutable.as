@@ -1,6 +1,6 @@
 package as3geometry.abstract 
 {
-	
+	import alecmce.invalidation.Mutable;
 
 	import org.osflash.signals.Signal;
 
@@ -15,24 +15,24 @@ package as3geometry.abstract
 	public class AbstractMutable implements Mutable
 	{
 		protected var _changed:Signal;
-		
+
 		public function AbstractMutable()
 		{
 			_changed = new Signal(Mutable);
 		}
-		
+
 		protected function addDefinien(definien:*):void
 		{
 			if (definien && definien is Mutable)
-				definien.changed.add(onDefinienChanged);
+				Mutable(definien).changed.add(onDefinienChanged);
 		}
-		
+
 		protected function removeDefinien(definien:*):void
 		{
 			if (definien && definien is Mutable)
-				definien.changed.remove(onDefinienChanged);
+				Mutable(definien).changed.remove(onDefinienChanged);
 		}
-		
+
 		protected function onDefinienChanged(mutable:Mutable):void
 		{
 			_changed.dispatch(mutable);
@@ -42,6 +42,5 @@ package as3geometry.abstract
 		{
 			return _changed;
 		}
-		
 	}
 }
