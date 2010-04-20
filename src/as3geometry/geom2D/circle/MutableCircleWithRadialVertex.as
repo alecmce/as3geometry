@@ -1,8 +1,7 @@
 package as3geometry.geom2D.circle 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
 
@@ -13,21 +12,18 @@ package as3geometry.geom2D.circle
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableCircleWithRadialVertex extends AbstractMutable implements Circle, Mutable
+	public class MutableCircleWithRadialVertex extends Mutable implements Circle, Mutable
 	{
 		private var _center:Vertex;
 		private var _radial:Vertex;
 		private var _radius:Number;
 		
-		private var _invalidated:Boolean;
-
-		public function MutableCircleWithRadialVertex(center:Vertex, radial:Vertex)
+		public function MutableCircleWithRadialVertex(context:AS3GeometryContext, center:Vertex, radial:Vertex)
 		{
+			super(context);
 			addDefinien(_center = center);
 			addDefinien(_radial = radial);
-
-			_radius = calculateRadius();
-			_invalidated = false;
+			resolve();
 		}
 		
 		public function get center():Vertex
@@ -43,8 +39,7 @@ package as3geometry.geom2D.circle
 			removeDefinien(_center);
 			_center = value;
 			addDefinien(_center);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get radial():Vertex
@@ -60,33 +55,22 @@ package as3geometry.geom2D.circle
 			removeDefinien(_radial);
 			_radial = value;
 			addDefinien(_radial);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get radius():Number
 		{
-			if (_invalidated)
-			{
-				_invalidated = false;
-				_radius = calculateRadius();
-			}
-			
 			return _radius;
 		}
-		
-		override protected function onDefinienChanged(mutable:Mutable):void
+
+		override public function resolve():void 
 		{
-			_invalidated = true;
-			super.onDefinienChanged(mutable);
-		}
-		
-		private function calculateRadius():Number
-		{
+			super.resolve();
+			
 			var x:Number = _radial.x - _center.x;
 			var y:Number = _radial.y - _center.y;
 			
-			return Math.sqrt(x * x + y * y);
+			_radius = Math.sqrt(x * x + y * y);
 		}
 		
 		public function toString():String

@@ -1,5 +1,6 @@
 package as3geometry.geom2D.intersection 
 {
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.polygons.ImmutablePolygon;
@@ -12,13 +13,23 @@ package as3geometry.geom2D.intersection
 
 	public class IntersectionOfTwoPolygonsTest 
 	{
+		private var context:AS3GeometryContext;
+		
 		private var a:Polygon;			private var b:Polygon;
 		
 		private var intersections:IntersectionOfTwoPolygons;
 
+		[Before]
+		public function before():void
+		{
+			context = new AS3GeometryContext();
+		}
+
 		[After]
 		public function tearDown():void
 		{
+			context = null;
+			
 			a = null;
 			b = null;
 			intersections = null;
@@ -45,7 +56,7 @@ package as3geometry.geom2D.intersection
 			
 			b = new ImmutablePolygon(vertices);
 		
-			intersections = new IntersectionOfTwoPolygons(a, b);
+			intersections = new IntersectionOfTwoPolygons(context, a, b);
 			
 			assertEquals(1, intersections.countPolygons);
 			
@@ -74,7 +85,7 @@ package as3geometry.geom2D.intersection
 			vertices[3] = new ImmutableVertex(15, 5);
 			b = new ImmutablePolygon(vertices);
 		
-			intersections = new IntersectionOfTwoPolygons(a, b);
+			intersections = new IntersectionOfTwoPolygons(context, a, b);
 			
 			assertEquals(1, intersections.countPolygons);
 			
@@ -105,7 +116,7 @@ package as3geometry.geom2D.intersection
 			
 			b = new ImmutablePolygon(vertices);
 		
-			intersections = new IntersectionOfTwoPolygons(a, b);
+			intersections = new IntersectionOfTwoPolygons(context, a, b);
 			
 			assertEquals(1, intersections.countPolygons);
 			

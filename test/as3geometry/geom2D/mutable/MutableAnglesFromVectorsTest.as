@@ -1,21 +1,30 @@
 package as3geometry.geom2D.mutable 
 {
-	import as3geometry.geom2D.angle.MutableAngleFromVectors;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Angle;
+	import as3geometry.geom2D.angle.MutableAngleFromVectors;
 	import as3geometry.geom2D.vectors.ImmutableSpatialVector;
 
 	import asunit.asserts.assertEquals;
 
 	public class MutableAnglesFromVectorsTest 
 	{
+		private var context:AS3GeometryContext;
 		
 		private var a:ImmutableSpatialVector;		private var b:ImmutableSpatialVector;
 		
 		private var angle:Angle;
 		
+		[Before]
+		public function before():void
+		{
+			context = new AS3GeometryContext();
+		}
+		
 		[After]
 		public function tearDown():void
 		{
+			context = null;
 			a = null;
 			b = null;
 			angle = null;
@@ -26,7 +35,7 @@ package as3geometry.geom2D.mutable
 		{
 			a = new ImmutableSpatialVector(10, 0);
 			b = new ImmutableSpatialVector(0, 10);
-			angle = new MutableAngleFromVectors(a, b);
+			angle = new MutableAngleFromVectors(context, a, b);
 			
 			assertEquals(90, angle.degrees);
 		}
@@ -36,7 +45,7 @@ package as3geometry.geom2D.mutable
 		{
 			a = new ImmutableSpatialVector(10, 0);
 			b = new ImmutableSpatialVector(0, 10);
-			angle = new MutableAngleFromVectors(b, a);
+			angle = new MutableAngleFromVectors(context, b, a);
 			
 			assertEquals(-90, angle.degrees);
 		}
@@ -46,7 +55,7 @@ package as3geometry.geom2D.mutable
 		{
 			a = new ImmutableSpatialVector(5,-5);
 			b = new ImmutableSpatialVector(5,5);
-			angle = new MutableAngleFromVectors(a, b);
+			angle = new MutableAngleFromVectors(context, a, b);
 			
 			assertEquals(90, angle.degrees);
 		}
@@ -56,7 +65,7 @@ package as3geometry.geom2D.mutable
 		{
 			a = new ImmutableSpatialVector(5,-5);
 			b = new ImmutableSpatialVector(5,5);
-			angle = new MutableAngleFromVectors(b, a);
+			angle = new MutableAngleFromVectors(context, b, a);
 			
 			assertEquals(-90, angle.degrees);
 		}
@@ -74,7 +83,7 @@ package as3geometry.geom2D.mutable
 			sin = Math.sin(2 * ang);
 			b = new ImmutableSpatialVector(3 * cos, 3 * sin);
 			
-			angle = new MutableAngleFromVectors(a, b);
+			angle = new MutableAngleFromVectors(context, a, b);
 			assertEquals(ang, angle.radians);
 		}
 		

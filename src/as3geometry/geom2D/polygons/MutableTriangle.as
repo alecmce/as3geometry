@@ -1,8 +1,7 @@
 package as3geometry.geom2D.polygons 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Triangle;
 	import as3geometry.geom2D.Vertex;
 
@@ -13,15 +12,15 @@ package as3geometry.geom2D.polygons
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableTriangle extends AbstractMutable implements Triangle, Mutable
+	public class MutableTriangle extends Mutable implements Triangle, Mutable
 	{
 		private var _a:Vertex;
 		private var _b:Vertex;
 		private var _c:Vertex;
 		
-		public function MutableTriangle(a:Vertex, b:Vertex, c:Vertex)
+		public function MutableTriangle(context:AS3GeometryContext, a:Vertex, b:Vertex, c:Vertex)
 		{
-			super();
+			super(context);
 			addDefinien(_a = a);			addDefinien(_b = b);
 			addDefinien(_c = c);
 		}
@@ -39,8 +38,7 @@ package as3geometry.geom2D.polygons
 			removeDefinien(_a);
 			_a = a;
 			addDefinien(_a);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get b():Vertex
@@ -56,8 +54,7 @@ package as3geometry.geom2D.polygons
 			removeDefinien(_b);
 			_b = b;
 			addDefinien(_b);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 
 		public function get c():Vertex
@@ -73,8 +70,7 @@ package as3geometry.geom2D.polygons
 			removeDefinien(_c);
 			_c = c;
 			addDefinien(_c);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 
 		public function toString():String

@@ -1,5 +1,6 @@
 package as3geometry.geom2D.polygons.intersection 
 {
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.util.PolygonHelper;
 
 	/**
@@ -12,6 +13,8 @@ package as3geometry.geom2D.polygons.intersection
 	internal class SortedPolygonVectors 
 	{
 		private const NULL_POSITION:int = -1;
+	
+		private var _context:AS3GeometryContext;
 		
 		private var helper:PolygonHelper;
 		
@@ -24,8 +27,9 @@ package as3geometry.geom2D.polygons.intersection
 		public var isBClockwise:Boolean;
 		public var bLength:uint;
 		
-		public function SortedPolygonVectors(expanded:ExpandedPolygonVectors)
+		public function SortedPolygonVectors(context:AS3GeometryContext, expanded:ExpandedPolygonVectors)
 		{
+			_context = context;
 			helper = new PolygonHelper();
 			
 			this.expanded = expanded;
@@ -133,7 +137,7 @@ package as3geometry.geom2D.polygons.intersection
 				vertex = onBCycle ? polygonB[i] : polygonA[i];
 			}
 			
-			return new IntersectionPolygon(vector);
+			return new IntersectionPolygon(_context, vector);
 		}
 
 		public function clearVisitedFlags(vector:Array):void

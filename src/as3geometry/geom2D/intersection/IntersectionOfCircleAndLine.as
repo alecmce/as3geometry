@@ -1,8 +1,7 @@
 package as3geometry.geom2D.intersection 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.VertexOnCircle;
@@ -14,7 +13,7 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfCircleAndLine extends AbstractMutable implements Mutable
+	public class IntersectionOfCircleAndLine extends Mutable implements Mutable
 	{
 		private var _circle:Circle;
 		private var _line:Line;
@@ -22,9 +21,9 @@ package as3geometry.geom2D.intersection
 		private var _first:CircleAndLineIntersectionVertex;
 		private var _second:CircleAndLineIntersectionVertex;
 
-		public function IntersectionOfCircleAndLine(circle:Circle, line:Line)
+		public function IntersectionOfCircleAndLine(context:AS3GeometryContext, circle:Circle, line:Line)
 		{
-			super();
+			super(context);
 			
 			_circle = circle;
 			addDefinien(_circle);
@@ -50,8 +49,7 @@ package as3geometry.geom2D.intersection
 			removeDefinien(_circle);
 			_circle = circle;
 			addDefinien(_circle);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get line():Line
@@ -67,8 +65,7 @@ package as3geometry.geom2D.intersection
 			removeDefinien(_line);
 			_line = line;
 			addDefinien(_line);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get first():VertexOnCircle
@@ -81,14 +78,6 @@ package as3geometry.geom2D.intersection
 			return _second;
 		}
 
-		override protected function onDefinienChanged(mutable:Mutable):void
-		{
-			mutable; // escape FDT warning
-			
-			update();
-			super.onDefinienChanged(this);
-		}
-		
 		private function update():void
 		{
 			var fx:Number = Number.NaN;			var fy:Number = Number.NaN;			var sx:Number = Number.NaN;			var sy:Number = Number.NaN;

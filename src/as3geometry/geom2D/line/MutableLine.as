@@ -1,8 +1,7 @@
 package as3geometry.geom2D.line 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.SpatialVector;
@@ -15,7 +14,7 @@ package as3geometry.geom2D.line
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableLine extends AbstractMutable implements Line, SpatialVector, Mutable
+	public class MutableLine extends Mutable implements Line, SpatialVector, Mutable
 	{
 		
 		private var _a:Vertex;
@@ -24,9 +23,9 @@ package as3geometry.geom2D.line
 		
 		private var _type:LineType;
 		
-		public function MutableLine(a:Vertex, b:Vertex, type:LineType = null)
+		public function MutableLine(context:AS3GeometryContext, a:Vertex, b:Vertex, type:LineType = null)
 		{
-			super();
+			super(context);
 			addDefinien(_a = a);
 			addDefinien(_b = b);
 			_type = type ? type : LineType.LINE;
@@ -45,8 +44,7 @@ package as3geometry.geom2D.line
 			removeDefinien(_a);
 			_a = a;
 			addDefinien(_a);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get b():Vertex
@@ -62,8 +60,7 @@ package as3geometry.geom2D.line
 			removeDefinien(_b);
 			_b = b;
 			addDefinien(_b);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 	
 		public function get i():Number

@@ -1,7 +1,7 @@
 package as3geometry.geom2D.polygons.intersection 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
 
@@ -26,25 +26,18 @@ package as3geometry.geom2D.polygons.intersection
 		
 		private var _bIndex:uint;
 
-		public function PotentialIntersectionVertex(a:Line, b:Line, aIndex:uint, bIndex:uint)
+		public function PotentialIntersectionVertex(context:AS3GeometryContext, a:Line, b:Line, aIndex:uint, bIndex:uint)
 		{
+			super(context);
+			
 			_intersection = new IntersectionOfTwoLinesVertex(a, b);
-			_intersection.changed.add(onVertexChanged);
+			context.invalidationManager.addDependency(_intersection, this);
 			
 			_changed = new Signal(Mutable);
 			_aIndex = aIndex;			_bIndex = bIndex;
 			
 			_realityChanged = new Signal(PotentialIntersectionVertex);
 			resolve();
-		}
-		
-		private function onVertexChanged(mutable:Mutable):void
-		{
-			mutable; // escape FDT warning
-			
-			_intersection.update();
-			resolve();
-			_changed.dispatch(this);
 		}
 		
 		private function resolve():void

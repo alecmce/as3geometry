@@ -1,8 +1,7 @@
 package as3geometry.geom2D.circle 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
 
@@ -13,15 +12,15 @@ package as3geometry.geom2D.circle
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableCircle extends AbstractMutable implements Circle, Mutable
+	public class MutableCircle extends Mutable implements Circle, Mutable
 	{
 		
 		private var _center:Vertex;
 		private var _radius:Number;
 		
-		public function MutableCircle(center:Vertex, radius:Number)
+		public function MutableCircle(context:AS3GeometryContext, center:Vertex, radius:Number)
 		{
-			super();
+			super(context);
 			
 			addDefinien(_center = center);
 			_radius = radius;
@@ -40,8 +39,7 @@ package as3geometry.geom2D.circle
 			removeDefinien(_center);
 			_center = value;
 			addDefinien(_center);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get radius():Number
@@ -55,7 +53,7 @@ package as3geometry.geom2D.circle
 				return;
 			
 			_radius = value;
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function toString():String

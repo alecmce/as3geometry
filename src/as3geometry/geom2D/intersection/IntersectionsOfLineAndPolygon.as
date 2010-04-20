@@ -1,8 +1,7 @@
 package as3geometry.geom2D.intersection 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Polygon;
@@ -18,7 +17,7 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionsOfLineAndPolygon extends AbstractMutable implements Mutable 
+	public class IntersectionsOfLineAndPolygon extends Mutable 
 	{
 
 		private var _polygon:Polygon;
@@ -27,11 +26,9 @@ package as3geometry.geom2D.intersection
 		private var _potential:Array;
 		private var _actual:Array;
 		
-		private var _invalidated:Boolean;
-		
-		public function IntersectionsOfLineAndPolygon(polygon:Polygon, line:Line)
+		public function IntersectionsOfLineAndPolygon(context:AS3GeometryContext, polygon:Polygon, line:Line)
 		{
-			super();
+			super(context);
 			
 			_polygon = polygon;
 			addDefinien(_polygon);
@@ -41,7 +38,7 @@ package as3geometry.geom2D.intersection
 
 			_potential = calculateVertices();
 			_actual = generateActuals();
-			resolveActuals();
+			resolve();
 		}
 				
 		public function get potentialIntersections():Array
@@ -51,50 +48,13 @@ package as3geometry.geom2D.intersection
 
 		public function get actualIntersections():Array
 		{
-			if (_invalidated)
-				update();
-			
 			return _actual;
 		}
-		
-		private function update():void
+
+		override public function resolve():void 
 		{
-			_invalidated = false;
-			resolveActuals();
-		}
-		
-		private function calculateVertices():Array
-		{
-			var count:int = _polygon.countVertices;
-			var vertices:Array = [];
+			super.resolve();
 			
-			var b:Vertex = _polygon.getVertex(count - 1);
-			for (var i:int = 0; i < count; i++)
-			{
-				var a:Vertex = _polygon.getVertex(i);
-				var edge:ImmutableLine = new ImmutableLine(a, b, LineType.SEGMENT);
-				var vertex:IntersectionOfTwoLinesVertex = new IntersectionOfTwoLinesVertex(edge, _line);
-				b = a;
-				
-				vertices[i] = vertex;
-			}
-				
-			return vertices;
-		}
-		
-		private function generateActuals():Array
-		{
-			var n:int = _potential.length;
-			var actuals:Array = [];
-			
-			while (--n > -1)
-				actuals[n] = new MutableVertex(Number.NaN, Number.NaN);
-				
-			return actuals;
-		}
-		
-		private function resolveActuals():void
-		{
 			var sorted:Array = _potential.sort(sortByMultipliers);
 			
 			var len:int = _potential.length;
@@ -117,6 +77,36 @@ package as3geometry.geom2D.intersection
 			}
 		}
 		
+		private function calculateVertices():Array
+		{
+			var count:int = _polygon.countVertices;
+			var vertices:Array = [];
+			
+			var b:Vertex = _polygon.getVertex(count - 1);
+			for (var i:int = 0; i < count; i++)
+			{
+				var a:Vertex = _polygon.getVertex(i);
+				var edge:ImmutableLine = new ImmutableLine(a, b, LineType.SEGMENT);
+				var vertex:IntersectionOfTwoLinesVertex = new IntersectionOfTwoLinesVertex(context, edge, _line);
+				b = a;
+				
+				vertices[i] = vertex;
+			}
+				
+			return vertices;
+		}
+		
+		private function generateActuals():Array
+		{
+			var n:int = _potential.length;
+			var actuals:Array = [];
+			
+			while (--n > -1)
+				actuals[n] = new MutableVertex(Number.NaN, Number.NaN);
+				
+			return actuals;
+		}
+		
 		private function sortByMultipliers(a:IntersectionOfTwoLinesVertex, b:IntersectionOfTwoLinesVertex):int
 		{
 			var aN:Number = a.bMultiplier;			var bN:Number = b.bMultiplier;
@@ -137,12 +127,6 @@ package as3geometry.geom2D.intersection
 			
 			return 0;
 		}
-		
-		override protected function onDefinienChanged(mutable:Mutable):void
-		{
-			_invalidated = true;
-			_changed.dispatch(mutable);
-		}
-		
+
 	}
 }

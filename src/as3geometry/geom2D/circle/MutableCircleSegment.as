@@ -1,8 +1,7 @@
 package as3geometry.geom2D.circle 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.VertexOnCircle;
@@ -16,7 +15,7 @@ package as3geometry.geom2D.circle
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableCircleSegment extends AbstractMutable implements CircleSegment
+	public class MutableCircleSegment extends Mutable implements CircleSegment
 	{
 		private static const TWOPI:Number = Math.PI * 2;
 		
@@ -27,12 +26,12 @@ package as3geometry.geom2D.circle
 		
 		private var _isRight:Boolean;
 		
-		private var _invalidated:Boolean;
-		
 		private var _angle:Number;
 		
-		public function MutableCircleSegment(from:VertexOnCircle, to:VertexOnCircle, isRight:Boolean)
+		public function MutableCircleSegment(context:AS3GeometryContext, from:VertexOnCircle, to:VertexOnCircle, isRight:Boolean)
 		{
+			super(context);
+			
 			if (from.circle != to.circle)
 				throw new SegmentDefinitionError("The from and to vertices must lie on the same circle");
 
@@ -41,7 +40,7 @@ package as3geometry.geom2D.circle
 			
 			_isRight = isRight;
 			_helper = new AngleHelper();
-			update();
+			resolve();
 		}
 		
 		public function get from():VertexOnCircle
@@ -58,7 +57,7 @@ package as3geometry.geom2D.circle
 				throw new SegmentDefinitionError("The from and to vertices must lie on the same circle");
 			
 			_from = from;
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get to():VertexOnCircle
@@ -75,28 +74,17 @@ package as3geometry.geom2D.circle
 				throw new SegmentDefinitionError("The from and to vertices must lie on the same circle");
 			
 			_to = to;
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get angle():Number
 		{
-			if (_invalidated)
-				update();
-				
 			return _angle;
 		}
 
-		override protected function onDefinienChanged(mutable:Mutable):void
+		override public function resolve():void 
 		{
-			mutable; // ignore
-			
-			_invalidated = true;
-			_changed.dispatch(this);
-		}
-		
-		private function update():void
-		{
-			_invalidated = false;
+			super.resolve();
 			
 			if (isNaN(_from.x) || isNaN(_from.y) || isNaN(_to.x) || isNaN(_to.y))
 			{

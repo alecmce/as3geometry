@@ -1,5 +1,6 @@
 package as3geometry.geom2D.intersection 
 {
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Polygon;
@@ -20,11 +21,18 @@ package as3geometry.geom2D.intersection
 	 */
 	public class IntersectionsOfLineAndPolygonTest 
 	{
+		private var context:AS3GeometryContext;
 		
 		private var line:Line;
 		private var polygon:Polygon;
 		private var intersections:IntersectionsOfLineAndPolygon;
 		
+		[Before]
+		public function before():void
+		{
+			context = new AS3GeometryContext();
+		}
+
 		[After]
 		public function tearDown():void
 		{
@@ -41,7 +49,7 @@ package as3geometry.geom2D.intersection
 			var a:Vertex = new ImmutableVertex(0, 5);			var b:Vertex = new ImmutableVertex(10, 5);
 			line = new ImmutableLine(a, b);
 			
-			intersections = new IntersectionsOfLineAndPolygon(polygon, line);
+			intersections = new IntersectionsOfLineAndPolygon(context, polygon, line);
 			var vertices:Array = intersections.actualIntersections;
 			
 			a = vertices[0];
@@ -60,7 +68,7 @@ package as3geometry.geom2D.intersection
 			var b:Vertex = new ImmutableVertex(5, 10);
 			line = new ImmutableLine(a, b);
 			
-			intersections = new IntersectionsOfLineAndPolygon(polygon, line);
+			intersections = new IntersectionsOfLineAndPolygon(context, polygon, line);
 			var vertices:Array = intersections.actualIntersections;
 			
 			a = vertices[0];
@@ -82,7 +90,7 @@ package as3geometry.geom2D.intersection
 			var b:Vertex = new ImmutableVertex(4, 4);
 			line = new ImmutableLine(a, b, LineType.SEGMENT);
 			
-			intersections = new IntersectionsOfLineAndPolygon(polygon, line);
+			intersections = new IntersectionsOfLineAndPolygon(context, polygon, line);
 			var vertices:Array = intersections.actualIntersections;
 			
 			a = vertices[0];

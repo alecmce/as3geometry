@@ -1,8 +1,7 @@
 package as3geometry.geom2D.angle 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Angle;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.util.AngleHelper;
@@ -14,7 +13,7 @@ package as3geometry.geom2D.angle
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableAngleFromVectors extends AbstractMutable implements Angle
+	public class MutableAngleFromVectors extends Mutable implements Angle
 	{
 		private var _helper:AngleHelper;
 		
@@ -25,14 +24,13 @@ package as3geometry.geom2D.angle
 		
 		private var _degrees:Number;
 		
-		public function MutableAngleFromVectors(a:SpatialVector, b:SpatialVector)
+		public function MutableAngleFromVectors(context:AS3GeometryContext, a:SpatialVector, b:SpatialVector)
 		{
-			super();
-			
+			super(context);
 			addDefinien(_a = a);			addDefinien(_b = b);
 			
 			_helper = new AngleHelper();
-			recalculate();
+			resolve();
 		}
 		
 		public function get radians():Number
@@ -58,8 +56,7 @@ package as3geometry.geom2D.angle
 			removeDefinien(_a);
 			_a = a;
 			addDefinien(_a);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get b():SpatialVector
@@ -75,19 +72,12 @@ package as3geometry.geom2D.angle
 			removeDefinien(_b);
 			_b = b;
 			addDefinien(_b);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 
-		override protected function onDefinienChanged(mutable:Mutable):void
+		override public function resolve():void 
 		{
-			recalculate();
-			super.onDefinienChanged(mutable);
-		}
-		
-		
-		private function recalculate():void
-		{
+			super.resolve();
 			_radians = _helper.directedAngleFromVectors(_a.i, _a.j, _b.i, _b.j);
 			_degrees = _helper.toDegrees(_radians);
 		}

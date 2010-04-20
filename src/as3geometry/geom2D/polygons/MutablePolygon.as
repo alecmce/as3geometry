@@ -1,8 +1,7 @@
 package as3geometry.geom2D.polygons 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Polygon;
@@ -17,16 +16,16 @@ package as3geometry.geom2D.polygons
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutablePolygon extends AbstractMutable implements Polygon, Mutable
+	public class MutablePolygon extends Mutable implements Polygon, Mutable
 	{
 		
 		protected var _vertices:Array;
 		
 		private var _edges:Array;
 		
-		public function MutablePolygon(vertices:Array)
+		public function MutablePolygon(context:AS3GeometryContext, vertices:Array)
 		{
-			super();
+			super(context);
 			
 			_vertices = vertices.concat();
 			_edges = [];

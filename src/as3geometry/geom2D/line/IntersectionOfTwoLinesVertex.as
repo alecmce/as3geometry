@@ -1,8 +1,7 @@
 package as3geometry.geom2D.line 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.SpatialVector;
 	import as3geometry.geom2D.Vertex;
@@ -20,7 +19,7 @@ package as3geometry.geom2D.line
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfTwoLinesVertex extends AbstractMutable implements Vertex, Mutable
+	public class IntersectionOfTwoLinesVertex extends Mutable implements Vertex, Mutable
 	{
 		
 		private var _a:Line;
@@ -32,12 +31,12 @@ package as3geometry.geom2D.line
 		
 		protected var _invalidated:Boolean;
 		
-		public function IntersectionOfTwoLinesVertex(a:Line, b:Line)
+		public function IntersectionOfTwoLinesVertex(context:AS3GeometryContext, a:Line, b:Line)
 		{
-			super();
+			super(context);
 			addDefinien(_a = a);			addDefinien(_b = b);
 			
-			calculateIntersection();
+			resolve();
 		}
 		
 		public function get a():Line
@@ -53,8 +52,7 @@ package as3geometry.geom2D.line
 			removeDefinien(_a);
 			_a = a;
 			addDefinien(_a);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get b():Line
@@ -70,56 +68,39 @@ package as3geometry.geom2D.line
 			removeDefinien(_b);
 			_b = b;
 			addDefinien(_b);
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get x():Number
 		{
-			if (_invalidated)
-				update();
-			
 			return _x;
 		}
 		
 		public function get y():Number
 		{
-			if (_invalidated)
-				update();
-			
 			return _y;
 		}
 		
 		public function get aMultiplier():Number
 		{
-			if (_invalidated)
-				update();
-			
 			return _aMultiplier;
 		}
 		
 		public function get bMultiplier():Number
 		{
-			if (_invalidated)
-				update();
-			
 			return _bMultiplier;
 		}
-		
-		
-		public function update():void
-		{
-			_invalidated = false;
-			calculateIntersection();
-		}
+
 		
 		/**
 		 * calculate the intersection of the two lines a and b. If there is no
 		 * intersection abort the calculation, which will leave the values of x
 		 * and y as Number.NaN
 		 */
-		private function calculateIntersection():void
+		override public function resolve():void 
 		{
+			super.resolve();
+
 			_x = Number.NaN;
 			_y = Number.NaN;
 			
@@ -165,12 +146,6 @@ package as3geometry.geom2D.line
 				_bMultiplier = (_a.a.x - _b.a.x + aVector.i * _aMultiplier) / bVector.i;
 			else
 				_bMultiplier = (_a.a.y - _b.a.y + aVector.j * _aMultiplier) / bVector.j;
-		}
-		
-		override protected function onDefinienChanged(mutable:Mutable):void
-		{
-			_invalidated = true;
-			_changed.dispatch(mutable);
 		}
 	}
 }

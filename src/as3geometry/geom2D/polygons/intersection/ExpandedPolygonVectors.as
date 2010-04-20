@@ -1,5 +1,6 @@
 package as3geometry.geom2D.polygons.intersection 
 {
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
@@ -17,6 +18,8 @@ package as3geometry.geom2D.polygons.intersection
 	{
 		private static const NULL_POSITION:int = -1;
 		
+		private var _context:AS3GeometryContext;
+		
 		private var _a:Polygon;
 		private var _aCount:uint;
 		
@@ -28,8 +31,10 @@ package as3geometry.geom2D.polygons.intersection
 		public var polygonA:Array;
 		public var polygonB:Array;
 
-		public function ExpandedPolygonVectors(a:Polygon, b:Polygon)
+		public function ExpandedPolygonVectors(context:AS3GeometryContext, a:Polygon, b:Polygon)
 		{
+			_context = context;
+			
 			_a = a;
 			_aCount = _a.countVertices;
 			
@@ -68,7 +73,7 @@ package as3geometry.geom2D.polygons.intersection
 					var aEdge:Line = _a.getEdge(ai);
 					var bEdge:Line = _b.getEdge(bi);
 					
-					var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(aEdge, bEdge, ai, bi);
+					var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(_context, aEdge, bEdge, ai, bi);
 					edgeIntersection.realityChanged.add(onRealityOfIntersectionChanged);
 				
 					polygonA.push(edgeIntersection);
@@ -86,7 +91,7 @@ package as3geometry.geom2D.polygons.intersection
 			{
 				var bEdge:Line = _b.getEdge(bi);
 				
-				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(aEdge, bEdge, ai, bi);
+				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(_context, aEdge, bEdge, ai, bi);
 			
 				polygonA.push(edgeIntersection);
 				polygonB.push(edgeIntersection);
@@ -109,8 +114,8 @@ package as3geometry.geom2D.polygons.intersection
 			{
 				var aEdge:Line = _a.getEdge(ai);
 				
-				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(aEdge, bEdge, ai, bi);
-			
+				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(_context, aEdge, bEdge, ai, bi);
+				
 				polygonA.push(edgeIntersection);
 				polygonB.push(edgeIntersection);
 			}

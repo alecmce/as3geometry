@@ -1,8 +1,8 @@
 package as3geometry.geom2D.polygons.intersection 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.AbstractMutableAdditiveCollection;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.CollectionOfPolygons;
 	import as3geometry.geom2D.Polygon;
 
@@ -26,9 +26,9 @@ package as3geometry.geom2D.polygons.intersection
 		private var _polygonCount:uint;
 		private var _polygons:Array;
 				
-		public function IntersectionOfTwoPolygons(a:Polygon, b:Polygon)
+		public function IntersectionOfTwoPolygons(context:AS3GeometryContext, a:Polygon, b:Polygon)
 		{
-			super(Polygon);
+			super(context, Polygon);
 			
 			addDefinien(_a = a);
 			addDefinien(_b = b);			

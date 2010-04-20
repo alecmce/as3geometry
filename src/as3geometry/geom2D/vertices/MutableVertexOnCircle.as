@@ -1,8 +1,7 @@
 package as3geometry.geom2D.vertices 
 {
-	import alecmce.invalidation.Mutable;
-
-	import as3geometry.abstract.AbstractMutable;
+	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.VertexOnCircle;
 
@@ -13,17 +12,16 @@ package as3geometry.geom2D.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableVertexOnCircle extends AbstractMutable implements VertexOnCircle
+	public class MutableVertexOnCircle extends Mutable implements VertexOnCircle
 	{
-
 		private var _circle:Circle;
-		
 		private var _angle:Number;
 		
 		private var _x:Number;		private var _y:Number;
 
-		public function MutableVertexOnCircle(circle:Circle, angle:Number)
+		public function MutableVertexOnCircle(context:AS3GeometryContext, circle:Circle, angle:Number)
 		{
+			super(context);
 			addDefinien(_circle = circle);
 			_angle = angle;
 		}
@@ -44,8 +42,7 @@ package as3geometry.geom2D.vertices
 				return;
 			
 			_angle = value;
-			update();
-			_changed.dispatch(this);
+			invalidate();
 		}
 
 		public function get x():Number
@@ -58,16 +55,11 @@ package as3geometry.geom2D.vertices
 			return _y;
 		}
 
-		override protected function onDefinienChanged(mutable:Mutable):void
+		override public function resolve():void 
 		{
-			update();
-			super.onDefinienChanged(mutable);
-		}
-
-		private function update():void
-		{
-			var radius:Number = _circle.radius;
+			super.resolve();
 			
+			var radius:Number = _circle.radius;
 			_x = radius * Math.cos(_angle);			_y = radius * Math.sin(_angle);
 		}
 	}

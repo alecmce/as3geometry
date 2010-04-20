@@ -1,23 +1,34 @@
 package as3geometry.geom2D.intersection 
 {
-	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
-	import as3geometry.geom2D.vertices.ImmutableVertex;
 	import as3geometry.geom2D.line.ImmutableLine;
+	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
+	import as3geometry.geom2D.vertices.ImmutableVertex;
 
 	import asunit.asserts.assertEquals;
 	import asunit.asserts.assertTrue;
 
 	public class IntersectionOfTwoLinesVertexTest
 	{
+		private var context:AS3GeometryContext;
+		
 		private var a:Line;
 		private var b:Line;
 		private var vertex:IntersectionOfTwoLinesVertex;
 
+		[Before]
+		public function before():void
+		{
+			context = new AS3GeometryContext();
+		}
+
 		[After]
 		public function tearDown():void
 		{
+			context = null;
+			
 			a = null;			b = null;			vertex = null;
 		}
 		
@@ -104,13 +115,13 @@ package as3geometry.geom2D.intersection
 		
 		private function resolve(x:Number, y:Number):void
 		{
-			vertex = new IntersectionOfTwoLinesVertex(a, b);
+			vertex = new IntersectionOfTwoLinesVertex(context, a, b);
 			assertEquals(x, vertex.x);			assertEquals(y, vertex.y);
 		}
 		
 		private function resolveNoIntersection():void
 		{
-			vertex = new IntersectionOfTwoLinesVertex(a, b);
+			vertex = new IntersectionOfTwoLinesVertex(context, a, b);
 			assertTrue(isNaN(vertex.x));
 			assertTrue(isNaN(vertex.y));
 		}
