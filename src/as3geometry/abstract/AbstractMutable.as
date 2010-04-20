@@ -18,7 +18,7 @@ package as3geometry.abstract
 
 		public function AbstractMutable()
 		{
-			_changed = new Signal(Mutable);
+			_changed = new Signal();
 		}
 
 		protected function addDefinien(definien:*):void

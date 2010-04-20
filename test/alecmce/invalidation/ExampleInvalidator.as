@@ -1,18 +1,18 @@
 package alecmce.invalidation 
 {
-	import alecmce.invalidation.signals.ChangedSignal;
+	import org.osflash.signals.Signal;
 
 	public class ExampleInvalidator implements Invalidates
 	{
 		private var _id:String;
 		private var _isInvalid:Boolean;
-		private var _changed:ChangedSignal;
+		private var _changed:Signal;
 
 		public function ExampleInvalidator(id:String) 
 		{
 			_id = id;
 			_isInvalid = false;
-			_changed = new ChangedSignal();
+			_changed = new Signal();
 		}
 
 		public function invalidate():void
@@ -24,7 +24,12 @@ package alecmce.invalidation
 			_changed.dispatch(this);
 		}
 
-		public function get changed():ChangedSignal
+		public function get changed():Signal
+		{
+			return _changed;
+		}
+		
+		public function get invalidated():Signal
 		{
 			return _changed;
 		}

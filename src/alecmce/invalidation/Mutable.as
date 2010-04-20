@@ -1,6 +1,6 @@
 package alecmce.invalidation
 {
-	import alecmce.invalidation.signals.ChangedSignal;
+	import org.osflash.signals.Signal;
 
 	/**
 	 * An interface which all mutable elements should implement
@@ -15,7 +15,7 @@ package alecmce.invalidation
 		/**
 		 * @return A signal that emits when a core property of the object is changed
 		 */
-		function get changed():ChangedSignal;
+		function get changed():Signal;
 			
 	}
 }

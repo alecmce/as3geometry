@@ -33,7 +33,7 @@ package as3geometry.geom2D.ui.vertices
 		
 		public function UIVertex(paint:Paint = null, radius:uint = 4)
 		{
-			_changed = new Signal(Mutable);
+			_changed = new Signal();
 			
 			_paint = paint ? paint : DEFAULT_PAINT;
 			_radius = radius;

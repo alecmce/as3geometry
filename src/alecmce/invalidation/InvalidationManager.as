@@ -33,7 +33,7 @@ package alecmce.invalidation
 			for (var i:uint = 0; i < len; i++)
 				removeDependencyVO(vo, dependees[i]);
 			
-			invalidator.changed.remove(onInvalidation);
+			invalidator.invalidated.remove(onInvalidation);
 			delete _members[invalidator];
 		}
 
@@ -118,7 +118,7 @@ package alecmce.invalidation
 			if (vo)
 				return vo;
 				
-			invalidates.changed.add(onInvalidation);
+			invalidates.invalidated.add(onInvalidation);
 			_members[invalidates] = vo = new InvalidatesVO(invalidates);
 			return vo;
 		}
