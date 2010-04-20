@@ -1,7 +1,6 @@
 package as3geometry.geom2D.circle 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.abstract.Mutable;
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
@@ -16,7 +15,6 @@ package as3geometry.geom2D.circle
 	 */
 	public class ImmutableCircle implements Circle
 	{
-		
 		
 		/*********************************************************************/
 		// Member Variables
@@ -60,7 +58,6 @@ package as3geometry.geom2D.circle
 			return _center;
 		}
 		
-		
 		/**
 		 * @return The radius of the circle
 		 */
@@ -68,7 +65,6 @@ package as3geometry.geom2D.circle
 		{
 			return _radius;
 		}
-		
 		
 		/**
 		 * @return A user-readable string describing this circle

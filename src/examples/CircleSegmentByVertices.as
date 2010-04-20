@@ -12,8 +12,6 @@ package examples
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
 
-	import flash.display.Sprite;
-
 	/**
 	 * UI test verifies MutableVertexOnCircle class
 	 * 
@@ -21,7 +19,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class CircleSegmentByVertices extends Sprite 
+	public class CircleSegmentByVertices extends ExampleBaseSprite 
 	{
 		private var vertexPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
@@ -42,13 +40,9 @@ package examples
 		
 		private var leftSegment:CircleSegment;
 		private var leftSegmentDrawer:CircleSegmentDrawer;
+
 		
-		public function CircleSegmentByVertices()
-		{
-			init();
-		}
-		
-		private function init():void
+		override protected function init():void 
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			circlePaint = new SolidPaint(0x0, 0xFF000000, 2);
@@ -56,32 +50,32 @@ package examples
 			
 			dragMechanism = new DragMechanism();
 			
-			a = new UIVertex(vertexPaint);
+			a = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(a);
 			a.x = 275;
 			a.y = 200;
 			
-			b = new UIVertex(vertexPaint);
+			b = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(b);
 			b.x = 450;
 			b.y = 180;
 			
-			circle = new MutableCircleWithRadialVertex(a, b);
-			circleDrawer = new CircleDrawer(circle, circlePaint);
+			circle = new MutableCircleWithRadialVertex(_context, a, b);
+			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
 			
-			c = new UIVertexOnCircle(circle, Math.PI * 0.2, vertexPaint);
+			c = new UIVertexOnCircle(_context, circle, Math.PI * 0.2, vertexPaint);
 			c.angle = Math.PI;
 			dragMechanism.apply(c);
 			
-			d = new UIVertexOnCircle(circle, Math.PI, vertexPaint);
+			d = new UIVertexOnCircle(_context, circle, Math.PI, vertexPaint);
 			d.angle = Math.PI / 2;
 			dragMechanism.apply(d);
 			
-			rightSegment = new MutableCircleSegment(c, d, true);
-			rightSegmentDrawer = new CircleSegmentDrawer(rightSegment, rightSegmentPaint);
+			rightSegment = new MutableCircleSegment(_context, c, d, true);
+			rightSegmentDrawer = new CircleSegmentDrawer(_context, rightSegment, rightSegmentPaint);
 			
-			leftSegment = new MutableCircleSegment(c, d, false);
-			leftSegmentDrawer = new CircleSegmentDrawer(leftSegment, leftSegmentPaint);
+			leftSegment = new MutableCircleSegment(_context, c, d, false);
+			leftSegmentDrawer = new CircleSegmentDrawer(_context, leftSegment, leftSegmentPaint);
 			
 			addChild(circleDrawer);
 			addChild(rightSegmentDrawer);			addChild(leftSegmentDrawer);

@@ -19,7 +19,7 @@ package as3geometry.geom2D.line
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfTwoLinesVertex extends Mutable implements Vertex, Mutable
+	public class IntersectionOfTwoLinesVertex extends Mutable implements Vertex
 	{
 		
 		private var _a:Line;

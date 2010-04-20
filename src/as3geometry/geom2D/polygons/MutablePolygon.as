@@ -16,7 +16,7 @@ package as3geometry.geom2D.polygons
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutablePolygon extends Mutable implements Polygon, Mutable
+	public class MutablePolygon extends Mutable implements Polygon
 	{
 		
 		protected var _vertices:Array;
@@ -63,7 +63,7 @@ package as3geometry.geom2D.polygons
 			{
 				var a:Vertex = getVertex(index);
 				var b:Vertex = getVertex(index + 1 == _vertices.length ? 0 : index + 1);
-				_edges[index] = edge = new MutableLine(a, b, LineType.SEGMENT);
+				_edges[index] = edge = new MutableLine(context, a, b, LineType.SEGMENT);
 			}
 			
 			return edge;

@@ -1,7 +1,6 @@
 package as3geometry.geom2D.line 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.abstract.Mutable;
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;

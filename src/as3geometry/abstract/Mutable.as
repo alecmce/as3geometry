@@ -30,21 +30,20 @@ package as3geometry.abstract
 
 		protected function addDefinien(definien:*):void
 		{
-			var abstract:Mutable = definien;
-			if (abstract)
-				_context.invalidationManager.addDependency(abstract, this);
+			if (definien && definien is Invalidates)
+				_context.invalidationManager.addDependency(Invalidates(definien), this);
 		}
 
 		protected function removeDefinien(definien:*):void
 		{
-			var abstract:Mutable = definien;
-			if (abstract)
-				_context.invalidationManager.removeDependency(abstract, this);
+			if (definien && definien is Invalidates)
+				_context.invalidationManager.removeDependency(Invalidates(definien), this);
 		}
 		
 		public function invalidate():void
 		{
 			_isInvalidated = true;
+			_invalidated.dispatch(this);
 		}
 		
 		public function resolve():void

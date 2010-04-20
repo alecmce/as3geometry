@@ -12,7 +12,7 @@ package as3geometry.geom2D.polygons
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableTriangle extends Mutable implements Triangle, Mutable
+	public class MutableTriangle extends Mutable implements Triangle
 	{
 		private var _a:Vertex;
 		private var _b:Vertex;

@@ -10,8 +10,11 @@ package as3geometry.geom2D.intersection
 	import asunit.asserts.assertEquals;
 	import asunit.asserts.assertTrue;
 
+	import flash.display.Sprite;
+
 	public class IntersectionOfTwoLinesVertexTest
 	{
+		private var root:Sprite;
 		private var context:AS3GeometryContext;
 		
 		private var a:Line;
@@ -21,7 +24,8 @@ package as3geometry.geom2D.intersection
 		[Before]
 		public function before():void
 		{
-			context = new AS3GeometryContext();
+			root = new Sprite();
+			context = new AS3GeometryContext(root);
 		}
 
 		[After]

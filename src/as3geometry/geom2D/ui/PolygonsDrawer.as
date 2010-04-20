@@ -1,8 +1,10 @@
 package as3geometry.geom2D.ui 
 {
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.AdditiveCollection;
-	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.CollectionOfPolygons;
+	import as3geometry.geom2D.Polygon;
+	import as3geometry.geom2D.ui.generic.UIDrawer;
 
 	import ui.Paint;
 
@@ -15,21 +17,20 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class PolygonsDrawer extends GeneralDrawer
+	public class PolygonsDrawer extends UIDrawer
 	{
 		
 		private var _polygons:CollectionOfPolygons;
 
 		private var _drawers:Dictionary;
 		
-		public function PolygonsDrawer(polygons:CollectionOfPolygons, paint:Paint = null)
+		public function PolygonsDrawer(context:AS3GeometryContext, polygons:CollectionOfPolygons, paint:Paint = null)
 		{
-			_polygons = polygons;
-			addAdditiveListeners(_polygons);
-			
+			super(context, paint);
 			_drawers = new Dictionary();
-			
-			super(paint);
+
+			addDefinien(_polygons = polygons);
+			addAdditiveListeners(_polygons);
 			generateDrawersForExistingPolygons();
 		}
 		
@@ -71,7 +72,7 @@ package as3geometry.geom2D.ui
 		
 		private function createPolygonDrawer(polygon:Polygon):void
 		{
-			var drawer:PolygonDrawer = new PolygonDrawer(polygon, _paint);
+			var drawer:PolygonDrawer = new PolygonDrawer(context, polygon, paint);
 			
 			addChild(drawer);
 			_drawers[polygon] = drawer;

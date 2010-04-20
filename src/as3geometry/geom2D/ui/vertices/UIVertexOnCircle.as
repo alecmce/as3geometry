@@ -1,19 +1,13 @@
 package as3geometry.geom2D.ui.vertices 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.VertexOnCircle;
-	import as3geometry.geom2D.ui.DEFAULT_PAINT;
+	import as3geometry.geom2D.ui.generic.UIMutableSprite;
 	import as3geometry.geom2D.util.AngleHelper;
 
 	import ui.Paint;
-
-	import org.osflash.signals.Signal;
-
-	import flash.display.Sprite;
-	import flash.events.Event;
 
 	/**
 	 * 
@@ -22,7 +16,7 @@ package as3geometry.geom2D.ui.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class UIVertexOnCircle extends Sprite implements VertexOnCircle, Mutable
+	public class UIVertexOnCircle extends UIMutableSprite implements VertexOnCircle
 	{
 		private var _circle:Circle;
 		
@@ -34,29 +28,16 @@ package as3geometry.geom2D.ui.vertices
 		
 		private var _radius:uint;
 		
-		private var _paint:Paint;
-		
 		private var _angle:Number;
 		
-		private var _changed:Signal;
-		
-		public function UIVertexOnCircle(circle:Circle, angle:Number, paint:Paint = null, radius:uint = 4)
+		public function UIVertexOnCircle(context:AS3GeometryContext, circle:Circle, angle:Number, paint:Paint = null, radius:uint = 4)
 		{
-			_changed = new Signal(Mutable);
-			
-			_circle = circle;
-			if (_circle is Mutable)
-				Mutable(_circle).changed.add(onCircleChanged);
-			
+			super(context, paint);
+			addDefinien(_circle = circle);
 			_angle = angle;
 			_helper = new AngleHelper();
-			
-			_paint = paint ? paint : DEFAULT_PAINT;
 			_radius = radius;
-			redraw();
-			
-			super.x = Math.cos(_angle) * _circle.radius;
-			super.y = Math.sin(_angle) * _circle.radius;
+			invalidate();
 		}
 
 		override public function set x(value:Number):void
@@ -65,8 +46,7 @@ package as3geometry.geom2D.ui.vertices
 				return;
 			
 			_tempX = value;
-			addEventListener(Event.ENTER_FRAME, calculate, false, 100);
-			_changed.dispatch(this);
+			invalidate();
 		}
 
 		override public function set y(value:Number):void
@@ -75,38 +55,7 @@ package as3geometry.geom2D.ui.vertices
 				return;
 			
 			_tempY = value;
-			addEventListener(Event.ENTER_FRAME, calculate, false, 100);			_changed.dispatch(this);
-		}
-
-		private function calculate(event:Event):void
-		{
-			removeEventListener(Event.ENTER_FRAME, calculate);
-			
-			var center:Vertex = _circle.center;
-			var radius:Number = _circle.radius;
-			
-			var cx:Number = center.x;
-			var cy:Number = center.y;
-			
-			_angle = Math.atan2(_tempY - cy, _tempX - cx);
-						super.x = cx + Math.cos(_angle) * radius;
-			super.y = cy + Math.sin(_angle) * radius;
-			
-		}
-		
-		private function onCircleChanged(mutable:Mutable):void
-		{
-			mutable; // escape FDT warning
-			
-			var center:Vertex = _circle.center;
-			var radius:Number = _circle.radius;
-			
-			_angle = Math.atan2(y - center.y, x - center.x);
-			
-			super.x = center.x + Math.cos(_angle) * radius;
-			super.y = center.y + Math.sin(_angle) * radius;
-			
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get circle():Circle
@@ -119,22 +68,6 @@ package as3geometry.geom2D.ui.vertices
 			return _angle;
 		}
 		
-		private function redraw(event:Event = null):void
-		{
-			removeEventListener(Event.ENTER_FRAME, redraw);
-			
-			graphics.clear();
-			
-			_paint.beginPaint(graphics);
-			graphics.drawCircle(0, 0, _radius);
-			_paint.endPaint(graphics);
-		}
-		
-		public function get changed():Signal
-		{
-			return _changed;
-		}
-		
 		public function set angle(angle:Number):void
 		{
 			_angle = angle;
@@ -145,7 +78,30 @@ package as3geometry.geom2D.ui.vertices
 			super.x = center.x + Math.cos(_angle) * radius;
 			super.y = center.y + Math.sin(_angle) * radius;
 
-			_changed.dispatch(this);
+			invalidate();
 		}
+
+		override public function resolve():void 
+		{
+			super.resolve();
+
+			var center:Vertex = _circle.center;
+			var radius:Number = _circle.radius;
+			
+			var cx:Number = center.x;
+			var cy:Number = center.y;
+			
+			_angle = Math.atan2(_tempY - cy, _tempX - cx);
+			
+			super.x = cx + Math.cos(_angle) * radius;
+			super.y = cy + Math.sin(_angle) * radius;
+
+			var p:Paint = paint;
+			graphics.clear();
+			p.beginPaint(graphics);
+			graphics.drawCircle(0, 0, _radius);
+			p.endPaint(graphics);
+		}
+		
 	}
 }

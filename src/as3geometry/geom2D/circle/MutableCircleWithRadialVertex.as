@@ -12,7 +12,7 @@ package as3geometry.geom2D.circle
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableCircleWithRadialVertex extends Mutable implements Circle, Mutable
+	public class MutableCircleWithRadialVertex extends Mutable implements Circle
 	{
 		private var _center:Vertex;
 		private var _radial:Vertex;

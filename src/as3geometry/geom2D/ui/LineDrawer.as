@@ -1,7 +1,7 @@
 package as3geometry.geom2D.ui 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.geom2D.ui.generic.UIDrawer;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Vertex;
@@ -18,25 +18,22 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class LineDrawer extends GeneralDrawer
+	public class LineDrawer extends UIDrawer
 	{
 		
 		private var _line:Line;
 		
 		private var _diagonal:Number;
 		
-		public function LineDrawer(line:Line, paint:Paint = null)
+		public function LineDrawer(context:AS3GeometryContext, line:Line, paint:Paint = null)
 		{
-			_line = line;
-			if (_line is Mutable)
-				Mutable(_line).changed.add(onDefinienChanged);
+			super(context, paint);
+			addDefinien(_line = line);
 			
 			if (stage)
 				_diagonal = calculateDiagonal();
 			else
 				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
-			super(paint);
 		}
 		
 		private function onAddedToStage(event:Event):void
@@ -63,15 +60,9 @@ package as3geometry.geom2D.ui
 			if (_line == value)
 				return;
 			
-			if (_line is Mutable)
-				Mutable(_line).changed.remove(onDefinienChanged);
-			
-			_line = value;
-			
-			if (_line is Mutable)
-				Mutable(_line).changed.add(onDefinienChanged);
-				
-			addEventListener(Event.ENTER_FRAME, redraw);
+			removeDefinien(_line);
+			addDefinien(_line = value);
+			invalidate();
 		}
 
 		override protected function draw():void

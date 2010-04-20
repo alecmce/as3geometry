@@ -3,18 +3,16 @@ package examples
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.LineType;
-	import as3geometry.geom2D.intersection.IntersectionOfCircleAndLine;
 	import as3geometry.geom2D.circle.MutableCircleWithRadialVertex;
+	import as3geometry.geom2D.intersection.IntersectionOfCircleAndLine;
 	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.ui.CircleDrawer;
 	import as3geometry.geom2D.ui.LineDrawer;
-	import as3geometry.geom2D.ui.vertices.UIVertex;
 	import as3geometry.geom2D.ui.VertexDrawer;
+	import as3geometry.geom2D.ui.vertices.UIVertex;
 
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
-
-	import flash.display.Sprite;
 
 	/**
 	 * UI test verifies IntersectionOfCircleAndLine class
@@ -23,7 +21,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectCircleAndLine extends Sprite 
+	public class IntersectCircleAndLine extends ExampleBaseSprite 
 	{
 		private var vertexPaint:SolidPaint;
 		private var intersectionPaint:SolidPaint;
@@ -45,12 +43,7 @@ package examples
 		
 		private var n:VertexDrawer;		private var m:VertexDrawer;
 		
-		public function IntersectCircleAndLine()
-		{
-			init();
-		}
-		
-		private function init():void
+		override protected function init():void
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			circlePaint = new SolidPaint(0x66FFEE00, 0xFF0000CD, 2);
@@ -58,34 +51,34 @@ package examples
 			
 			dragMechanism = new DragMechanism();
 			
-			a = new UIVertex(vertexPaint);
+			a = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(a);
 			a.x = 80;
 			a.y = 200;
 			
-			b = new UIVertex(vertexPaint);
+			b = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(b);
 			b.x = 400;
 			b.y = 180;
 			
-			c = new UIVertex(vertexPaint);
+			c = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(c);
 			c.x = 300;
 			c.y = 140;
 			
-			d = new UIVertex(vertexPaint);
+			d = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(d);
 			d.x = 340;
 			d.y = 260;
 			
-			line = new MutableLine(a, b, LineType.SEGMENT);
-			lineDrawer = new LineDrawer(line);
+			line = new MutableLine(_context, a, b, LineType.SEGMENT);
+			lineDrawer = new LineDrawer(_context, line);
 			
-			circle = new MutableCircleWithRadialVertex(c, d);
-			circleDrawer = new CircleDrawer(circle, circlePaint);
+			circle = new MutableCircleWithRadialVertex(_context, c, d);
+			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
 			
-			intersections = new IntersectionOfCircleAndLine(circle, line);
-			n = new VertexDrawer(intersections.first, 5, intersectionPaint);			m = new VertexDrawer(intersections.second, 5, intersectionPaint);
+			intersections = new IntersectionOfCircleAndLine(_context, circle, line);
+			n = new VertexDrawer(_context, intersections.first, 5, intersectionPaint);			m = new VertexDrawer(_context, intersections.second, 5, intersectionPaint);
 						addChild(circleDrawer);			addChild(lineDrawer);
 			
 			addChild(n);			addChild(m);

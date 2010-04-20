@@ -1,7 +1,9 @@
 package as3geometry.geom2D.polygons.intersection 
 {
+	import alecmce.invalidation.Invalidates;
+	import alecmce.invalidation.InvalidationSignal;
+
 	import as3geometry.AS3GeometryContext;
-	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
 
@@ -14,68 +16,41 @@ package as3geometry.geom2D.polygons.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	internal class PotentialIntersectionVertex extends ExpandedPolygonVertex implements Mutable
+	internal class PotentialIntersectionVertex extends ExpandedPolygonVertex implements Invalidates
 	{
+		private var _context:AS3GeometryContext;
+		
 		private var _intersection:IntersectionOfTwoLinesVertex;
 		
-		private var _changed:Signal;
+		private var _invalidated:InvalidationSignal;
 		
 		private var _realityChanged:Signal;
 		
 		private var _aIndex:uint;
 		
 		private var _bIndex:uint;
+		private var _isInvalid:Boolean;
 
 		public function PotentialIntersectionVertex(context:AS3GeometryContext, a:Line, b:Line, aIndex:uint, bIndex:uint)
 		{
-			super(context);
+			_context = context;
 			
-			_intersection = new IntersectionOfTwoLinesVertex(a, b);
+			_intersection = new IntersectionOfTwoLinesVertex(context, a, b);
 			context.invalidationManager.addDependency(_intersection, this);
 			
-			_changed = new Signal(Mutable);
+			_invalidated = new InvalidationSignal();
 			_aIndex = aIndex;			_bIndex = bIndex;
 			
 			_realityChanged = new Signal(PotentialIntersectionVertex);
 			resolve();
 		}
 		
-		private function resolve():void
-		{
-			var x:Number = _intersection.x;
-			var y:Number = _intersection.y;
-			
-			var newIsIntersection:Boolean = !isNaN(x) && !isNaN(y);
-			var realValueHasChanged:Boolean = isReal != newIsIntersection;
-			
-			isReal = newIsIntersection;
-			
-			if (isReal)
-			{
-				positionOnPolygonAAsCycle = _aIndex + _intersection.aMultiplier;
-				positionOnPolygonBAsCycle = _bIndex + _intersection.bMultiplier;
-			}
-			else
-			{
-				positionOnPolygonAAsCycle = Number.NaN;
-				positionOnPolygonBAsCycle = Number.NaN;
-			}
-			
-			if (realValueHasChanged)
-				_realityChanged.dispatch(this);
-		}
-
 		public function toString() : String
 		{
 			var str:String = "Intersection: (@X@,@Y@)";
 			str = str.replace("@X@", x);			str = str.replace("@Y@", y);
 			
 			return str;
-		}
-		
-		public function get changed():Signal
-		{
-			return _changed;
 		}
 		
 		public function get realityChanged():Signal
@@ -101,6 +76,54 @@ package as3geometry.geom2D.polygons.intersection
 		public function get b():Line
 		{
 			return _intersection.b;
+		}
+		
+		public function invalidate():void
+		{
+			_invalidated.dispatch(this);
+			_isInvalid = true;
+		}
+		
+		public function get invalidated():InvalidationSignal
+		{
+			return _invalidated;
+		}
+		
+		public function get isInvalid():Boolean
+		{
+			return _isInvalid;
+		}
+		
+		public function resolve():void
+		{
+			_isInvalid = false;
+			
+			var x:Number = _intersection.x;
+			var y:Number = _intersection.y;
+			
+			var newIsIntersection:Boolean = !isNaN(x) && !isNaN(y);
+			var realValueHasChanged:Boolean = isReal != newIsIntersection;
+			
+			isReal = newIsIntersection;
+			
+			if (isReal)
+			{
+				positionOnPolygonAAsCycle = _aIndex + _intersection.aMultiplier;
+				positionOnPolygonBAsCycle = _bIndex + _intersection.bMultiplier;
+			}
+			else
+			{
+				positionOnPolygonAAsCycle = Number.NaN;
+				positionOnPolygonBAsCycle = Number.NaN;
+			}
+			
+			if (realValueHasChanged)
+				_realityChanged.dispatch(this);
+		}
+		
+		public function get context():AS3GeometryContext
+		{
+			return _context;
 		}
 	}
 }

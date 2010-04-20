@@ -14,7 +14,7 @@ package as3geometry.geom2D.line
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableLine extends Mutable implements Line, SpatialVector, Mutable
+	public class MutableLine extends Mutable implements Line, SpatialVector
 	{
 		
 		private var _a:Vertex;

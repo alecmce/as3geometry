@@ -1,7 +1,6 @@
 package as3geometry.geom2D.vertices 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Vertex;
 
 	import org.osflash.signals.Signal;
@@ -16,7 +15,7 @@ package as3geometry.geom2D.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableVertex extends EventDispatcher implements Vertex, Mutable 
+	public class MutableVertex extends EventDispatcher implements Vertex 
 	{
 		
 		private var _x:Number;

@@ -16,8 +16,6 @@ package examples
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
 
-	import flash.display.Sprite;
-
 	/**
 	 * An example of the current state of the as3geometry library.
 	 * 
@@ -25,7 +23,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class ThreePoints extends Sprite 
+	public class ThreePoints extends ExampleBaseSprite 
 	{
 		private var vertexPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
@@ -55,12 +53,7 @@ package examples
 		private var triangle:Triangle;
 		private var triangleDrawer:TriangleDrawer;
 		
-		public function ThreePoints()
-		{
-			init();	
-		}
-		
-		private function init():void
+		override protected function init():void
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			circlePaint = new SolidPaint(0x66FFEE00, 0xFF0000CD, 2);
@@ -68,38 +61,38 @@ package examples
 			
 			dragMechanism = new DragMechanism();
 			
-			a = new UIVertex(vertexPaint);
+			a = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(a);
 			a.x = 80;
 			a.y = 200;
 			
-			b = new UIVertex(vertexPaint);
+			b = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(b);
 			b.x = 400;
 			b.y = 180;
 			
-			c = new UIVertex(vertexPaint);
+			c = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(c);
 			c.x = 300;
 			c.y = 340;
 			
-			circle = new MutableCircle(a, 50);
-			circleDrawer = new CircleDrawer(circle, circlePaint);
+			circle = new MutableCircle(_context, a, 50);
+			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
 			
-			circle2 = new MutableCircleWithRadialVertex(b, c);
-			circleDrawer2 = new CircleDrawer(circle2, circlePaint);
+			circle2 = new MutableCircleWithRadialVertex(_context, b, c);
+			circleDrawer2 = new CircleDrawer(_context, circle2, circlePaint);
 			
-			line = new MutableLine(a, b);
-			lineDrawer = new LineDrawer(line);
+			line = new MutableLine(_context, a, b);
+			lineDrawer = new LineDrawer(_context, line);
 			
-			segment = new MutableLine(b, c, LineType.SEGMENT);
-			segmentDrawer = new LineDrawer(segment);
+			segment = new MutableLine(_context, b, c, LineType.SEGMENT);
+			segmentDrawer = new LineDrawer(_context, segment);
 			
-			ray = new MutableLine(c, a, LineType.RAY);
-			rayDrawer = new LineDrawer(ray);
+			ray = new MutableLine(_context, c, a, LineType.RAY);
+			rayDrawer = new LineDrawer(_context, ray);
 			
-			triangle = new MutableTriangle(a, b, c);
-			triangleDrawer = new TriangleDrawer(triangle, trianglePaint);
+			triangle = new MutableTriangle(_context, a, b, c);
+			triangleDrawer = new TriangleDrawer(_context, triangle, trianglePaint);
 			
 			addChild(triangleDrawer);
 			addChild(circleDrawer);

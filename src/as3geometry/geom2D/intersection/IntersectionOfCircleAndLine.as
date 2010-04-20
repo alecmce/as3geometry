@@ -13,7 +13,7 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfCircleAndLine extends Mutable implements Mutable
+	public class IntersectionOfCircleAndLine extends Mutable
 	{
 		private var _circle:Circle;
 		private var _line:Line;

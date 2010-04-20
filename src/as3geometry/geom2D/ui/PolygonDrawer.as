@@ -1,13 +1,11 @@
 package as3geometry.geom2D.ui 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.geom2D.ui.generic.UIDrawer;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 
 	import ui.Paint;
-
-	import flash.events.Event;
 
 	/**
 	 * Draws a polygon on a Euclidean plane
@@ -16,18 +14,16 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class PolygonDrawer extends GeneralDrawer
+	public class PolygonDrawer extends UIDrawer
 	{
 		
 		private var _polygon:Polygon;
 		
-		public function PolygonDrawer(polygon:Polygon, paint:Paint = null)
+		public function PolygonDrawer(context:AS3GeometryContext, polygon:Polygon, paint:Paint = null)
 		{
-			_polygon = polygon;
-			if (_polygon is Mutable)
-				Mutable(_polygon).changed.add(onDefinienChanged);
-			
-			super(paint);
+			super(context, paint);
+			addDefinien(_polygon = polygon);
+			invalidate();
 		}
 		
 		public function get polygon():Polygon
@@ -40,15 +36,10 @@ package as3geometry.geom2D.ui
 			if (_polygon == value)
 				return;
 			
-			if (_polygon is Mutable)
-				Mutable(_polygon).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_polygon);
 			_polygon = value;
-			
-			if (_polygon is Mutable)
-				Mutable(_polygon).changed.add(onDefinienChanged);
-				
-			addEventListener(Event.ENTER_FRAME, redraw);
+			addDefinien(_polygon);
+			invalidate();
 		}
 
 		override protected function draw():void

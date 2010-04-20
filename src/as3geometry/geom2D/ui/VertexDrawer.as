@@ -1,12 +1,10 @@
 package as3geometry.geom2D.ui 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.ui.generic.UIDrawer;
 
 	import ui.Paint;
-
-	import flash.events.Event;
 
 	/**
 	 * 
@@ -15,22 +13,18 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class VertexDrawer extends GeneralDrawer
+	public class VertexDrawer extends UIDrawer
 	{
-		
 		private var _vertex:Vertex;
 		
 		private var _radius:uint;
 		
-		public function VertexDrawer(vertex:Vertex, radius:uint = 4, paint:Paint = null)
+		public function VertexDrawer(context:AS3GeometryContext, vertex:Vertex, radius:uint = 4, paint:Paint = null)
 		{
+			super(context, paint);
 			_radius = radius;
-			
-			_vertex = vertex;
-			if (_vertex is Mutable)
-				Mutable(_vertex).changed.add(onDefinienChanged);
-				
-			super(paint);
+			addDefinien(_vertex = vertex);
+			invalidate();
 		}
 		
 		public function get vertex():Vertex
@@ -43,15 +37,10 @@ package as3geometry.geom2D.ui
 			if (_vertex == value)
 				return;
 			
-			if (_vertex is Mutable)
-				Mutable(_vertex).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_vertex);
 			_vertex = value;
-			
-			if (_vertex is Mutable)
-				Mutable(_vertex).changed.add(onDefinienChanged);
-			
-			addEventListener(Event.ENTER_FRAME, redraw);
+			addDefinien(_vertex);
+			invalidate();
 		}
 		
 		public function get radius():uint
@@ -65,13 +54,7 @@ package as3geometry.geom2D.ui
 				return;
 			
 			_radius = value;
-			
-			addEventListener(Event.ENTER_FRAME, redraw);
-		}
-
-		override protected function onDefinienChanged(mutable:Mutable):void
-		{
-			super.onDefinienChanged(mutable);
+			invalidate();
 		}
 
 		override protected function draw():void
@@ -80,7 +63,7 @@ package as3geometry.geom2D.ui
 				return;
 			
 			graphics.drawCircle(_vertex.x, _vertex.y, _radius);
-			var p:Paint = _paint ? _paint : DEFAULT_PAINT;
+			var p:Paint = paint;
 			p.beginPaint(graphics);
 			graphics.drawCircle(_vertex.x, _vertex.y, _radius);
 			p.endPaint(graphics);

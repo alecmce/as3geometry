@@ -1,10 +1,9 @@
 package as3geometry.geom2D.polygons.intersection 
 {
-	import alecmce.invalidation.Mutable;
+	import alecmce.invalidation.Invalidates;
+	import alecmce.invalidation.InvalidationSignal;
 
 	import as3geometry.geom2D.Vertex;
-
-	import org.osflash.signals.Signal;
 
 	/**
 	 * 
@@ -13,16 +12,19 @@ package as3geometry.geom2D.polygons.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	internal class OrignalPolygonVertexWrapper extends ExpandedPolygonVertex implements Mutable
+	internal class OrignalPolygonVertexWrapper extends ExpandedPolygonVertex
 	{
 		private var _original:Vertex;
 
-		private var _changed:Signal;
+		private var _invalidated:InvalidationSignal;
 		
-		public function OrignalPolygonVertexWrapper(target:Vertex, aIndex:int, bIndex:int)
+		public function OrignalPolygonVertexWrapper(original:Vertex, aIndex:int, bIndex:int)
 		{
-			_original = target;
-			_changed = _original is Mutable ? Mutable(_original).changed : new Signal();
+			_original = original;
+			if (_original is Invalidates)
+				_invalidated = Invalidates(_original).invalidated;
+			else
+				_invalidated = new InvalidationSignal();
 		
 			positionOnPolygonAAsCycle = aIndex;
 			positionOnPolygonBAsCycle = bIndex;
@@ -40,9 +42,9 @@ package as3geometry.geom2D.polygons.intersection
 			return _original.y;
 		}
 
-		public function get changed():Signal
+		public function get invalidated():InvalidationSignal
 		{
-			return _changed;
+			return _invalidated;
 		}
 		
 		public function get target():Vertex

@@ -1,7 +1,7 @@
 package as3geometry.geom2D.ui 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.geom2D.ui.generic.UIDrawer;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.CircleSegment;
 	import as3geometry.geom2D.Vertex;
@@ -10,8 +10,6 @@ package as3geometry.geom2D.ui
 	import ui.Paint;
 	import ui.util.UIArcHelper;
 
-	import flash.events.Event;
-
 	/**
 	 * Draws a circle
 	 * 
@@ -19,7 +17,7 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class CircleSegmentDrawer extends GeneralDrawer
+	public class CircleSegmentDrawer extends UIDrawer
 	{
 		private var angles:AngleHelper;
 		
@@ -27,16 +25,13 @@ package as3geometry.geom2D.ui
 		
 		private var _segment:CircleSegment;
 		
-		public function CircleSegmentDrawer(segment:CircleSegment, paint:Paint = null)
+		public function CircleSegmentDrawer(context:AS3GeometryContext, segment:CircleSegment, paint:Paint = null)
 		{
-			_segment = segment;
-			if (_segment is Mutable)
-				Mutable(_segment).changed.add(onDefinienChanged);
-			
+			super(context, paint);
+			addDefinien(_segment = segment);
 			angles = new AngleHelper();
 			helper = new UIArcHelper();
-			
-			super(paint);
+			invalidate();
 		}
 		
 		public function get segment():CircleSegment
@@ -49,15 +44,11 @@ package as3geometry.geom2D.ui
 			if (_segment == value)
 				return;
 			
-			if (_segment is Mutable)
-				Mutable(_segment).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_segment);
 			_segment = value;
-			
-			if (_segment is Mutable)
-				Mutable(_segment).changed.add(onDefinienChanged);
-				
-			addEventListener(Event.ENTER_FRAME, redraw);		}
+			addDefinien(_segment);
+			invalidate();
+		}
 
 		override protected function draw():void
 		{

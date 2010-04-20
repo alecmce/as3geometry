@@ -5,13 +5,11 @@ package examples
 	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
 	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.ui.LineDrawer;
-	import as3geometry.geom2D.ui.vertices.UIVertex;
 	import as3geometry.geom2D.ui.VertexDrawer;
+	import as3geometry.geom2D.ui.vertices.UIVertex;
 
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
-
-	import flash.display.Sprite;
 
 	/**
 	 * UI test verifies IntersectionOfTwoLinesVertex
@@ -20,7 +18,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectLineAndLine extends Sprite 
+	public class IntersectLineAndLine extends ExampleBaseSprite 
 	{
 		private var vertexPaint:SolidPaint;
 		private var intersectionPaint:SolidPaint;
@@ -48,34 +46,34 @@ package examples
 			
 			dragMechanism = new DragMechanism();
 			
-			a = new UIVertex(vertexPaint);
+			a = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(a);
 			a.x = 80;
 			a.y = 200;
 			
-			b = new UIVertex(vertexPaint);
+			b = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(b);
 			b.x = 400;
 			b.y = 180;
 			
-			c = new UIVertex(vertexPaint);
+			c = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(c);
 			c.x = 300;
 			c.y = 140;
 			
-			d = new UIVertex(vertexPaint);
+			d = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(d);
 			d.x = 340;
 			d.y = 260;
 			
-			lineA = new MutableLine(a, b, LineType.SEGMENT);
-			lineADrawer = new LineDrawer(lineA);
+			lineA = new MutableLine(_context, a, b, LineType.SEGMENT);
+			lineADrawer = new LineDrawer(_context, lineA);
 			
-			lineB = new MutableLine(c, d, LineType.RAY);
-			lineBDrawer = new LineDrawer(lineB);
+			lineB = new MutableLine(_context, c, d, LineType.RAY);
+			lineBDrawer = new LineDrawer(_context, lineB);
 			
-			intersection = new IntersectionOfTwoLinesVertex(lineA, lineB);
-			n = new VertexDrawer(intersection, 5, intersectionPaint);
+			intersection = new IntersectionOfTwoLinesVertex(_context, lineA, lineB);
+			n = new VertexDrawer(_context, intersection, 5, intersectionPaint);
 			
 			addChild(lineADrawer);
 			addChild(lineBDrawer);

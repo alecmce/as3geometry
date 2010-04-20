@@ -1,12 +1,10 @@
 package as3geometry.geom2D.ui 
 {
-	import alecmce.invalidation.Mutable;
-
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Triangle;
+	import as3geometry.geom2D.ui.generic.UIDrawer;
 
 	import ui.Paint;
-
-	import flash.events.Event;
 
 	/**
 	 * 
@@ -15,18 +13,16 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class TriangleDrawer extends GeneralDrawer
+	public class TriangleDrawer extends UIDrawer
 	{
 	
 		private var _triangle:Triangle;
 	
-		public function TriangleDrawer(triangle:Triangle, paint:Paint = null)
+		public function TriangleDrawer(context:AS3GeometryContext, triangle:Triangle, paint:Paint = null)
 		{
-			_triangle = triangle;
-			if (_triangle is Mutable)
-				Mutable(_triangle).changed.add(onDefinienChanged);
-			
-			super(paint);		
+			super(context, paint);
+			addDefinien(_triangle = triangle);
+			invalidate();
 		}
 		
 		public function get triangle():Triangle
@@ -39,17 +35,12 @@ package as3geometry.geom2D.ui
 			if (_triangle == value)
 				return;
 			
-			if (_triangle is Mutable)
-				Mutable(_triangle).changed.remove(onDefinienChanged);
-			
+			removeDefinien(_triangle);
 			_triangle = value;
-			
-			if (_triangle is Mutable)
-				Mutable(_triangle).changed.add(onDefinienChanged);
-		
-			addEventListener(Event.ENTER_FRAME, redraw);
+			addDefinien(_triangle);
+			invalidate();
 		}
-
+		
 		override protected function draw():void
 		{
 			graphics.moveTo(triangle.a.x, triangle.a.y);

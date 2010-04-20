@@ -2,7 +2,6 @@ package as3geometry.geom2D.polygons.intersection
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.AbstractMutableAdditiveCollection;
-	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.CollectionOfPolygons;
 	import as3geometry.geom2D.Polygon;
 
@@ -15,7 +14,7 @@ package as3geometry.geom2D.polygons.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class IntersectionOfTwoPolygons extends AbstractMutableAdditiveCollection implements Mutable, CollectionOfPolygons
+	public class IntersectionOfTwoPolygons extends AbstractMutableAdditiveCollection implements CollectionOfPolygons
 	{
 		private var _a:Polygon;
 		private var _b:Polygon;
@@ -32,10 +31,10 @@ package as3geometry.geom2D.polygons.intersection
 			
 			addDefinien(_a = a);
 			addDefinien(_b = b);			
-			_expanded = new ExpandedPolygonVectors(_a, _b);
+			_expanded = new ExpandedPolygonVectors(context, _a, _b);
 			_expanded.changed.add(onExpandedPolygonVectorsChanged);
 			
-			_sorted = new SortedPolygonVectors(_expanded);
+			_sorted = new SortedPolygonVectors(context, _expanded);
 			
 			_polygons = _sorted.findPolygons();
 			_polygonCount = _polygonCount = _polygons.length;

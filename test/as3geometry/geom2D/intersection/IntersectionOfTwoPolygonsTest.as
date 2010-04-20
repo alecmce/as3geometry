@@ -11,18 +11,22 @@ package as3geometry.geom2D.intersection
 	import asunit.asserts.assertTrue;
 	import asunit.asserts.fail;
 
+	import flash.display.Sprite;
+
 	public class IntersectionOfTwoPolygonsTest 
 	{
+		private var root:Sprite;
 		private var context:AS3GeometryContext;
-		
-		private var a:Polygon;			private var b:Polygon;
+				private var a:Polygon;	
+		private var b:Polygon;
 		
 		private var intersections:IntersectionOfTwoPolygons;
 
 		[Before]
 		public function before():void
 		{
-			context = new AS3GeometryContext();
+			root = new Sprite();
+			context = new AS3GeometryContext(root);
 		}
 
 		[After]

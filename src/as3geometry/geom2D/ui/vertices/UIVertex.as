@@ -1,16 +1,12 @@
 package as3geometry.geom2D.ui.vertices 
 {
-	import alecmce.invalidation.Mutable;
+	import alecmce.invalidation.Invalidates;
 
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Vertex;
-	import as3geometry.geom2D.ui.DEFAULT_PAINT;
+	import as3geometry.geom2D.ui.generic.UIMutableSprite;
 
 	import ui.Paint;
-
-	import org.osflash.signals.Signal;
-
-	import flash.display.Sprite;
-	import flash.events.Event;
 
 	/**
 	 * 
@@ -19,7 +15,7 @@ package as3geometry.geom2D.ui.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class UIVertex extends Sprite implements Vertex, Mutable
+	public class UIVertex extends UIMutableSprite implements Vertex, Invalidates
 	{
 		private var _workingX:Number;
 		
@@ -27,17 +23,11 @@ package as3geometry.geom2D.ui.vertices
 		
 		private var _radius:uint;
 		
-		private var _paint:Paint;
-		
-		private var _changed:Signal;
-		
-		public function UIVertex(paint:Paint = null, radius:uint = 4)
+		public function UIVertex(context:AS3GeometryContext, paint:Paint = null, radius:uint = 4)
 		{
-			_changed = new Signal();
-			
-			_paint = paint ? paint : DEFAULT_PAINT;
+			super(context, paint);
 			_radius = radius;
-			redraw();
+			invalidate();
 		}
 
 		override public function set x(value:Number):void
@@ -52,7 +42,8 @@ package as3geometry.geom2D.ui.vertices
 				return;
 			
 			_workingX = value;
-			addEventListener(Event.ENTER_FRAME, update);		}
+			invalidate();
+		}
 
 		override public function set y(value:Number):void
 		{
@@ -66,19 +57,7 @@ package as3geometry.geom2D.ui.vertices
 				return;
 			
 			_workingY = value;
-			addEventListener(Event.ENTER_FRAME, update);
-		}
-		
-		private function update(event:Event):void
-		{
-			removeEventListener(Event.ENTER_FRAME, update);
-			super.x = _workingX;			super.y = _workingY;
-			_changed.dispatch(this);
-		}
-
-		public function get changed():Signal
-		{
-			return _changed;
+			invalidate();
 		}
 		
 		public function get radius():uint
@@ -89,27 +68,19 @@ package as3geometry.geom2D.ui.vertices
 		public function set radius(radius:uint):void
 		{
 			_radius = radius;
-			addEventListener(Event.ENTER_FRAME, redraw);		}
-		
-		public function get paint():Paint
-		{
-			return _paint;
+			invalidate();
 		}
 		
-		public function set paint(value:Paint):void
+		override public function resolve():void 
 		{
-			_paint = value;
-			addEventListener(Event.ENTER_FRAME, redraw);		}
-		
-		private function redraw(event:Event = null):void
-		{
-			removeEventListener(Event.ENTER_FRAME, redraw);
+			super.x = _workingX;
+			super.y = _workingY;
 			
+			var p:Paint = paint;
 			graphics.clear();
-			
-			_paint.beginPaint(graphics);
+			p.beginPaint(graphics);
 			graphics.drawCircle(0, 0, _radius);
-			_paint.endPaint(graphics);
+			p.endPaint(graphics);
 		}
 	}
 }
