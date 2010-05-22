@@ -14,7 +14,9 @@ package as3geometry.geom2D.intersection
 
 	public class IntersectionOfTwoLinesVertexTest
 	{
+		[Inject]
 		private var root:Sprite;
+		
 		private var context:AS3GeometryContext;
 		
 		private var a:Line;
@@ -24,7 +26,6 @@ package as3geometry.geom2D.intersection
 		[Before]
 		public function before():void
 		{
-			root = new Sprite();
 			context = new AS3GeometryContext(root);
 		}
 

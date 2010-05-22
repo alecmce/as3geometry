@@ -15,9 +15,11 @@ package as3geometry.geom2D.intersection
 
 	public class IntersectionOfTwoPolygonsTest 
 	{
+		[Inject]
 		private var root:Sprite;
+
 		private var context:AS3GeometryContext;
-				private var a:Polygon;	
+		private var a:Polygon;	
 		private var b:Polygon;
 		
 		private var intersections:IntersectionOfTwoPolygons;
@@ -25,7 +27,6 @@ package as3geometry.geom2D.intersection
 		[Before]
 		public function before():void
 		{
-			root = new Sprite();
 			context = new AS3GeometryContext(root);
 		}
 

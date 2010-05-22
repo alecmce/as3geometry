@@ -1,8 +1,8 @@
 package as3geometry 
 {
-	import asunit4.ui.MinimalRunnerUI;
+	import asunit.runners.TestRunner;
 
-	public class AS3GeometryTestRunner extends MinimalRunnerUI
+	public class AS3GeometryTestRunner extends TestRunner
 	{
 		public function AS3GeometryTestRunner()
 		{
