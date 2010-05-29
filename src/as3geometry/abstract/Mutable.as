@@ -1,7 +1,7 @@
 package as3geometry.abstract 
 {
 	import alecmce.invalidation.Invalidates;
-	import alecmce.invalidation.InvalidationSignal;
+	import alecmce.invalidation.signals.InvalidationSignal;
 
 	import as3geometry.AS3GeometryContext;
 

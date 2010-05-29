@@ -1,6 +1,6 @@
 package as3geometry.geom2D.intersection 
 {
-	import alecmce.invalidation.InvalidationSignal;
+	import alecmce.invalidation.signals.InvalidationSignal;
 
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;

@@ -1,7 +1,7 @@
 package as3geometry.geom2D.ui.generic 
 {
 	import alecmce.invalidation.Invalidates;
-	import alecmce.invalidation.InvalidationSignal;
+	import alecmce.invalidation.signals.InvalidationSignal;
 
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -12,7 +12,11 @@ package as3geometry.geom2D.ui.generic
 	import flash.display.Sprite;
 
 	/**
-	 * @author amceachran
+	 * 
+	 * 
+	 * (c) 2009 alecmce.com
+	 *
+	 * @author Alec McEachran
 	 */
 	public class UIMutableSprite extends Sprite implements Invalidates
 	{

@@ -1,10 +1,13 @@
 package alecmce.invalidation 
 {
+	import org.osflash.signals.Signal;
+
 	import flash.utils.Dictionary;
 
 	public class InvalidationManager 
 	{
 		private var _members:Dictionary;
+		private var _invalidated:Signal;
 		private var _invalidations:Vector.<Vector.<Invalidates>>;
 		
 		private var _requiresResolution:Boolean;
@@ -12,6 +15,7 @@ package alecmce.invalidation
 		public function InvalidationManager() 
 		{
 			_members = new Dictionary();
+			_invalidated = new Signal();
 			_invalidations = new Vector.<Vector.<Invalidates>>();
 			_invalidations[0] = new Vector.<Invalidates>();
 			_requiresResolution = false;
@@ -169,6 +173,7 @@ package alecmce.invalidation
 				dependees[i].target.invalidate();
 			
 			_requiresResolution = true;
+			_invalidated.dispatch();
 		}
 		
 		public function get requiresResolution():Boolean
@@ -194,6 +199,10 @@ package alecmce.invalidation
 			
 			_requiresResolution = false;
 		}
-
+		
+		public function get invalidated():Signal
+		{
+			return _invalidated;
+		}
 	}
 }
