@@ -1,7 +1,8 @@
 package alecmce.invalidation 
 {
+	import alecmce.invalidation.signals.InvalidationSignal;
 
-	public interface Invalidates
+	public interface Invalidates 
 	{
 		function invalidate():void;
 		

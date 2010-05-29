@@ -2,21 +2,19 @@ package alecmce.invalidation
 {
 	import flash.utils.Dictionary;
 
-	public class InvalidationManager implements Invalidates
+	public class InvalidationManager 
 	{
 		private var _members:Dictionary;
 		private var _invalidations:Vector.<Vector.<Invalidates>>;
 		
-		private var _invalidated:InvalidationSignal;
-		
-		private var _isInvalid:Boolean;
+		private var _requiresResolution:Boolean;
 
 		public function InvalidationManager() 
 		{
 			_members = new Dictionary();
 			_invalidations = new Vector.<Vector.<Invalidates>>();
 			_invalidations[0] = new Vector.<Invalidates>();
-			_isInvalid = false;
+			_requiresResolution = false;
 		}
 		
 		public function register(invalidator:Invalidates):void 
@@ -170,35 +168,19 @@ package alecmce.invalidation
 			for (var i:uint = 0; i < len; i++)
 				dependees[i].target.invalidate();
 			
-			if (_isInvalid)
-				return;
-			
-			invalidate();
+			_requiresResolution = true;
 		}
 		
 		public function get requiresResolution():Boolean
 		{
-			return _isInvalid;
-		}
-		
-		public function invalidate():void
-		{
-			_isInvalid = true;
-			_invalidated.dispatch(this);
+			return _requiresResolution;
 		}
 
-		public function get invalidated():InvalidationSignal
-		{
-			return _invalidated;
-		}
-		
-		public function get isInvalid():Boolean
-		{
-			return _isInvalid;
-		}
-		
 		public function resolve():void 
 		{
+			if (!_requiresResolution)
+				return;
+			
 			var ilen:uint = _invalidations.length;
 			for (var i:uint = 0; i < ilen; i++)
 			{
@@ -210,7 +192,8 @@ package alecmce.invalidation
 				invalidations.length = 0;
 			}
 			
-			_isInvalid = false;
+			_requiresResolution = false;
 		}
+
 	}
 }
