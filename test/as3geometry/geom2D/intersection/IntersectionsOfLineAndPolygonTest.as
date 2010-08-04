@@ -24,7 +24,7 @@ package as3geometry.geom2D.intersection
 	public class IntersectionsOfLineAndPolygonTest 
 	{
 		[Inject]
-		private var root:Sprite;
+		public var root:Sprite;
 
 		private var context:AS3GeometryContext;
 		private var line:Line;
@@ -38,7 +38,7 @@ package as3geometry.geom2D.intersection
 		}
 
 		[After]
-		public function tearDown():void
+		public function after():void
 		{
 			line = null;
 			polygon = null;

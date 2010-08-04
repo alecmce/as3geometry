@@ -26,6 +26,8 @@ package as3geometry.abstract
 			_context = context;
 			_invalidated = new InvalidationSignal();
 			_isInvalidated = false;
+			
+			_context.register(this);
 		}
 
 		protected function addDefinien(definien:*):void
@@ -40,10 +42,10 @@ package as3geometry.abstract
 				_context.invalidationManager.removeDependency(Invalidates(definien), this);
 		}
 		
-		public function invalidate():void
+		public function invalidate(resolveImmediately:Boolean = false):void
 		{
 			_isInvalidated = true;
-			_invalidated.dispatch(this);
+			_invalidated.dispatch(this, resolveImmediately);
 		}
 		
 		public function resolve():void

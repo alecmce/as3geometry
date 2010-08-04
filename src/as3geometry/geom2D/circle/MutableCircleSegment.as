@@ -40,7 +40,7 @@ package as3geometry.geom2D.circle
 			
 			_isRight = isRight;
 			_helper = new AngleHelper();
-			resolve();
+			invalidate();
 		}
 		
 		public function get from():VertexOnCircle

@@ -19,6 +19,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
+	[SWF(backgroundColor="#FFFFFF", frameRate="31", width="800", height="600")]
 	public class CircleSegmentByVertices extends ExampleBaseSprite 
 	{
 		private var vertexPaint:SolidPaint;
@@ -60,7 +61,7 @@ package examples
 			b.x = 450;
 			b.y = 180;
 			
-			circle = new MutableCircleWithRadialVertex(_context, a, b);
+			trace("<Constructor>");			circle = new MutableCircleWithRadialVertex(_context, a, b);			trace("</Constructor>");
 			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
 			
 			c = new UIVertexOnCircle(_context, circle, Math.PI * 0.2, vertexPaint);

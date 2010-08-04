@@ -28,12 +28,13 @@ package as3geometry.geom2D.ui.generic
 
 		public function UIMutableSprite(context:AS3GeometryContext, paint:Paint) 
 		{
-			_paint = paint;
 			_context = context;
+			_paint = paint;
 			_invalidated = new InvalidationSignal();
+			_context.invalidationManager.register(this);
 			_isInvalid = false;
 		}
-		
+
 		public function get paint():Paint
 		{
 			return _paint ||= DEFAULT_PAINT;

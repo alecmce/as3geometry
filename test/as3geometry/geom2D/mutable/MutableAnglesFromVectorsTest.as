@@ -11,7 +11,9 @@ package as3geometry.geom2D.mutable
 
 	public class MutableAnglesFromVectorsTest 
 	{
-		private var root:Sprite;
+		[Inject]
+		public var root:Sprite;
+		
 		private var context:AS3GeometryContext;
 				private var a:ImmutableSpatialVector;
 		private var b:ImmutableSpatialVector;
@@ -21,12 +23,11 @@ package as3geometry.geom2D.mutable
 		[Before]
 		public function before():void
 		{
-			root = new Sprite();
 			context = new AS3GeometryContext(root);
 		}
 		
 		[After]
-		public function tearDown():void
+		public function after():void
 		{
 			context = null;
 			a = null;

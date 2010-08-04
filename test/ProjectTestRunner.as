@@ -1,13 +1,16 @@
 package  
 {
-	import asunit.runners.TestRunner;
+	import asunit.core.TextCore;
 
-	public class ProjectTestRunner extends TestRunner 
+	import flash.display.Sprite;
+
+	public class ProjectTestRunner extends Sprite
 	{
 		
 		public function ProjectTestRunner()
 		{
-			run(AllTests);
+			var core:TextCore = new TextCore();
+			core.start(AllTests, null, this);
 		}
 		
 	}

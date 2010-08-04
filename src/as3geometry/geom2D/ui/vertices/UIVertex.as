@@ -32,14 +32,7 @@ package as3geometry.geom2D.ui.vertices
 
 		override public function set x(value:Number):void
 		{
-			if (!stage)
-			{
-				super.x = _workingX = value;
-				return;
-			}
-			
-			if (_workingX == value)
-				return;
+			if (_workingX == value)				return;
 			
 			_workingX = value;
 			invalidate();
@@ -47,15 +40,9 @@ package as3geometry.geom2D.ui.vertices
 
 		override public function set y(value:Number):void
 		{
-			if (!stage)
-			{
-				super.y = _workingY = value;
-				return;
-			}
-			
 			if (_workingY == value)
 				return;
-			
+
 			_workingY = value;
 			invalidate();
 		}
@@ -75,6 +62,7 @@ package as3geometry.geom2D.ui.vertices
 		{
 			super.x = _workingX;
 			super.y = _workingY;
+			trace("[RESOLVE] UIVertex", x, y);
 			
 			var p:Paint = paint;
 			graphics.clear();

@@ -1,15 +1,28 @@
 package as3geometry.geom2D.immutable 
 {
-	import as3geometry.geom2D.polygons.ImmutableTriangle;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.errors.MutabilityError;
+	import as3geometry.geom2D.polygons.ImmutableTriangle;
 	import as3geometry.geom2D.vertices.ImmutableVertex;
 	import as3geometry.geom2D.vertices.MutableVertex;
 
 	import asunit.asserts.fail;
 
+	import flash.display.Sprite;
+
 	public class ImmutableTriangleTest 
 	{
+		[Inject]
+		public var sprite:Sprite;
+		
 		private var triangle:ImmutableTriangle;
+		private var context:AS3GeometryContext;
+
+		[Before]
+		public function setup():void
+		{
+			context = new AS3GeometryContext(sprite);
+		}
 		
 		[After]
 		public function tearDown():void
@@ -20,7 +33,7 @@ package as3geometry.geom2D.immutable
 		[Test]
 		public function mutableErrorIsThrown_parameterA():void
 		{
-			var a:MutableVertex = new MutableVertex(1,1);
+			var a:MutableVertex = new MutableVertex(context, 1,1);
 			var b:ImmutableVertex = new ImmutableVertex(0,0);			var c:ImmutableVertex = new ImmutableVertex(2,0);			
 			try
 			{
@@ -38,7 +51,7 @@ package as3geometry.geom2D.immutable
 		public function mutableErrorIsThrown_parameterB():void
 		{
 			var a:ImmutableVertex = new ImmutableVertex(0,5);
-			var b:MutableVertex = new MutableVertex(1,1);
+			var b:MutableVertex = new MutableVertex(context,1,1);
 			var c:ImmutableVertex = new ImmutableVertex(0,0);
 			
 			try
@@ -58,7 +71,7 @@ package as3geometry.geom2D.immutable
 		{
 			var a:ImmutableVertex = new ImmutableVertex(0,5);
 			var b:ImmutableVertex = new ImmutableVertex(0,0);
-			var c:MutableVertex = new MutableVertex(1,1);
+			var c:MutableVertex = new MutableVertex(context,1,1);
 			
 			try
 			{

@@ -24,6 +24,7 @@ package as3geometry.geom2D.vertices
 			super(context);
 			addDefinien(_circle = circle);
 			_angle = angle;
+			invalidate();
 		}
 		
 		public function get circle():Circle

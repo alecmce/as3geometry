@@ -15,7 +15,7 @@ package as3geometry.geom2D.intersection
 	public class IntersectionOfTwoLinesVertexTest
 	{
 		[Inject]
-		private var root:Sprite;
+		public var root:Sprite;
 		
 		private var context:AS3GeometryContext;
 		

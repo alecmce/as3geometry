@@ -15,7 +15,7 @@ package alecmce.invalidation
 			_invalidated = new InvalidationSignal();
 		}
 
-		public function invalidate():void
+		public function invalidate(resolve:Boolean = false):void
 		{
 			if (_isInvalid)
 				return;

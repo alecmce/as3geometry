@@ -1,8 +1,9 @@
 package as3geometry.geom2D.immutable 
 {
-	import as3geometry.geom2D.polygons.ImmutablePolygon;
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.Polygon;
+	import as3geometry.geom2D.polygons.ImmutablePolygon;
 	import as3geometry.geom2D.vertices.ImmutableVertex;
 	import as3geometry.geom2D.vertices.MutableVertex;
 
@@ -10,9 +11,21 @@ package as3geometry.geom2D.immutable
 	import asunit.asserts.assertTrue;
 	import asunit.asserts.fail;
 
+	import flash.display.Sprite;
+
 	public class ImmutablePolygonTest
 	{
+		[Inject]
+		public var sprite:Sprite;
+
 		private var polygon:ImmutablePolygon;
+		private var context:AS3GeometryContext;
+		
+		[Before]
+		public function setup():void
+		{
+			context = new AS3GeometryContext(sprite);
+		}
 		
 		[After]
 		public function tearDown():void
@@ -23,8 +36,8 @@ package as3geometry.geom2D.immutable
 		[Test]
 		public function mutableErrorIsThrown():void
 		{
-			var a:MutableVertex = new MutableVertex(1,0);
-			var b:ImmutableVertex = new ImmutableVertex(1,1);			var c:ImmutableVertex = new ImmutableVertex(0,1);			var d:ImmutableVertex = new ImmutableVertex(0,0);			
+			var a:MutableVertex = new MutableVertex(context, 1, 0);
+			var b:ImmutableVertex = new ImmutableVertex(1, 1);			var c:ImmutableVertex = new ImmutableVertex(0, 1);			var d:ImmutableVertex = new ImmutableVertex(0, 0);			
 			var vertices:Array = [a,b,c,d];
 			
 			try

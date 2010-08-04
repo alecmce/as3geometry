@@ -34,11 +34,11 @@ package as3geometry.geom2D.polygons.intersection
 		public function PotentialIntersectionVertex(context:AS3GeometryContext, a:Line, b:Line, aIndex:uint, bIndex:uint)
 		{
 			_context = context;
+			_invalidated = new InvalidationSignal();
 			
 			_intersection = new IntersectionOfTwoLinesVertex(context, a, b);
 			context.invalidationManager.addDependency(_intersection, this);
 			
-			_invalidated = new InvalidationSignal();
 			_aIndex = aIndex;			_bIndex = bIndex;
 			
 			_realityChanged = new Signal(PotentialIntersectionVertex);
@@ -78,7 +78,7 @@ package as3geometry.geom2D.polygons.intersection
 			return _intersection.b;
 		}
 		
-		public function invalidate():void
+		public function invalidate(resolve:Boolean = false):void
 		{
 			_invalidated.dispatch(this);
 			_isInvalid = true;

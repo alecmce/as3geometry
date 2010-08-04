@@ -6,29 +6,49 @@ package alecmce.invalidation
 
 	public class InvalidationManager 
 	{
-		private var _members:Dictionary;
-		private var _invalidated:Signal;
-		private var _invalidations:Vector.<Vector.<Invalidates>>;
+		/**
+		 * a vector of 'tier' vectors. A tier is a collection of mutually independent
+		 * objects which have no dependencies on objects in 'higher tiers'
+		 * (tiers with lower indices).
+		 */
+		private var tiers:Vector.<Vector.<Invalidates>>;
 		
+		/** contains a map from Invalidates keys to InvalidatesVO values */
+		private var voMap:Dictionary;
+		
+		/** triggered when a new set of invalidations occurs */
+		private var _invalidated:Signal;
+		
+		/** whether there is a managed element that requires resolution */
 		private var _requiresResolution:Boolean;
 
+		/**
+		 * Constructor
+		 */
 		public function InvalidationManager() 
 		{
-			_members = new Dictionary();
+			voMap = new Dictionary();
+			tiers = new Vector.<Vector.<Invalidates>>();
+			tiers[0] = new Vector.<Invalidates>();
+			
 			_invalidated = new Signal();
-			_invalidations = new Vector.<Vector.<Invalidates>>();
-			_invalidations[0] = new Vector.<Invalidates>();
 			_requiresResolution = false;
 		}
 		
+		/**
+		 * add an Invalidates element to be managed
+		 */
 		public function register(invalidator:Invalidates):void 
 		{
 			getVO(invalidator);
 		}
 		
+		/**
+		 * remove an Invalidates element from management
+		 */
 		public function unregister(invalidator:Invalidates):void 
 		{
-			var vo:InvalidatesVO = _members[invalidator];
+			var vo:InvalidatesVO = voMap[invalidator];
 			if (!vo)
 				return;
 			
@@ -38,14 +58,15 @@ package alecmce.invalidation
 				removeDependencyVO(vo, dependees[i]);
 			
 			invalidator.invalidated.remove(onInvalidation);
-			delete _members[invalidator];
+			delete voMap[invalidator];
 		}
 
 		/**
 		 * define a relationship that the dependent depends on the independent,
-		 * therefore, if the independent invalidates, so too does the dependent.
+		 * therefore, if the independent invalidates, so too does the dependent, 
+		 * though not vice-versa.
 		 */
-		public function addDependency(independent:Invalidates, dependent:Invalidates):void 
+		public function addDependency(independent:Invalidates, dependent:Invalidates):void
 		{
 			var independentVO:InvalidatesVO = getVO(independent);			var dependentVO:InvalidatesVO = getVO(dependent);
 			
@@ -55,6 +76,8 @@ package alecmce.invalidation
 			
 			// update the tiers, and check for circular dependencies. Do these
 			// together to avoid having to recurse twice
+			
+			// TODO maybe handle circularity as a 'next round of inavlidation'?
 			if (!updateTiersAndCheckCircularity(independentVO, independentVO, dependentVO))
 				throw new Error("The InvalidationManager does not accept circular dependencies");
 			
@@ -66,16 +89,24 @@ package alecmce.invalidation
 				dependent.invalidate();
 		}
 		
+		/**
+		 * remove a dependency relation between an independent Invalidates and a
+		 * previously dependent invalidates
+		 */
 		public function removeDependency(independent:Invalidates, dependent:Invalidates):void 
 		{
-			var independentVO:InvalidatesVO = _members[independent];			var dependentVO:InvalidatesVO = _members[dependent];
+			var independentVO:InvalidatesVO = voMap[independent];			var dependentVO:InvalidatesVO = voMap[dependent];
 			
-				if (!independentVO || !dependentVO)
+			if (!independentVO || !dependentVO)
 				return;
 		
 			removeDependencyVO(independentVO, dependentVO);
 		}
 		
+		/**
+		 * does the leg-work of removing a dependency. This method may have been called by 
+		 * the removeDependency method, or by the unregister method
+		 */
 		private function removeDependencyVO(independent:InvalidatesVO, dependent:InvalidatesVO):void
 		{
 			var list:Vector.<InvalidatesVO> = independent.dependees;
@@ -90,6 +121,10 @@ package alecmce.invalidation
 			minimizeTiers(dependent);
 		}
 		
+		/**
+		 * after removing dependencies ensure that empty tiers are removed, to preserve the
+		 * compactness of the tiers vector
+		 */
 		private function minimizeTiers(vo:InvalidatesVO):void
 		{
 			var list:Vector.<InvalidatesVO> = vo.dependencies;
@@ -116,14 +151,17 @@ package alecmce.invalidation
 		}
 
 		
+		/**
+		 * either reference a VO for an Invalidates object, or create a new VO
+		 */
 		private function getVO(invalidates:Invalidates):InvalidatesVO
 		{
-			var vo:InvalidatesVO = _members[invalidates];
+			var vo:InvalidatesVO = voMap[invalidates];
 			if (vo)
 				return vo;
 				
 			invalidates.invalidated.add(onInvalidation);
-			_members[invalidates] = vo = new InvalidatesVO(invalidates);
+			voMap[invalidates] = vo = new InvalidatesVO(invalidates);
 			return vo;
 		}
 
@@ -142,8 +180,8 @@ package alecmce.invalidation
 				
 			dependent.tier = dependentTier = independentTier + 1;
 			
-			while (_invalidations.length <= dependentTier)
-				_invalidations.push(new Vector.<Invalidates>());
+			while (tiers.length <= dependentTier)
+				tiers.push(new Vector.<Invalidates>());
 			
 			var dependees:Vector.<InvalidatesVO> = dependent.dependees;
 			var len:uint = dependees.length;
@@ -156,14 +194,14 @@ package alecmce.invalidation
 			return true;
 		}
 
-		private function onInvalidation(invalidator:Invalidates):void 
+		private function onInvalidation(invalidator:Invalidates, resolveImmediately:Boolean = false):void 
 		{
-			var vo:InvalidatesVO = _members[invalidator];
+			var vo:InvalidatesVO = voMap[invalidator];
 			var tier:uint = vo.tier;
 			
-			var invalidations:Vector.<Invalidates> = _invalidations[tier];
+			var invalidations:Vector.<Invalidates> = tiers[tier];
 			if (!invalidations)
-				_invalidations[tier] = invalidations = new Vector.<Invalidates>();
+				tiers[tier] = invalidations = new Vector.<Invalidates>();
 			
 			invalidations.push(invalidator);	
 			
@@ -172,8 +210,15 @@ package alecmce.invalidation
 			for (var i:uint = 0; i < len; i++)
 				dependees[i].target.invalidate();
 			
+			var newInvalidation:Boolean = !_requiresResolution;
 			_requiresResolution = true;
-			_invalidated.dispatch();
+			
+			if (resolveImmediately)
+				resolve();
+			else if (newInvalidation)
+				_invalidated.dispatch();
+			
+			_requiresResolution = !resolveImmediately;
 		}
 		
 		public function get requiresResolution():Boolean
@@ -186,10 +231,10 @@ package alecmce.invalidation
 			if (!_requiresResolution)
 				return;
 			
-			var ilen:uint = _invalidations.length;
+			var ilen:uint = tiers.length;
 			for (var i:uint = 0; i < ilen; i++)
 			{
-				var invalidations:Vector.<Invalidates> = _invalidations[i];
+				var invalidations:Vector.<Invalidates> = tiers[i];
 				var jlen:uint = invalidations.length;
 				for (var j:uint = 0; j < jlen; j++)
 					invalidations[j].resolve();

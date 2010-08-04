@@ -4,7 +4,7 @@ package alecmce.invalidation
 
 	public interface Invalidates 
 	{
-		function invalidate():void;
+		function invalidate(resolveImmediately:Boolean = false):void;
 		
 		function get invalidated():InvalidationSignal;
 		

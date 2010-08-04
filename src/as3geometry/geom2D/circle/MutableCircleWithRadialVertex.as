@@ -23,7 +23,7 @@ package as3geometry.geom2D.circle
 			super(context);
 			addDefinien(_center = center);
 			addDefinien(_radial = radial);
-			resolve();
+			invalidate();
 		}
 		
 		public function get center():Vertex
@@ -69,6 +69,7 @@ package as3geometry.geom2D.circle
 			
 			var x:Number = _radial.x - _center.x;
 			var y:Number = _radial.y - _center.y;
+			trace("[RESOLVE] MutableCircleWithRadialVertex", x, y);
 			
 			_radius = Math.sqrt(x * x + y * y);
 		}

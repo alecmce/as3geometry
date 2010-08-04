@@ -35,8 +35,7 @@ package as3geometry.geom2D.line
 		{
 			super(context);
 			addDefinien(_a = a);			addDefinien(_b = b);
-			
-			resolve();
+			invalidate(true);
 		}
 		
 		public function get a():Line

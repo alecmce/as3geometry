@@ -1,6 +1,7 @@
 package as3geometry.geom2D.polygons.intersection 
 {
 	import as3geometry.AS3GeometryContext;
+	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
@@ -14,11 +15,9 @@ package as3geometry.geom2D.polygons.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class ExpandedPolygonVectors 
+	public class ExpandedPolygonVectors extends Mutable
 	{
 		private static const NULL_POSITION:int = -1;
-		
-		private var _context:AS3GeometryContext;
 		
 		private var _a:Polygon;
 		private var _aCount:uint;
@@ -26,28 +25,27 @@ package as3geometry.geom2D.polygons.intersection
 		private var _b:Polygon;
 		private var _bCount:uint;
 		
-		private var _changed:Signal;
-		
 		public var polygonA:Array;
 		public var polygonB:Array;
 
 		public function ExpandedPolygonVectors(context:AS3GeometryContext, a:Polygon, b:Polygon)
 		{
-			_context = context;
+			super(context);
 			
-			_a = a;
+			addDefinien(_a = a);
 			_aCount = _a.countVertices;
 			
-			_b = b;
+			addDefinien(_b = b);
 			_bCount = _b.countVertices;
-			
-			_changed = new Signal(PotentialIntersectionVertex);
 			
 			populatePolygonA();
 			populatePolygonB();
 			createIntersections();
 		}
 		
+		/**
+		 * create a wrapper for each vertex in polygon A
+		 */
 		private function populatePolygonA():void
 		{
 			polygonA = [];
@@ -56,6 +54,9 @@ package as3geometry.geom2D.polygons.intersection
 				polygonA.push(new OrignalPolygonVertexWrapper(_a.getVertex(i), i, NULL_POSITION));
 		}
 		
+		/**
+		 * create a wrapper for each vertex in polygon B
+		 */
 		private function populatePolygonB():void
 		{
 			polygonB = [];
@@ -64,8 +65,13 @@ package as3geometry.geom2D.polygons.intersection
 				polygonB.push(new OrignalPolygonVertexWrapper(_b.getVertex(i), NULL_POSITION, i));
 		}
 		
+		/**
+		 * create a potential intersection for each pair of polygon edges
+		 */
 		private function createIntersections():void
 		{
+			var context:AS3GeometryContext = this.context;
+			
 			for (var ai:uint = 0; ai < _aCount; ai++)
 			{
 				for (var bi:uint = 0; bi < _bCount; bi++)
@@ -73,7 +79,7 @@ package as3geometry.geom2D.polygons.intersection
 					var aEdge:Line = _a.getEdge(ai);
 					var bEdge:Line = _b.getEdge(bi);
 					
-					var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(_context, aEdge, bEdge, ai, bi);
+					var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(context, aEdge, bEdge, ai, bi);
 					edgeIntersection.realityChanged.add(onRealityOfIntersectionChanged);
 				
 					polygonA.push(edgeIntersection);
@@ -81,9 +87,11 @@ package as3geometry.geom2D.polygons.intersection
 				}
 			}
 		}
-
+		
 		public function addVertexToPolygonA(vertex:Vertex):void
 		{
+			var context:AS3GeometryContext = this.context;
+			
 			var ai:uint = _a.indexOfVertex(vertex);
 			var aEdge:Line = _a.getEdge(ai);
 				
@@ -91,7 +99,7 @@ package as3geometry.geom2D.polygons.intersection
 			{
 				var bEdge:Line = _b.getEdge(bi);
 				
-				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(_context, aEdge, bEdge, ai, bi);
+				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(context, aEdge, bEdge, ai, bi);
 			
 				polygonA.push(edgeIntersection);
 				polygonB.push(edgeIntersection);
@@ -107,6 +115,8 @@ package as3geometry.geom2D.polygons.intersection
 		
 		public function addVertexToPolygonB(vertex:Vertex):void
 		{
+			var context:AS3GeometryContext = this.context;
+			
 			var bi:uint = _b.indexOfVertex(vertex);
 			var bEdge:Line = _b.getEdge(bi);
 				
@@ -114,7 +124,7 @@ package as3geometry.geom2D.polygons.intersection
 			{
 				var aEdge:Line = _a.getEdge(ai);
 				
-				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(_context, aEdge, bEdge, ai, bi);
+				var edgeIntersection:PotentialIntersectionVertex = new PotentialIntersectionVertex(context, aEdge, bEdge, ai, bi);
 				
 				polygonA.push(edgeIntersection);
 				polygonB.push(edgeIntersection);
@@ -157,12 +167,8 @@ package as3geometry.geom2D.polygons.intersection
 		
 		private function onRealityOfIntersectionChanged(vertex:PotentialIntersectionVertex):void
 		{
-			_changed.dispatch(vertex);
+			invalidate();
 		}
 		
-		public function get changed():Signal
-		{
-			return _changed;
-		}
 	}
 }

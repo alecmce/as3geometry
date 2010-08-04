@@ -42,6 +42,7 @@ package as3geometry.geom2D.ui
 
 		override protected function draw():void
 		{
+			trace("[RESOLVE] CircleDrawer");
 			var c:Vertex = _circle.center;
 			graphics.drawCircle(c.x, c.y, _circle.radius);
 		}

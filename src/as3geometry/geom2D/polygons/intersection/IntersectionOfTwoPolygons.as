@@ -29,15 +29,14 @@ package as3geometry.geom2D.polygons.intersection
 		{
 			super(context, Polygon);
 			
-			addDefinien(_a = a);
-			addDefinien(_b = b);			
-			_expanded = new ExpandedPolygonVectors(context, _a, _b);
-			_expanded.changed.add(onExpandedPolygonVectorsChanged);
+			_a = a;
+			_b = b;
+			addDefinien(_expanded  = new ExpandedPolygonVectors(context, _a, _b));
 			
 			_sorted = new SortedPolygonVectors(context, _expanded);
 			
 			_polygons = _sorted.findPolygons();
-			_polygonCount = _polygonCount = _polygons.length;
+			_polygonCount = _polygons.length;
 		}
 		
 		public function get countPolygons():uint

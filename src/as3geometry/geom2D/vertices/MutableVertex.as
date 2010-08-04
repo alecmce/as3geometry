@@ -1,11 +1,8 @@
 package as3geometry.geom2D.vertices 
 {
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Vertex;
-
-	import org.osflash.signals.Signal;
-
-	import flash.events.EventDispatcher;
 
 	/**
 	 * Defines a vertex on a cartesian plane the position of whcih can be changed
@@ -15,19 +12,18 @@ package as3geometry.geom2D.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableVertex extends EventDispatcher implements Vertex 
+	public class MutableVertex extends Mutable implements Vertex
 	{
 		
 		private var _x:Number;
 		private var _y:Number;
 		
-		private var _changed:Signal;
-		
-		public function MutableVertex(x:Number, y:Number)
+		public function MutableVertex(context:AS3GeometryContext, x:Number, y:Number)
 		{
+			super(context);
+			
 			_x = x;
 			_y = y;
-			_changed = new Signal(Mutable);
 		}
 		
 		public function set x(value:Number):void
@@ -36,7 +32,7 @@ package as3geometry.geom2D.vertices
 				return;
 			
 			_x = value;
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get x():Number
@@ -50,7 +46,7 @@ package as3geometry.geom2D.vertices
 				return;
 			
 			_y = value;
-			_changed.dispatch(this);
+			invalidate();
 		}
 		
 		public function get y():Number
@@ -58,16 +54,12 @@ package as3geometry.geom2D.vertices
 			return _y;
 		}
 		
-		public function get changed():Signal
-		{
-			return _changed;
-		}
 		
 		public function set(x:Number, y:Number):void
 		{
 			_x = x;
 			_y = y;
-			_changed.dispatch(this);
+			invalidate();
 		}
 	}
 }

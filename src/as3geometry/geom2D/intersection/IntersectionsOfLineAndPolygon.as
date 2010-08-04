@@ -38,7 +38,7 @@ package as3geometry.geom2D.intersection
 
 			_potential = calculateVertices();
 			_actual = generateActuals();
-			resolve();
+			invalidate(true);
 		}
 				
 		public function get potentialIntersections():Array
@@ -102,7 +102,7 @@ package as3geometry.geom2D.intersection
 			var actuals:Array = [];
 			
 			while (--n > -1)
-				actuals[n] = new MutableVertex(Number.NaN, Number.NaN);
+				actuals[n] = new MutableVertex(context, Number.NaN, Number.NaN);
 				
 			return actuals;
 		}

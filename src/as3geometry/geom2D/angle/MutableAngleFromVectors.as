@@ -30,7 +30,7 @@ package as3geometry.geom2D.angle
 			addDefinien(_a = a);			addDefinien(_b = b);
 			
 			_helper = new AngleHelper();
-			resolve();
+			invalidate(true);
 		}
 		
 		public function get radians():Number
