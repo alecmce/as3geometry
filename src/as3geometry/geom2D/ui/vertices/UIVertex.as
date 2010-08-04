@@ -60,6 +60,8 @@ package as3geometry.geom2D.ui.vertices
 		
 		override public function resolve():void 
 		{
+			super.resolve();
+			
 			super.x = _workingX;
 			super.y = _workingY;
 			trace("[RESOLVE] UIVertex", x, y);

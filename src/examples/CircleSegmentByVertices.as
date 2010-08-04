@@ -65,11 +65,9 @@ package examples
 			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
 			
 			c = new UIVertexOnCircle(_context, circle, Math.PI * 0.2, vertexPaint);
-			c.angle = Math.PI;
 			dragMechanism.apply(c);
 			
 			d = new UIVertexOnCircle(_context, circle, Math.PI, vertexPaint);
-			d.angle = Math.PI / 2;
 			dragMechanism.apply(d);
 			
 			rightSegment = new MutableCircleSegment(_context, c, d, true);

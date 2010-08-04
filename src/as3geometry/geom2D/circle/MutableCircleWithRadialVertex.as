@@ -39,7 +39,7 @@ package as3geometry.geom2D.circle
 			removeDefinien(_center);
 			_center = value;
 			addDefinien(_center);
-			invalidate();
+			invalidate(true);
 		}
 		
 		public function get radial():Vertex

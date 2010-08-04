@@ -7,14 +7,15 @@ package alecmce.invalidation
 		public var dependencies:Vector.<InvalidatesVO>;		public var dependees:Vector.<InvalidatesVO>;
 		public var tier:uint;
 
+		public var isInvalidated:Boolean;
+
 		public function InvalidatesVO(target:Invalidates) 
 		{
 			this.target = target;
 			this.dependencies = new Vector.<InvalidatesVO>();			this.dependees = new Vector.<InvalidatesVO>();
 			this.tier = 0;
+			
+			this.isInvalidated = false;
 		}
-		
-		
-		
 	}
 }

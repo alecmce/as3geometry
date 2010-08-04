@@ -25,21 +25,25 @@ package as3geometry.geom2D.ui
 		
 		private var _diagonal:Number;
 		
+		private var _drawPending:Boolean;
+		
 		public function LineDrawer(context:AS3GeometryContext, line:Line, paint:Paint = null)
 		{
 			super(context, paint);
 			addDefinien(_line = line);
 			
-			if (stage)
-				_diagonal = calculateDiagonal();
-			else
-				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			_drawPending = false;
+			
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
 		private function onAddedToStage(event:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			_diagonal = calculateDiagonal();
+			
+			if (_drawPending)
+				draw();
 		}
 		
 		private function calculateDiagonal():Number
@@ -67,6 +71,14 @@ package as3geometry.geom2D.ui
 
 		override protected function draw():void
 		{
+			if (!stage)
+			{
+				_drawPending = true;
+				return;
+			}
+			
+			_drawPending = false;
+			
 			var a:Vertex = _line.a;			var b:Vertex = _line.b;
 			
 			switch (_line.type)

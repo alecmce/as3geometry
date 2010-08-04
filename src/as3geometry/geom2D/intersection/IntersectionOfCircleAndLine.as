@@ -31,9 +31,9 @@ package as3geometry.geom2D.intersection
 			_line = line;
 			addDefinien(_line);
 			
-			_first = new CircleAndLineIntersectionVertex();			_second = new CircleAndLineIntersectionVertex();
+			_first = new CircleAndLineIntersectionVertex(context, this);			_second = new CircleAndLineIntersectionVertex(context, this);
 			
-			update();
+			invalidate(true);
 		}
 		
 		public function get circle():Circle
@@ -78,7 +78,7 @@ package as3geometry.geom2D.intersection
 			return _second;
 		}
 
-		private function update():void
+		override public function resolve():void 
 		{
 			var fx:Number = Number.NaN;			var fy:Number = Number.NaN;			var sx:Number = Number.NaN;			var sy:Number = Number.NaN;
 			

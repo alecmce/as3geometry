@@ -199,16 +199,21 @@ package alecmce.invalidation
 			var vo:InvalidatesVO = voMap[invalidator];
 			var tier:uint = vo.tier;
 			
-			var invalidations:Vector.<Invalidates> = tiers[tier];
-			if (!invalidations)
-				tiers[tier] = invalidations = new Vector.<Invalidates>();
+			if (!vo.isInvalidated)
+			{
+				vo.isInvalidated = true;
 			
-			invalidations.push(invalidator);	
-			
-			var dependees:Vector.<InvalidatesVO> = vo.dependees;
-			var len:uint = dependees.length;
-			for (var i:uint = 0; i < len; i++)
-				dependees[i].target.invalidate();
+				var invalidations:Vector.<Invalidates> = tiers[tier];
+				if (!invalidations)
+					tiers[tier] = invalidations = new Vector.<Invalidates>();
+				
+				invalidations.push(invalidator);	
+				
+				var dependees:Vector.<InvalidatesVO> = vo.dependees;
+				var len:uint = dependees.length;
+				for (var i:uint = 0; i < len; i++)
+					dependees[i].target.invalidate();
+			}
 			
 			var newInvalidation:Boolean = !_requiresResolution;
 			_requiresResolution = true;

@@ -1,7 +1,9 @@
 package as3geometry.geom2D.intersection 
 {
+	import alecmce.invalidation.Invalidates;
 	import alecmce.invalidation.signals.InvalidationSignal;
 
+	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Circle;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.VertexOnCircle;
@@ -13,18 +15,23 @@ package as3geometry.geom2D.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	internal class CircleAndLineIntersectionVertex implements VertexOnCircle
+	internal class CircleAndLineIntersectionVertex implements VertexOnCircle, Invalidates
 	{
 		private var _invalidated:InvalidationSignal;
-
+		private var _isInvalidated:Boolean;
+		
 		private var _circle:Circle;
 		private var _x:Number;
 		private var _y:Number;
 		private var _angle:Number;
 
-		public function CircleAndLineIntersectionVertex()
+		public function CircleAndLineIntersectionVertex(context:AS3GeometryContext, container:IntersectionOfCircleAndLine)
 		{
 			_invalidated = new InvalidationSignal();
+			_isInvalidated = false;
+			
+			context.invalidationManager.addDependency(container, this);
+			
 			_circle = null;
 			_angle = Number.NaN;
 			_x = Number.NaN;
@@ -51,6 +58,21 @@ package as3geometry.geom2D.intersection
 			return _y;
 		}
 		
+		public function invalidate(resolveImmediately:Boolean = false):void
+		{
+			_isInvalidated = true;
+			_invalidated.dispatch(this, resolveImmediately);
+		}
+		
+		public function resolve():void
+		{
+			// do nothing - in this unusual case resolve is deferred to the
+			// IntersectionOfCircleAndLine container object that performs the
+			// calculation and calls update in it's own resolve cycle. Because
+			// the container object is a definien, it must be resolved before
+			// this object
+		}
+		
 		internal function update(circle:Circle, x:Number, y:Number):void
 		{
 			_circle = circle;
@@ -67,12 +89,17 @@ package as3geometry.geom2D.intersection
 				_angle = Math.atan2(_y - center.y, _x - center.x);
 			}
 			
-			_invalidated.dispatch(this);
+			_isInvalidated = false;
 		}
 		
-		public function get changed():InvalidationSignal
+		public function get invalidated():InvalidationSignal
 		{
 			return _invalidated;
+		}
+		
+		public function get isInvalid():Boolean
+		{
+			return _isInvalidated;
 		}
 	}
 }

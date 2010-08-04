@@ -6,8 +6,6 @@ package as3geometry.geom2D.polygons.intersection
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 
-	import org.osflash.signals.Signal;
-
 	/**
 	 * 
 	 * 

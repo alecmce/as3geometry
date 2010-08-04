@@ -68,12 +68,12 @@ package as3geometry.geom2D.ui.generic
 				_context.invalidationManager.removeDependency(abstract, this);
 		}
 		
-		public function invalidate():void
+		public function invalidate(resolveImmediately:Boolean = false):void
 		{
 			_isInvalid = true;
-			_invalidated.dispatch(this);
+			_invalidated.dispatch(this, resolveImmediately);
 		}
-		
+
 		public function resolve():void
 		{
 			_isInvalid = false;

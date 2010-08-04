@@ -30,14 +30,19 @@ package as3geometry.geom2D.ui.vertices
 		
 		private var _angle:Number;
 		
+		private var _positionSet:Boolean;
+
 		public function UIVertexOnCircle(context:AS3GeometryContext, circle:Circle, angle:Number, paint:Paint = null, radius:uint = 4)
 		{
 			super(context, paint);
 			addDefinien(_circle = circle);
+			
 			_angle = angle;
+			_positionSet = false;
 			_helper = new AngleHelper();
 			_radius = radius;
-			invalidate();
+			
+			invalidate(true);
 		}
 
 		override public function set x(value:Number):void
@@ -46,6 +51,7 @@ package as3geometry.geom2D.ui.vertices
 				return;
 			
 			_tempX = value;
+			_positionSet = true;
 			invalidate();
 		}
 
@@ -55,6 +61,7 @@ package as3geometry.geom2D.ui.vertices
 				return;
 			
 			_tempY = value;
+			_positionSet = true;
 			invalidate();
 		}
 		
@@ -90,8 +97,12 @@ package as3geometry.geom2D.ui.vertices
 			
 			var cx:Number = center.x;
 			var cy:Number = center.y;
-			
-			_angle = Math.atan2(_tempY - cy, _tempX - cx);
+				
+			if (_positionSet)
+			{
+				_positionSet = false;
+				_angle = Math.atan2(_tempY - cy, _tempX - cx);
+			}
 			
 			super.x = cx + Math.cos(_angle) * radius;
 			super.y = cy + Math.sin(_angle) * radius;

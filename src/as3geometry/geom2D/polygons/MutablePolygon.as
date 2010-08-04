@@ -36,6 +36,8 @@ package as3geometry.geom2D.polygons
 				var v:Vertex = vertices[i];
 				addDefinien(v);
 			}
+			
+			invalidate(true);
 		}
 
 		public function get countVertices():uint

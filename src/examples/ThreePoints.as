@@ -23,6 +23,7 @@ package examples
 	 *
 	 * @author Alec McEachran
 	 */
+	[SWF(backgroundColor="#FFFFFF", frameRate="100", width="800", height="600")]
 	public class ThreePoints extends ExampleBaseSprite 
 	{
 		private var vertexPaint:SolidPaint;

@@ -23,6 +23,7 @@ package as3geometry.geom2D.polygons
 			super(context);
 			addDefinien(_a = a);			addDefinien(_b = b);
 			addDefinien(_c = c);
+			invalidate(true);
 		}
 		
 		public function get a():Vertex

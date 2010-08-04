@@ -23,12 +23,17 @@ package as3geometry.geom2D.line
 		
 		private var _type:LineType;
 		
+		private var _i:Number;
+		private var _j:Number;
+		private var _length:Number;
+
 		public function MutableLine(context:AS3GeometryContext, a:Vertex, b:Vertex, type:LineType = null)
 		{
 			super(context);
 			addDefinien(_a = a);
 			addDefinien(_b = b);
 			_type = type ? type : LineType.LINE;
+			invalidate(true);
 		}
 		
 		public function get a():Vertex
@@ -62,21 +67,27 @@ package as3geometry.geom2D.line
 			addDefinien(_b);
 			invalidate();
 		}
-	
+
+		override public function resolve():void 
+		{
+			_i = _b.x - _a.x;
+			_j = _b.y - _a.y;
+			_length = Math.sqrt(_i * _i + _j * _j);
+		}
+
 		public function get i():Number
 		{
-			return _b.x - _a.x;
+			return _i;
 		}
 		
 		public function get j():Number
 		{
-			return _b.y - _a.y;
+			return _j;
 		}
 		
 		public function get length():Number
 		{
-			var I:Number = i;			var J:Number = j;
-			return Math.sqrt(I * I + J * J);
+			return _length;
 		}
 		
 		public function get vector():SpatialVector

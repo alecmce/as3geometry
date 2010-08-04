@@ -21,9 +21,9 @@ package as3geometry.geom2D.circle
 		public function MutableCircle(context:AS3GeometryContext, center:Vertex, radius:Number)
 		{
 			super(context);
-			
 			addDefinien(_center = center);
 			_radius = radius;
+			invalidate(true);
 		}
 		
 		public function get center():Vertex
