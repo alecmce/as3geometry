@@ -5,7 +5,7 @@ package examples
 	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.parabola.MutableParabola;
 	import as3geometry.geom2D.ui.LineDrawer;
-	import as3geometry.geom2D.ui.ParabolaDrawer.ParabolaDrawer;
+	import as3geometry.geom2D.ui.ParabolaDrawer;
 	import as3geometry.geom2D.ui.vertices.UIVertex;
 
 	import ui.interactive.DragMechanism;

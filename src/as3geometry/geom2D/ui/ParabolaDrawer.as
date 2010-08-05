@@ -1,4 +1,4 @@
-package as3geometry.geom2D.ui.ParabolaDrawer 
+package as3geometry.geom2D.ui 
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Line;
