@@ -19,7 +19,6 @@ package as3geometry.geom2D.polygons
 	public class ImmutablePolygon implements Polygon
 	{
 		private var _vertices:Array;
-		
 		private var _edges:Array;
 				
 		/**
@@ -37,7 +36,7 @@ package as3geometry.geom2D.polygons
 			{
 				var v:Vertex = vertices[i];
 				if (v is Mutable)
-					throw new MutabilityError("A point defining a ImmutablePolygon is mutable");
+					throw new MutabilityError("A vertex defining an ImmutablePolygon is mutable");
 			}
 		}
 
