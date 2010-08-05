@@ -17,5 +17,11 @@ package alecmce.invalidation
 			
 			this.isInvalidated = false;
 		}
+
+		public function resolve():void 
+		{
+			isInvalidated = false;
+			target.resolve();
+		}
 	}
 }

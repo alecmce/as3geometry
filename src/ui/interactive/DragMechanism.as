@@ -99,7 +99,7 @@ package ui.interactive
 			var target:InteractiveObject = InteractiveObject(event.currentTarget);
 			
 			_dragging = target;
-			_dragging.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true);			_dragging.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp, false, 0, true);
+			_dragging.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);			_dragging.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			_offsetX = event.stageX - target.x;			_offsetY = event.stageY - target.y;
 		}
 		
@@ -111,6 +111,7 @@ package ui.interactive
 
 		private function onMouseMove(event:MouseEvent):void
 		{
+			trace("onMouseMove", event.stageX, event.stageY);
 			_dragging.x = event.stageX + _offsetX;			_dragging.y = event.stageY + _offsetY;
 			event.updateAfterEvent();
 		}
