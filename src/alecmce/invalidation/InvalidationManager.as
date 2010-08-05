@@ -11,7 +11,7 @@ package alecmce.invalidation
 		 * objects which have no dependencies on objects in 'higher tiers'
 		 * (tiers with lower indices).
 		 */
-		private var tiers:Vector.<Vector.<Invalidates>>;
+		private var tiers:Vector.<Vector.<InvalidatesVO>>;
 		
 		/** contains a map from Invalidates keys to InvalidatesVO values */
 		private var voMap:Dictionary;
@@ -28,8 +28,8 @@ package alecmce.invalidation
 		public function InvalidationManager() 
 		{
 			voMap = new Dictionary();
-			tiers = new Vector.<Vector.<Invalidates>>();
-			tiers[0] = new Vector.<Invalidates>();
+			tiers = new Vector.<Vector.<InvalidatesVO>>();
+			tiers[0] = new Vector.<InvalidatesVO>();
 			
 			_invalidated = new Signal();
 			_requiresResolution = false;
@@ -181,7 +181,7 @@ package alecmce.invalidation
 			dependent.tier = dependentTier = independentTier + 1;
 			
 			while (tiers.length <= dependentTier)
-				tiers.push(new Vector.<Invalidates>());
+				tiers.push(new Vector.<InvalidatesVO>());
 			
 			var dependees:Vector.<InvalidatesVO> = dependent.dependees;
 			var len:uint = dependees.length;
@@ -203,11 +203,11 @@ package alecmce.invalidation
 			{
 				vo.isInvalidated = true;
 			
-				var invalidations:Vector.<Invalidates> = tiers[tier];
+				var invalidations:Vector.<InvalidatesVO> = tiers[tier];
 				if (!invalidations)
-					tiers[tier] = invalidations = new Vector.<Invalidates>();
+					tiers[tier] = invalidations = new Vector.<InvalidatesVO>();
 				
-				invalidations.push(invalidator);	
+				invalidations.push(vo);	
 				
 				var dependees:Vector.<InvalidatesVO> = vo.dependees;
 				var len:uint = dependees.length;
@@ -239,7 +239,7 @@ package alecmce.invalidation
 			var ilen:uint = tiers.length;
 			for (var i:uint = 0; i < ilen; i++)
 			{
-				var invalidations:Vector.<Invalidates> = tiers[i];
+				var invalidations:Vector.<InvalidatesVO> = tiers[i];
 				var jlen:uint = invalidations.length;
 				for (var j:uint = 0; j < jlen; j++)
 					invalidations[j].resolve();
