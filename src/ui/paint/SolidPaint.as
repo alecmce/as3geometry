@@ -14,6 +14,8 @@ package ui.paint
 	public class SolidPaint implements Paint
 	{
 		
+		private static const ALPHA_SCALAR:Number = 1 / 0xFF;
+		
 		private var _fill:uint;
 		
 		private var _stroke:uint;
@@ -44,17 +46,19 @@ package ui.paint
 		
 		public function beginPaint(graphics:Graphics):void
 		{
-			graphics.beginFill(_fill & 0xFFFFFF, (_fill >>> 24) / 0xFF);
+			if (_fill)
+				graphics.beginFill(_fill & 0xFFFFFF, (_fill >>> 24) * ALPHA_SCALAR);
 			
 			if (_width >= 0)
-				graphics.lineStyle(_width, _stroke & 0xFFFFFF, (_stroke >>> 24) / 0xFF);
+				graphics.lineStyle(_width, _stroke & 0xFFFFFF, (_stroke >>> 24) * ALPHA_SCALAR);
 			else
 				graphics.lineStyle();
 		}
 		
 		public function endPaint(graphics:Graphics):void
 		{
-			graphics.endFill();
+			if (_fill)
+				graphics.endFill();
 		}
 	}
 }

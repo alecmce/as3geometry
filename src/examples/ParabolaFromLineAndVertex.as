@@ -1,5 +1,7 @@
 package examples 
 {
+	import ui.Paint;
+
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Parabola;
 	import as3geometry.geom2D.line.MutableLine;
@@ -15,6 +17,7 @@ package examples
 	public class ParabolaFromLineAndVertex extends ExampleBaseSprite
 	{
 		private var vertexPaint:SolidPaint;
+		private var linePaint:Paint;
 		
 		private var dragMechanism:DragMechanism;
 		
@@ -31,6 +34,7 @@ package examples
 		public function ParabolaFromLineAndVertex() 
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
+			linePaint = new SolidPaint(0, 0xFF000000, 2);
 			
 			dragMechanism = new DragMechanism();
 			
@@ -53,7 +57,7 @@ package examples
 			lineDrawer = new LineDrawer(_context, line);
 			
 			parabola = new MutableParabola(_context, c, line);
-			parabolaDrawer = new ParabolaDrawer(_context, parabola);
+			parabolaDrawer = new ParabolaDrawer(_context, parabola, linePaint);
 			
 			addChild(lineDrawer);
 			addChild(parabolaDrawer);
