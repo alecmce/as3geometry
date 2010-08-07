@@ -1,6 +1,7 @@
 package examples 
 {
 	import as3geometry.geom2D.Line;
+	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Parabola;
 	import as3geometry.geom2D.line.MutableLine;
 	import as3geometry.geom2D.parabola.MutableParabola;
@@ -12,8 +13,8 @@ package examples
 	import ui.interactive.DragMechanism;
 	import ui.paint.SolidPaint;
 
-	[SWF(backgroundColor="#FFFFFF", frameRate="31", width="640", height="480")]
-	public class ParabolaFromLineAndVertex extends ExampleBaseSprite
+	[SWF(backgroundColor="#FFFFFF", frameRate="31", width="800", height="600")]
+	public class ParabolaFromSegmentAndVertex extends ExampleBaseSprite
 	{
 		private var vertexPaint:SolidPaint;
 		private var linePaint:Paint;
@@ -30,7 +31,7 @@ package examples
 		private var parabola:Parabola;
 		private var parabolaDrawer:ParabolaDrawer;
 
-		public function ParabolaFromLineAndVertex() 
+		public function ParabolaFromSegmentAndVertex() 
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			linePaint = new SolidPaint(0, 0xFF000000, 2);
@@ -52,7 +53,7 @@ package examples
 			c.x = Math.random() * stage.stageWidth;
 			c.y = Math.random() * stage.stageHeight;
 			
-			line = new MutableLine(_context, a, b);
+			line = new MutableLine(_context, a, b, LineType.SEGMENT);
 			lineDrawer = new LineDrawer(_context, line);
 			
 			parabola = new MutableParabola(_context, c, line);
