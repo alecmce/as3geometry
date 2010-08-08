@@ -5,11 +5,14 @@ package as3geometry.geom2D.parabola
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Parabola;
 	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.util.ParabolaHelper;
 
 	public class MutableParabola extends Mutable implements Parabola
 	{
 		private var _focus:Vertex;
 		private var _directrix:Line;
+		
+		private var helper:ParabolaHelper;
 
 		public function MutableParabola(context:AS3GeometryContext, focus:Vertex, directrix:Line)
 		{
@@ -21,8 +24,8 @@ package as3geometry.geom2D.parabola
 		
 		public function getVertex(n:Number):Vertex
 		{
-			// TODO: Auto-generated method stub
-			return null;
+			helper ||= new ParabolaHelper();
+			return helper.vertexFromParameter(this, n);
 		}
 		
 		public function get focus():Vertex

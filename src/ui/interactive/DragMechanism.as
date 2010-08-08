@@ -111,7 +111,6 @@ package ui.interactive
 
 		private function onMouseMove(event:MouseEvent):void
 		{
-			trace("onMouseMove", event.stageX, event.stageY);
 			_dragging.x = event.stageX + _offsetX;			_dragging.y = event.stageY + _offsetY;
 			event.updateAfterEvent();
 		}

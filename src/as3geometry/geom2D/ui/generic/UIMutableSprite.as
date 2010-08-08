@@ -21,6 +21,7 @@ package as3geometry.geom2D.ui.generic
 	public class UIMutableSprite extends Sprite implements Invalidates
 	{
 		private var _paint:Paint;
+		protected var _redraw:Boolean;
 		
 		private var _isInvalid:Boolean;
 		private var _invalidated:InvalidationSignal;
@@ -30,6 +31,7 @@ package as3geometry.geom2D.ui.generic
 		{
 			_context = context;
 			_paint = paint;
+			_redraw = true;
 			_invalidated = new InvalidationSignal();
 			_context.invalidationManager.register(this);
 			_isInvalid = false;
@@ -42,10 +44,8 @@ package as3geometry.geom2D.ui.generic
 
 		public function set paint(paint:Paint):void
 		{
-			if (_paint == paint)
-				return;
-			
 			_paint = paint;
+			_redraw = true;
 			invalidate();
 		}
 		
@@ -77,6 +77,17 @@ package as3geometry.geom2D.ui.generic
 		public function resolve():void
 		{
 			_isInvalid = false;
+			
+			if (_redraw)
+			{
+				_redraw = false;
+				redraw();
+			}
+		}
+		
+		protected function redraw():void
+		{
+			
 		}
 		
 		public function get invalidated():InvalidationSignal

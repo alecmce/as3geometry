@@ -2,23 +2,23 @@ package as3geometry.geom2D.vertices
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
-	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.InteractiveVertex;
 
 	/**
-	 * Defines a vertex on a cartesian plane the position of whcih can be changed
-	 * by setting its x and y values
+	 * Defines an independent vertex on a cartesian plane the position of which
+	 * can be changed by setting its x and y values or by using the set method
 	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
 	 */
-	public class MutableVertex extends Mutable implements Vertex
+	public class IndependentVertex extends Mutable implements InteractiveVertex
 	{
 		
 		private var _x:Number;
 		private var _y:Number;
 		
-		public function MutableVertex(context:AS3GeometryContext, x:Number, y:Number)
+		public function IndependentVertex(context:AS3GeometryContext, x:Number, y:Number)
 		{
 			super(context);
 			

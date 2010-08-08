@@ -8,7 +8,7 @@ package as3geometry.geom2D
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface VertexOnLine extends Vertex
+	public interface VertexOnLine extends InteractiveVertex
 	{
 		
 		function get line():Line;

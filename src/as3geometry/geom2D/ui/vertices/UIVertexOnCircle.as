@@ -2,6 +2,7 @@ package as3geometry.geom2D.ui.vertices
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Circle;
+	import as3geometry.geom2D.InteractiveVertex;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.VertexOnCircle;
 	import as3geometry.geom2D.ui.generic.UIMutableSprite;
@@ -16,7 +17,7 @@ package as3geometry.geom2D.ui.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class UIVertexOnCircle extends UIMutableSprite implements VertexOnCircle
+	public class UIVertexOnCircle extends UIMutableSprite implements VertexOnCircle, InteractiveVertex
 	{
 		private var _circle:Circle;
 		
@@ -47,9 +48,6 @@ package as3geometry.geom2D.ui.vertices
 
 		override public function set x(value:Number):void
 		{
-			if (_tempX == value)
-				return;
-			
 			_tempX = value;
 			_positionSet = true;
 			invalidate();
@@ -57,10 +55,15 @@ package as3geometry.geom2D.ui.vertices
 
 		override public function set y(value:Number):void
 		{
-			if (_tempY == value)
-				return;
-			
 			_tempY = value;
+			_positionSet = true;
+			invalidate();
+		}
+		
+		public function set(x:Number, y:Number):void
+		{
+			_tempX = x;
+			_tempY = y;
 			_positionSet = true;
 			invalidate();
 		}
@@ -106,7 +109,11 @@ package as3geometry.geom2D.ui.vertices
 			
 			super.x = cx + Math.cos(_angle) * radius;
 			super.y = cy + Math.sin(_angle) * radius;
+		}
 
+		
+		override protected function redraw():void 
+		{
 			var p:Paint = paint;
 			graphics.clear();
 			p.beginPaint(graphics);

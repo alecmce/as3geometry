@@ -3,7 +3,7 @@ package as3geometry.geom2D.immutable
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.circle.ImmutableCircle;
-	import as3geometry.geom2D.vertices.MutableVertex;
+	import as3geometry.geom2D.vertices.IndependentVertex;
 
 	import asunit.asserts.fail;
 
@@ -32,7 +32,7 @@ package as3geometry.geom2D.immutable
 		[Test]
 		public function mutableErrorIsThrown():void
 		{
-			var a:MutableVertex = new MutableVertex(context, 1, 1);
+			var a:IndependentVertex = new IndependentVertex(context, 1, 1);
 			
 			try
 			{

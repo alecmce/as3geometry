@@ -4,7 +4,7 @@ package as3geometry.geom2D.immutable
 	import as3geometry.errors.MutabilityError;
 	import as3geometry.geom2D.line.ImmutableLine;
 	import as3geometry.geom2D.vertices.ImmutableVertex;
-	import as3geometry.geom2D.vertices.MutableVertex;
+	import as3geometry.geom2D.vertices.IndependentVertex;
 
 	import asunit.asserts.fail;
 
@@ -34,7 +34,7 @@ package as3geometry.geom2D.immutable
 		[Test]
 		public function mutableErrorIsThrown_parameterA():void
 		{
-			var a:MutableVertex = new MutableVertex(context, 1, 1);
+			var a:IndependentVertex = new IndependentVertex(context, 1, 1);
 			var b:ImmutableVertex = new ImmutableVertex(0, 0);
 			
 			try
@@ -53,7 +53,7 @@ package as3geometry.geom2D.immutable
 		public function mutableErrorIsThrown_parameterB():void
 		{
 			var a:ImmutableVertex = new ImmutableVertex(0, 0);
-			var b:MutableVertex = new MutableVertex(context, 1, 1);
+			var b:IndependentVertex = new IndependentVertex(context, 1, 1);
 			
 			try
 			{

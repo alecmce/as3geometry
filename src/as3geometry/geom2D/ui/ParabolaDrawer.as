@@ -1,12 +1,11 @@
 package as3geometry.geom2D.ui 
 {
-	import as3geometry.geom2D.LineType;
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Line;
+	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Parabola;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.ui.generic.UIDrawer;
-	import as3geometry.geom2D.util.ParabolaHelper;
 
 	import ui.Paint;
 
@@ -14,14 +13,11 @@ package as3geometry.geom2D.ui
 
 	public class ParabolaDrawer extends UIDrawer
 	{
-		
 		private var _parabola:Parabola;
 		
 		private var _diagonal:Number;
 		
 		private var _drawPending:Boolean;
-		
-		private var _helper:ParabolaHelper;
 		
 		public function ParabolaDrawer(context:AS3GeometryContext, parabola:Parabola, paint:Paint = null)
 		{
@@ -29,7 +25,6 @@ package as3geometry.geom2D.ui
 			addDefinien(_parabola = parabola);
 			
 			_drawPending = false;
-			_helper = new ParabolaHelper();
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}

@@ -101,5 +101,17 @@ package as3geometry.geom2D.intersection
 		{
 			return _isInvalidated;
 		}
+		
+		public function set(x:Number, y:Number):void
+		{
+		}
+		
+		public function set x(value:Number):void
+		{
+		}
+		
+		public function set y(value:Number):void
+		{
+		}
 	}
 }

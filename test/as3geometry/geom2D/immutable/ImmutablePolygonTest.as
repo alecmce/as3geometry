@@ -5,7 +5,7 @@ package as3geometry.geom2D.immutable
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.polygons.ImmutablePolygon;
 	import as3geometry.geom2D.vertices.ImmutableVertex;
-	import as3geometry.geom2D.vertices.MutableVertex;
+	import as3geometry.geom2D.vertices.IndependentVertex;
 
 	import asunit.asserts.assertFalse;
 	import asunit.asserts.assertTrue;
@@ -36,7 +36,7 @@ package as3geometry.geom2D.immutable
 		[Test]
 		public function mutableErrorIsThrown():void
 		{
-			var a:MutableVertex = new MutableVertex(context, 1, 0);
+			var a:IndependentVertex = new IndependentVertex(context, 1, 0);
 			var b:ImmutableVertex = new ImmutableVertex(1, 1);			var c:ImmutableVertex = new ImmutableVertex(0, 1);			var d:ImmutableVertex = new ImmutableVertex(0, 0);			
 			var vertices:Array = [a,b,c,d];
 			

@@ -8,7 +8,7 @@ package as3geometry.geom2D.intersection
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.line.ImmutableLine;
 	import as3geometry.geom2D.line.IntersectionOfTwoLinesVertex;
-	import as3geometry.geom2D.vertices.MutableVertex;
+	import as3geometry.geom2D.vertices.IndependentVertex;
 
 	/**
 	 * 
@@ -61,7 +61,7 @@ package as3geometry.geom2D.intersection
 			var nullify:Boolean = false;
 			for (var i:int = 0; i < len; i++)
 			{
-				var a:MutableVertex = _actual[i];
+				var a:IndependentVertex = _actual[i];
 				
 				p = sorted[i];
 				if (!nullify)
@@ -102,7 +102,7 @@ package as3geometry.geom2D.intersection
 			var actuals:Array = [];
 			
 			while (--n > -1)
-				actuals[n] = new MutableVertex(context, Number.NaN, Number.NaN);
+				actuals[n] = new IndependentVertex(context, Number.NaN, Number.NaN);
 				
 			return actuals;
 		}

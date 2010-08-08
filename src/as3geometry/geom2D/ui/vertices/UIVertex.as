@@ -3,7 +3,7 @@ package as3geometry.geom2D.ui.vertices
 	import alecmce.invalidation.Invalidates;
 
 	import as3geometry.AS3GeometryContext;
-	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.InteractiveVertex;
 	import as3geometry.geom2D.ui.generic.UIMutableSprite;
 
 	import ui.Paint;
@@ -15,7 +15,7 @@ package as3geometry.geom2D.ui.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class UIVertex extends UIMutableSprite implements Vertex, Invalidates
+	public class UIVertex extends UIMutableSprite implements InteractiveVertex, Invalidates
 	{
 		private var _workingX:Number;
 		
@@ -47,6 +47,13 @@ package as3geometry.geom2D.ui.vertices
 			invalidate();
 		}
 		
+		public function set(x:Number, y:Number):void
+		{
+			_workingX = x;
+			_workingY = y;
+			invalidate();
+		}
+		
 		public function get radius():uint
 		{
 			return _radius;
@@ -55,6 +62,7 @@ package as3geometry.geom2D.ui.vertices
 		public function set radius(radius:uint):void
 		{
 			_radius = radius;
+			_redraw = true;
 			invalidate();
 		}
 		
@@ -64,13 +72,17 @@ package as3geometry.geom2D.ui.vertices
 			
 			super.x = _workingX;
 			super.y = _workingY;
-			trace("[RESOLVE] UIVertex", x, y);
-			
+		}
+
+		
+		override protected function redraw():void 
+		{
 			var p:Paint = paint;
 			graphics.clear();
 			p.beginPaint(graphics);
 			graphics.drawCircle(0, 0, _radius);
 			p.endPaint(graphics);
 		}
+		
 	}
 }

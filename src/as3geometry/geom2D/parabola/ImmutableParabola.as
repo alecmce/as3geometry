@@ -5,6 +5,7 @@ package as3geometry.geom2D.parabola
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Parabola;
 	import as3geometry.geom2D.Vertex;
+	import as3geometry.geom2D.util.ParabolaHelper;
 
 	/**
 	 * Defines a parabola defined geometrically as the locus of points equidistant
@@ -61,7 +62,8 @@ package as3geometry.geom2D.parabola
 		 */
 		public function getVertex(n:Number):Vertex
 		{
-			return null;
+			var helper:ParabolaHelper = new ParabolaHelper();
+			return helper.vertexFromParameter(this, n);
 		}
 	}
 }
