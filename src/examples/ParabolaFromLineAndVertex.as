@@ -39,18 +39,18 @@ package examples
 			
 			a = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(a);
-			a.x = Math.random() * stage.stageWidth;
-			a.y = Math.random() * stage.stageHeight;
+			a.x = 120;
+			a.y = 300;
 			
 			b = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(b);
-			b.x = Math.random() * stage.stageWidth;
-			b.y = Math.random() * stage.stageHeight;
+			b.x = 400;
+			b.y = 400;
 			
 			c = new UIVertex(_context, vertexPaint);
 			dragMechanism.apply(c);
-			c.x = Math.random() * stage.stageWidth;
-			c.y = Math.random() * stage.stageHeight;
+			c.x = 300;
+			c.y = 250;
 			
 			line = new MutableLine(_context, a, b);
 			lineDrawer = new LineDrawer(_context, line);
