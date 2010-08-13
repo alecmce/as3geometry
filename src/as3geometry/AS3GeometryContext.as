@@ -30,9 +30,6 @@ package as3geometry
 
 		private function onInvalidated():void 
 		{
-			if (!_root || !_root.stage)
-				trace("wha?");
-			
 			if (_root.stage)
 			{
 				_root.stage.addEventListener(Event.RENDER, onStageRender);

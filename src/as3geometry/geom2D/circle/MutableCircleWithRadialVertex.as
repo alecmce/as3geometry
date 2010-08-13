@@ -23,7 +23,7 @@ package as3geometry.geom2D.circle
 			super(context);
 			addDefinien(_center = center);
 			addDefinien(_radial = radial);
-			invalidate();
+			invalidate(true);
 		}
 		
 		public function get center():Vertex
