@@ -49,26 +49,26 @@ package as3geometry.geom2D.polygons.intersection
 			return _polygons[i];
 		}
 		
-		private function onExpandedPolygonVectorsChanged(vertex:PotentialIntersectionVertex):void
-		{
-			if (vertex.isReal)
-			{
-				
-			}
-			else
-			{
-				var index:int = vertex.polygonIndex;
-				if (index == -1)	
-					return;
-				
-				var polygon:IntersectionPolygon = _polygons[index];
-				if (polygon)
-				{
-					polygon.removeVertex(vertex);
-					vertex.polygonIndex = -1;
-				}
-			}
-		}
+//		private function onExpandedPolygonVectorsChanged(vertex:PotentialIntersectionVertex):void
+//		{
+//			if (vertex.isReal)
+//			{
+//				
+//			}
+//			else
+//			{
+//				var index:int = vertex.polygonIndex;
+//				if (index == -1)	
+//					return;
+//				
+//				var polygon:IntersectionPolygon = _polygons[index];
+//				if (polygon)
+//				{
+//					polygon.removeVertex(vertex);
+//					vertex.polygonIndex = -1;
+//				}
+//			}
+//		}
 		
 	}
 }

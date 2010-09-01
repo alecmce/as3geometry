@@ -2,14 +2,14 @@ package
 {
 	import alecmce.data.AllDataTests;
 	import alecmce.invalidation.AllInvalidationTests;
-
-	import as3geometry.AllGeometryTests;
+	import alecmce.math.AllMathTests;
 
 	[Suite]
 	public class AllTests 
 	{
 		public var invalidation:AllInvalidationTests;
 		public var data:AllDataTests;
-		public var as3geometry:AllGeometryTests;
+		public var math:AllMathTests;
+		//public var as3geometry:AllGeometryTests;
 	}
 }

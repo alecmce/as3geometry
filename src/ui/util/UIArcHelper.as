@@ -1,5 +1,7 @@
 package ui.util 
 {
+	import as3geometry.geom2D.vertices.ImmutableVertex;
+
 	import flash.display.Graphics;
 
 	/**
@@ -17,6 +19,14 @@ package ui.util
 	 */
 	public class UIArcHelper 
 	{
+		
+		public function arcInitialPosition(x:Number, y:Number, radius:Number, start:Number):ImmutableVertex
+		{
+			var nx:Number = x + radius * Math.cos(start);
+			var ny:Number = y + radius * Math.sin(start);
+			return new ImmutableVertex(nx, ny);
+		}
+		
 		public function drawArc(graphics:Graphics, x:Number, y:Number, radius:Number, start:Number, sweep:Number, curves:uint = 8):void
 		{
 			var dAngle:Number = sweep / (2 * curves);
@@ -24,17 +34,14 @@ package ui.util
 			
 			var multiplied:Number = radius * (2 - Math.cos(dAngle));
 			
-			var nx:Number = x + radius * Math.cos(start);			var ny:Number = y + radius * Math.sin(start);
-			graphics.moveTo(nx, ny);
-			
 			for (var i:uint = 0; i < curves; i++)
 			{
 				angle += dAngle;
 				var cx:Number = x + multiplied * Math.cos(angle);				var cy:Number = y + multiplied * Math.sin(angle);
 				
 				angle += dAngle;
-				nx = x + radius * Math.cos(angle);
-				ny = y + radius * Math.sin(angle);
+				var nx:Number = x + radius * Math.cos(angle);
+				var ny:Number = y + radius * Math.sin(angle);
 				
 				graphics.curveTo(cx, cy, nx, ny);
 			}

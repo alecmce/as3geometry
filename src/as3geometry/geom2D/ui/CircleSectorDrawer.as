@@ -2,7 +2,7 @@ package as3geometry.geom2D.ui
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Circle;
-	import as3geometry.geom2D.CircleSegment;
+	import as3geometry.geom2D.CircleSector;
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.ui.generic.UIDrawer;
 	import as3geometry.geom2D.util.AngleHelper;
@@ -17,45 +17,45 @@ package as3geometry.geom2D.ui
 	 *
 	 * @author Alec McEachran
 	 */
-	public class CircleSegmentDrawer extends UIDrawer
+	public class CircleSectorDrawer extends UIDrawer
 	{
 		private var angles:AngleHelper;
 		
 		private var helper:UIArcHelper;
 		
-		private var _segment:CircleSegment;
+		private var _sector:CircleSector;
 		
-		public function CircleSegmentDrawer(context:AS3GeometryContext, segment:CircleSegment, paint:Paint = null)
+		public function CircleSectorDrawer(context:AS3GeometryContext, sector:CircleSector, paint:Paint = null)
 		{
 			super(context, paint);
-			addDefinien(_segment = segment);
+			addDefinien(_sector = sector);
 			angles = new AngleHelper();
 			helper = new UIArcHelper();
 			invalidate();
 		}
 		
-		public function get segment():CircleSegment
+		public function get sector():CircleSector
 		{
-			return _segment;
+			return _sector;
 		}
 		
-		public function set segment(value:CircleSegment):void
+		public function set sector(value:CircleSector):void
 		{
-			if (_segment == value)
+			if (_sector == value)
 				return;
 			
-			removeDefinien(_segment);
-			_segment = value;
-			addDefinien(_segment);
+			removeDefinien(_sector);
+			_sector = value;
+			addDefinien(_sector);
 			invalidate();
 		}
 
 		override protected function draw():void
 		{
-			var circle:Circle = _segment.from.circle;
+			var circle:Circle = _sector.from.circle;
 			var c:Vertex = circle.center;
 			var radius:Number = circle.radius;
-			var angle:Number = _segment.from.angle;			var sweep:Number = _segment.angle;
+			var angle:Number = _sector.from.angle;			var sweep:Number = _sector.angle;
 			
 			if (isNaN(c.x) || isNaN(c.y) || isNaN(angle) || isNaN(radius) || isNaN(sweep))
 				return;
@@ -64,8 +64,10 @@ package as3geometry.geom2D.ui
 			var y:Number = c.y;
 			
 			var start:Vertex = helper.arcInitialPosition(x, y, radius, angle);
-			graphics.moveTo(start.x, start.y);
+			graphics.moveTo(x, y);
+			graphics.lineTo(start.x, start.y);
 			helper.drawArc(graphics, c.x, c.y, radius, angle, sweep);
+			graphics.lineTo(x, y);
 		}
 
 	}

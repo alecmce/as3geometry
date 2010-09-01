@@ -1,11 +1,10 @@
-package as3geometry.geom2D.polygons.intersection 
+package as3geometry.geom2D.polygons.test
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
-
 	/**
 	 * ExpandedPolygonVectors creates two Arrays containing wrappers for the
 	 * definien vertices as well as potential intersection vertices for each
@@ -15,7 +14,7 @@ package as3geometry.geom2D.polygons.intersection
 	 *
 	 * @author Alec McEachran
 	 */
-	public class ExpandedPolygonVectors extends Mutable
+	public class TestIntersectionOfPolygons extends Mutable
 	{
 		private static const NULL_POSITION:int = -1;
 		
@@ -31,7 +30,7 @@ package as3geometry.geom2D.polygons.intersection
 		// TODO can this easily be converted to Vector.<ExpandedPolygonVertex>?
 		public var polygonB:Array;
 
-		public function ExpandedPolygonVectors(context:AS3GeometryContext, a:Polygon, b:Polygon)
+		public function TestIntersectionOfPolygons(context:AS3GeometryContext, a:Polygon, b:Polygon)
 		{
 			super(context);
 			
@@ -137,7 +136,8 @@ package as3geometry.geom2D.polygons.intersection
 		public function removeVertexFromPolygonB(vertex:Vertex):void
 		{
 			stripWrappedVertexFromVector(polygonB, vertex);
-			stripIntersectionsWithAGivenVertexFromVector(polygonA, vertex);			stripIntersectionsWithAGivenVertexFromVector(polygonB, vertex);
+			stripIntersectionsWithAGivenVertexFromVector(polygonA, vertex);
+			stripIntersectionsWithAGivenVertexFromVector(polygonB, vertex);
 		}
 		
 		private function stripWrappedVertexFromVector(vector:Array, vertex:Vertex):void
@@ -175,3 +175,4 @@ package as3geometry.geom2D.polygons.intersection
 		
 	}
 }
+
