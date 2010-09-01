@@ -13,7 +13,7 @@ package examples
 	import ui.paint.SolidPaint;
 
 	/**
-	 * UI test verifies MutbaleCircleSector class
+	 * UI test verifies MutableCircleSector class
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
