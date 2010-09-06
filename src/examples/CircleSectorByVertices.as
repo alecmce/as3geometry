@@ -13,7 +13,7 @@ package examples
 	import alecmce.ui.paint.SolidPaint;
 
 	/**
-	 * UI test verifies MutableVertexOnCircle class
+	 * UI test verifies MutableCircleSector class
 	 * 
 	 * (c) 2009 alecmce.com
 	 *
@@ -24,7 +24,8 @@ package examples
 	{
 		private var vertexPaint:SolidPaint;
 		private var circlePaint:SolidPaint;
-		private var rightSectorPaint:SolidPaint;		private var leftSectorPaint:SolidPaint;
+		private var rightSectorPaint:SolidPaint;
+		private var leftSectorPaint:SolidPaint;
 		
 		private var dragMechanism:DragMechanism;
 		
@@ -47,7 +48,8 @@ package examples
 		{
 			vertexPaint = new SolidPaint(0xFFFF0000, 0xFF000000, 2);
 			circlePaint = new SolidPaint(0x0, 0xFF000000, 2);
-			rightSectorPaint = new SolidPaint(0x66FF0000, 0xFF, 2);			leftSectorPaint = new SolidPaint(0x661E90FF, 0xFF, 2);
+			rightSectorPaint = new SolidPaint(0x66FF0000, 0xFF, 2);
+			leftSectorPaint = new SolidPaint(0x661E90FF, 0xFF, 2);
 			
 			dragMechanism = new DragMechanism();
 			
@@ -61,7 +63,8 @@ package examples
 			b.x = 450;
 			b.y = 180;
 			
-			circle = new MutableCircleWithRadialVertex(_context, a, b);			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
+			circle = new MutableCircleWithRadialVertex(_context, a, b);
+			circleDrawer = new CircleDrawer(_context, circle, circlePaint);
 			
 			c = new UIVertexOnCircle(_context, circle, Math.PI * 0.2, vertexPaint);
 			dragMechanism.apply(c);
@@ -76,7 +79,8 @@ package examples
 			leftSectorDrawer = new CircleSectorDrawer(_context, leftSector, leftSectorPaint);
 			
 			addChild(circleDrawer);
-			addChild(rightSectorDrawer);			addChild(leftSectorDrawer);
+			addChild(rightSectorDrawer);
+			addChild(leftSectorDrawer);
 			
 			addChild(a);
 			addChild(b);
