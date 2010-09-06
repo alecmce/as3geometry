@@ -2,7 +2,7 @@ package as3geometry.geom2D.ui.generic
 {
 	import as3geometry.AS3GeometryContext;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	/**
 	 * 

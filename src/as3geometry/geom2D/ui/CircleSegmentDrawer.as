@@ -7,8 +7,8 @@ package as3geometry.geom2D.ui
 	import as3geometry.geom2D.ui.generic.UIDrawer;
 	import as3geometry.geom2D.util.AngleHelper;
 
-	import ui.Paint;
-	import ui.util.UIArcHelper;
+	import alecmce.ui.Paint;
+	import alecmce.ui.util.UIArcHelper;
 
 	/**
 	 * Draws a circle

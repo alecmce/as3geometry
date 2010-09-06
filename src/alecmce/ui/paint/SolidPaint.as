@@ -1,6 +1,6 @@
 package alecmce.ui.paint 
 {
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	import flash.display.Graphics;
 

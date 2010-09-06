@@ -9,8 +9,8 @@ package examples
 	import as3geometry.geom2D.ui.vertices.UIVertex;
 	import as3geometry.geom2D.ui.vertices.UIVertexOnCircle;
 
-	import ui.interactive.DragMechanism;
-	import ui.paint.SolidPaint;
+	import alecmce.ui.interactive.DragMechanism;
+	import alecmce.ui.paint.SolidPaint;
 
 	/**
 	 * UI test verifies MutableVertexOnCircle class

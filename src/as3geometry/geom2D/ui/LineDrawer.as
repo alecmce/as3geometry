@@ -6,7 +6,7 @@ package as3geometry.geom2D.ui
 	import as3geometry.geom2D.LineType;
 	import as3geometry.geom2D.Vertex;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	import flash.display.Graphics;
 	import flash.events.Event;

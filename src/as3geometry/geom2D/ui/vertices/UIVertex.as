@@ -6,7 +6,7 @@ package as3geometry.geom2D.ui.vertices
 	import as3geometry.geom2D.InteractiveVertex;
 	import as3geometry.geom2D.ui.generic.UIMutableSprite;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	/**
 	 * 

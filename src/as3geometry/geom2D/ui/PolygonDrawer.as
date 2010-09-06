@@ -5,7 +5,7 @@ package as3geometry.geom2D.ui
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	/**
 	 * Draws a polygon on a Euclidean plane

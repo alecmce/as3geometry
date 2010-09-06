@@ -9,7 +9,7 @@ package as3geometry.geom2D.ui.vertices
 	import as3geometry.geom2D.ui.generic.UIMutableSprite;
 	import as3geometry.geom2D.util.ParabolaHelper;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	public class UIVertexOnParabola extends UIMutableSprite implements VertexOnParabola
 	{

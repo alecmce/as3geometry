@@ -9,9 +9,9 @@ package examples
 	import as3geometry.geom2D.ui.vertices.UIVertex;
 	import as3geometry.geom2D.ui.vertices.UIVertexOnParabola;
 
-	import ui.Paint;
-	import ui.interactive.DragMechanism;
-	import ui.paint.SolidPaint;
+	import alecmce.ui.Paint;
+	import alecmce.ui.interactive.DragMechanism;
+	import alecmce.ui.paint.SolidPaint;
 
 	[SWF(backgroundColor="#FFFFFF", frameRate="31", width="640", height="480")]
 	public class VertexOnParabolaExample extends ExampleBaseSprite

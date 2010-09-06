@@ -13,8 +13,8 @@ package examples
 	import as3geometry.geom2D.ui.TriangleDrawer;
 	import as3geometry.geom2D.ui.vertices.UIVertex;
 
-	import ui.interactive.DragMechanism;
-	import ui.paint.SolidPaint;
+	import alecmce.ui.interactive.DragMechanism;
+	import alecmce.ui.paint.SolidPaint;
 
 	/**
 	 * An example of the current state of the as3geometry library.

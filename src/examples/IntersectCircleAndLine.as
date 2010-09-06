@@ -11,8 +11,8 @@ package examples
 	import as3geometry.geom2D.ui.VertexDrawer;
 	import as3geometry.geom2D.ui.vertices.UIVertex;
 
-	import ui.interactive.DragMechanism;
-	import ui.paint.SolidPaint;
+	import alecmce.ui.interactive.DragMechanism;
+	import alecmce.ui.paint.SolidPaint;
 
 	/**
 	 * UI test verifies IntersectionOfCircleAndLine class

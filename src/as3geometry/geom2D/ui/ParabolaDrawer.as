@@ -7,7 +7,7 @@ package as3geometry.geom2D.ui
 	import as3geometry.geom2D.Vertex;
 	import as3geometry.geom2D.ui.generic.UIDrawer;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	import flash.events.Event;
 

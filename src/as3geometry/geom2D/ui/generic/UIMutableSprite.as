@@ -7,7 +7,7 @@ package as3geometry.geom2D.ui.generic
 	import as3geometry.abstract.Mutable;
 	import as3geometry.geom2D.ui.DEFAULT_PAINT;
 
-	import ui.Paint;
+	import alecmce.ui.Paint;
 
 	import flash.display.Sprite;
 
