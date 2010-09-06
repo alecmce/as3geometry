@@ -1,4 +1,4 @@
-package ui.paint 
+package alecmce.ui.paint 
 {
 	import ui.Paint;
 
