@@ -1,4 +1,4 @@
-package as3geometry.geom2D.immutable 
+package as3geometry.geom2D.immutable
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.errors.MutabilityError;
@@ -10,11 +10,11 @@ package as3geometry.geom2D.immutable
 
 	import flash.display.Sprite;
 
-	public class ImmutableLineTest 
+	public class ImmutableLineTest
 	{
 		[Inject]
 		public var sprite:Sprite;
-		
+
 		private var line:ImmutableLine;
 		private var context:AS3GeometryContext;
 
@@ -36,7 +36,7 @@ package as3geometry.geom2D.immutable
 		{
 			var a:IndependentVertex = new IndependentVertex(context, 1, 1);
 			var b:ImmutableVertex = new ImmutableVertex(0, 0);
-			
+
 			try
 			{
 				line = new ImmutableLine(a, b);
@@ -45,7 +45,7 @@ package as3geometry.geom2D.immutable
 			{
 				return;
 			}
-			
+
 			fail("ImmutableLine should throw a mutability error if a mutable vertex is used as a defining point");
 		}
 
@@ -54,7 +54,7 @@ package as3geometry.geom2D.immutable
 		{
 			var a:ImmutableVertex = new ImmutableVertex(0, 0);
 			var b:IndependentVertex = new IndependentVertex(context, 1, 1);
-			
+
 			try
 			{
 				line = new ImmutableLine(a, b);
@@ -63,7 +63,7 @@ package as3geometry.geom2D.immutable
 			{
 				return;
 			}
-			
+
 			fail("ImmutableLine should throw a mutability error if a mutable vertex is used as a defining point");
 		}
 	}

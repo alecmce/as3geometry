@@ -1,7 +1,7 @@
-package as3geometry.geom2D 
+package as3geometry.geom2D
 {
-	
-	
+
+
 	/**
 	 * Defines a polygon on a Cartesian plane by a list of vertices
 	 *
@@ -11,10 +11,10 @@ package as3geometry.geom2D
 	 */
 	public interface Polygon extends CollectionOfVertices
 	{
-		
+
 		function getEdge(index:uint):Line;
-		
+
 		function contains(vertex:Vertex):Boolean;
-		
+
 	}
 }

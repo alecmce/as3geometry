@@ -1,4 +1,4 @@
-package as3geometry.geom2D.immutable 
+package as3geometry.geom2D.immutable
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.errors.MutabilityError;
@@ -10,11 +10,11 @@ package as3geometry.geom2D.immutable
 
 	import flash.display.Sprite;
 
-	public class ImmutableTriangleTest 
+	public class ImmutableTriangleTest
 	{
 		[Inject]
 		public var sprite:Sprite;
-		
+
 		private var triangle:ImmutableTriangle;
 		private var context:AS3GeometryContext;
 
@@ -23,18 +23,18 @@ package as3geometry.geom2D.immutable
 		{
 			context = new AS3GeometryContext(sprite);
 		}
-		
+
 		[After]
 		public function tearDown():void
 		{
 			triangle = null;
 		}
-		
+
 		[Test]
 		public function mutableErrorIsThrown_parameterA():void
 		{
 			var a:IndependentVertex = new IndependentVertex(context, 1,1);
-			var b:ImmutableVertex = new ImmutableVertex(0,0);			var c:ImmutableVertex = new ImmutableVertex(2,0);			
+			var b:ImmutableVertex = new ImmutableVertex(0,0);			var c:ImmutableVertex = new ImmutableVertex(2,0);
 			try
 			{
 				triangle = new ImmutableTriangle(a, b, c);
@@ -43,17 +43,17 @@ package as3geometry.geom2D.immutable
 			{
 				return;
 			}
-			
+
 			fail("ImmutableTriangle should throw a mutability error if a mutable vertex is used as a defining point");
 		}
-		
+
 		[Test]
 		public function mutableErrorIsThrown_parameterB():void
 		{
 			var a:ImmutableVertex = new ImmutableVertex(0,5);
 			var b:IndependentVertex = new IndependentVertex(context,1,1);
 			var c:ImmutableVertex = new ImmutableVertex(0,0);
-			
+
 			try
 			{
 				triangle = new ImmutableTriangle(a, b, c);
@@ -62,17 +62,17 @@ package as3geometry.geom2D.immutable
 			{
 				return;
 			}
-			
+
 			fail("ImmutableTriangle should throw a mutability error if a mutable vertex is used as a defining point");
 		}
-		
+
 		[Test]
 		public function mutableErrorIsThrown_parameterC():void
 		{
 			var a:ImmutableVertex = new ImmutableVertex(0,5);
 			var b:ImmutableVertex = new ImmutableVertex(0,0);
 			var c:IndependentVertex = new IndependentVertex(context,1,1);
-			
+
 			try
 			{
 				triangle = new ImmutableTriangle(a, b, c);
@@ -81,7 +81,7 @@ package as3geometry.geom2D.immutable
 			{
 				return;
 			}
-			
+
 			fail("ImmutableTriangle should throw a mutability error if a mutable vertex is used as a defining point");
 		}
 	}

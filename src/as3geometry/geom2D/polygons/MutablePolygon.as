@@ -1,4 +1,4 @@
-package as3geometry.geom2D.polygons 
+package as3geometry.geom2D.polygons
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -18,25 +18,25 @@ package as3geometry.geom2D.polygons
 	 */
 	public class MutablePolygon extends Mutable implements Polygon
 	{
-		
+
 		protected var _vertices:Array;
-		
+
 		private var _edges:Array;
-		
+
 		public function MutablePolygon(context:AS3GeometryContext, vertices:Array)
 		{
 			super(context);
-			
+
 			_vertices = vertices.concat();
 			_edges = [];
-			
+
 			var i:int = vertices.length;
 			while (--i > -1)
 			{
 				var v:Vertex = vertices[i];
 				addDefinien(v);
 			}
-			
+
 			invalidate(true);
 		}
 
@@ -44,15 +44,15 @@ package as3geometry.geom2D.polygons
 		{
 			return _vertices.length;
 		}
-		
+
 		public function getVertex(index:uint):Vertex
 		{
 			return _vertices[index];
 		}
-		
+
 		/**
 		 * get the edge of the polygon at a given index
-		 * 
+		 *
 		 * I've adopted a strategay of just-in-time referencing of the MutablePolygon edges;
 		 * The mutability of the polygon means that the edges are fixed once defined (in case
 		 * a vertex is defined on it or as an intersection with it and another item) it cannot
@@ -67,16 +67,16 @@ package as3geometry.geom2D.polygons
 				var b:Vertex = getVertex(index + 1 == _vertices.length ? 0 : index + 1);
 				_edges[index] = edge = new MutableLine(context, a, b, LineType.SEGMENT);
 			}
-			
+
 			return edge;
 		}
-		
+
 		public function contains(vertex:Vertex):Boolean
 		{
 			var helper:PolygonHelper = new PolygonHelper();
 			return helper.vertexPolygonContains(_vertices, vertex);
 		}
-		
+
 		public function indexOfVertex(vertex:Vertex):int
 		{
 			return _vertices.indexOf(vertex);

@@ -1,8 +1,8 @@
-package alecmce.data.graph.algorithms 
+package alecmce.data.graph.algorithms
 {
 
 	[Suite]
-	public class AllDataGraphAlgorithmsTests 
+	public class AllDataGraphAlgorithmsTests
 	{
 		public var dijkstra:DijkstraTest;
 	}

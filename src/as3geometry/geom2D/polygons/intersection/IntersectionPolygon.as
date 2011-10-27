@@ -1,4 +1,4 @@
-package as3geometry.geom2D.polygons.intersection 
+package as3geometry.geom2D.polygons.intersection
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.AdditiveCollection;
@@ -8,8 +8,8 @@ package as3geometry.geom2D.polygons.intersection
 	import org.osflash.signals.Signal;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -23,26 +23,26 @@ package as3geometry.geom2D.polygons.intersection
 		public function IntersectionPolygon(context:AS3GeometryContext, vertices:Array)
 		{
 			_added = new Signal(Vertex);			_removed = new Signal(Vertex);
-			
+
 			super(context, vertices);
 		}
-		
-		
+
+
 		public function removeVertex(vertex:Vertex):void
 		{
 			var i:int = _vertices.indexOf(vertex);
 			if (i == -1)
 				return;
-				
+
 			_vertices.splice(i, 1);
 			_removed.dispatch(vertex);
 		}
-		
+
 		public function get added():Signal
 		{
 			return _added;
 		}
-		
+
 		public function get removed():Signal
 		{
 			return _removed;

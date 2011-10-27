@@ -4,7 +4,7 @@ package alecmce.math
 	 * Defines a set of functions for retrieving prime numbers, testing
 	 * primality, deriving prime factors, lowest common denominators and highest
 	 * common multiples.
-	 * 
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -40,7 +40,7 @@ package alecmce.math
 
 			return list[i];
 		}
-		
+
 		/**
 		 * given a vector of prime factors, return the number they define
 		 */
@@ -130,7 +130,7 @@ package alecmce.math
 
 		/**
 		 * calculate the lowestCommonMultiple for n primes
-		 * 
+		 *
 		 * @param list A vector of numbers for which the lowest common multiple
 		 * is sought
 		 * @return A vector of prime factors that expresses the
@@ -154,14 +154,14 @@ package alecmce.math
 			var len:uint = factors.length;
 			var copy:Vector.<Vector.<uint>> = new Vector.<Vector.<uint>>();
 			var working:Vector.<uint> = new Vector.<uint>();
-			
+
 			for (i = 0; i < len; i++)
 			{
 				var tmp:Vector.<uint> = factors[i].concat();
 				working.push(tmp.shift());
 				copy.push(tmp);
 			}
-			
+
 			var results:Vector.<uint> = new Vector.<uint>();
 
 			while (len)
@@ -182,11 +182,11 @@ package alecmce.math
 						}
 					}
 				}
-				
+
 				if (areSame)
 				{
 					results.push(minValue);
-				
+
 					i = len;
 					while (copy.length && i--)
 					{
@@ -217,7 +217,7 @@ package alecmce.math
 					}
 				}
 			}
-			
+
 			return results;
 		}
 
@@ -230,14 +230,14 @@ package alecmce.math
 			var len:uint = factors.length;
 			var copy:Vector.<Vector.<uint>> = new Vector.<Vector.<uint>>();
 			var working:Vector.<uint> = new Vector.<uint>();
-			
+
 			for (i = 0; i < len; i++)
 			{
 				var tmp:Vector.<uint> = factors[i].concat();
 				working.push(tmp.shift());
 				copy.push(tmp);
 			}
-			
+
 			var results:Vector.<uint> = new Vector.<uint>();
 
 			while (len)
@@ -258,9 +258,9 @@ package alecmce.math
 						}
 					}
 				}
-				
+
 				results.push(minValue);
-				
+
 				if (areSame)
 				{
 					i = len;
@@ -291,7 +291,7 @@ package alecmce.math
 						--len;					}
 				}
 			}
-			
+
 			return results;
 		}
 

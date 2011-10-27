@@ -1,4 +1,4 @@
-package as3geometry.geom2D.ui 
+package as3geometry.geom2D.ui
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.geom2D.Circle;
@@ -12,7 +12,7 @@ package as3geometry.geom2D.ui
 
 	/**
 	 * Draws a circle
-	 * 
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -20,11 +20,11 @@ package as3geometry.geom2D.ui
 	public class CircleSegmentDrawer extends UIDrawer
 	{
 		private var angles:AngleHelper;
-		
+
 		private var helper:UIArcHelper;
-		
+
 		private var _segment:CircleSegment;
-		
+
 		public function CircleSegmentDrawer(context:AS3GeometryContext, segment:CircleSegment, paint:Paint = null)
 		{
 			super(context, paint);
@@ -33,17 +33,17 @@ package as3geometry.geom2D.ui
 			helper = new UIArcHelper();
 			invalidate();
 		}
-		
+
 		public function get segment():CircleSegment
 		{
 			return _segment;
 		}
-		
+
 		public function set segment(value:CircleSegment):void
 		{
 			if (_segment == value)
 				return;
-			
+
 			removeDefinien(_segment);
 			_segment = value;
 			addDefinien(_segment);
@@ -56,13 +56,13 @@ package as3geometry.geom2D.ui
 			var c:Vertex = circle.center;
 			var radius:Number = circle.radius;
 			var angle:Number = _segment.from.angle;			var sweep:Number = _segment.angle;
-			
+
 			if (isNaN(c.x) || isNaN(c.y) || isNaN(angle) || isNaN(radius) || isNaN(sweep))
 				return;
-			
+
 			var x:Number = c.x;
 			var y:Number = c.y;
-			
+
 			var start:Vertex = helper.arcInitialPosition(x, y, radius, angle);
 			graphics.moveTo(start.x, start.y);
 			helper.drawArc(graphics, c.x, c.y, radius, angle, sweep);

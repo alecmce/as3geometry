@@ -1,9 +1,9 @@
-package alecmce.data.graph 
+package alecmce.data.graph
 {
 	import alecmce.data.graph.algorithms.AllDataGraphAlgorithmsTests;
 
 	[Suite]
-	public class AllDataGraphTests 
+	public class AllDataGraphTests
 	{
 		public var algorithms:AllDataGraphAlgorithmsTests;
 				public var graph:GraphTest;		public var directedGraph:DirectedGraphTest;

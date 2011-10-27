@@ -1,8 +1,8 @@
-package alecmce.invalidation 
+package alecmce.invalidation
 {
 
 	[Suite]
-	public class AllInvalidationTests 
+	public class AllInvalidationTests
 	{
 		public var invalidate:InvalidateTest;
 	}

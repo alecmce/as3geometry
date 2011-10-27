@@ -1,7 +1,7 @@
 package alecmce.data.bitwise
 {
 
-	public class BitFieldBase 
+	public class BitFieldBase
 	{
 
 		public static const BASE_16:BitFieldBase = new BitFieldBase(16);		public static const BASE_2:BitFieldBase = new BitFieldBase(2);
@@ -9,7 +9,7 @@ package alecmce.data.bitwise
 		private var _radix:uint;
 		private var _charsPer32Bit:uint;
 
-		public function BitFieldBase(radix:uint) 
+		public function BitFieldBase(radix:uint)
 		{
 			_radix = radix;
 			_charsPer32Bit = 32 / (1 << Math.log(radix));
@@ -21,7 +21,7 @@ package alecmce.data.bitwise
 			var len:uint = chars.length;
 			while (len++ < _charsPer32Bit)
 				chars.unshift(0);
-			
+
 			return chars.join("");
 		}
 

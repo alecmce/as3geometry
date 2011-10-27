@@ -5,25 +5,25 @@ package as3geometry.geom2D.polygons.test
 	import as3geometry.geom2D.Line;
 	import as3geometry.geom2D.Polygon;
 	import as3geometry.geom2D.Vertex;
-	
+
 	/**
 	 * @author amceachran
 	 */
 	public class TestIntersectionPolygon extends Mutable implements Polygon
 	{
-		
+
 		private var _potentialVertices:Array;
 		private var _potentialLines:Array;
-		
+
 		private var _actualVertices:Array;
 		private var _actualLines:Array;
-		
+
 		public function TestIntersectionPolygon(context:AS3GeometryContext, vertices:Array)
 		{
 			super(context);
-			
+
 			_potentialVertices = vertices;
-			
+
 			var len:int = vertices.length;
 			for (var i:int = 0; i < len; i++)
 			{
@@ -35,11 +35,11 @@ package as3geometry.geom2D.polygons.test
 
 		private function onRealityChanged(vertex:PotentialIntersectionVertex):void
 		{
-			
-			
+
+
 			invalidate();
 		}
-		
+
 		public function getEdge(index:uint):Line
 		{
 			// TODO: Auto-generated method stub

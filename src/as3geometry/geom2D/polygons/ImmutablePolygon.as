@@ -1,4 +1,4 @@
-package as3geometry.geom2D.polygons 
+package as3geometry.geom2D.polygons
 {
 	import as3geometry.abstract.Mutable;
 	import as3geometry.errors.MutabilityError;
@@ -20,17 +20,17 @@ package as3geometry.geom2D.polygons
 	{
 		private var _vertices:Array;
 		private var _edges:Array;
-				
+
 		/**
 		 * Class Constructor
-		 * 
+		 *
 		 * @param vertices The array of vertices that defines the polygon
 		 */
 		public function ImmutablePolygon(vertices:Array)
 		{
 			_vertices = vertices.concat();
 			_edges = [];
-			
+
 			var i:int = vertices.length;
 			while (--i > -1)
 			{
@@ -40,7 +40,7 @@ package as3geometry.geom2D.polygons
 			}
 		}
 
-		
+
 		/**
 		 * @return The number of vertices in the polygon
 		 */
@@ -48,23 +48,23 @@ package as3geometry.geom2D.polygons
 		{
 			return _vertices.length;
 		}
-		
-		
+
+
 		/**
 		 * retrieve the vertex at a given index
-		 * 
+		 *
 		 * @param index The index of the vertex to be retrieved
-		 * 
+		 *
 		 * @return The vertex at the corresponding index
 		 */
 		public function getVertex(index:uint):Vertex
 		{
 			return _vertices[index];
 		}
-		
+
 		/**
 		 * get the edge of the polygon at a given index
-		 * 
+		 *
 		 * I've adopted a strategay of just-in-time referencing of the ImmutablePolygon edges as
 		 * I anticipate in many cases they will not need to be defined
 		 */
@@ -77,20 +77,20 @@ package as3geometry.geom2D.polygons
 				var b:Vertex = getVertex(index + 1 == _vertices.length ? 0 : index + 1);
 				_edges[index] = edge = new ImmutableLine(a, b, LineType.SEGMENT);
 			}
-			
+
 			return edge;
 		}
-		
+
 		public function contains(vertex:Vertex):Boolean
 		{
 			var helper:PolygonHelper = new PolygonHelper();
 			return helper.vertexPolygonContains(_vertices, vertex);
 		}
-		
+
 		public function indexOfVertex(vertex:Vertex):int
 		{
 			return _vertices.indexOf(vertex);
 		}
-		
+
 	}
 }

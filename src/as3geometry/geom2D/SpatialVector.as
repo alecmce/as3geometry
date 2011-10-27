@@ -1,4 +1,4 @@
-package as3geometry.geom2D 
+package as3geometry.geom2D
 {
 
 	/**
@@ -8,14 +8,14 @@ package as3geometry.geom2D
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface SpatialVector 
+	public interface SpatialVector
 	{
-		
+
 		function get i():Number;
-		
+
 		function get j():Number;
-		
+
 		function get length():Number;
-		
+
 	}
 }

@@ -1,4 +1,4 @@
-package as3geometry.geom2D.intersection 
+package as3geometry.geom2D.intersection
 {
 	import alecmce.invalidation.Invalidates;
 	import alecmce.invalidation.signals.InvalidationSignal;
@@ -9,8 +9,8 @@ package as3geometry.geom2D.intersection
 	import as3geometry.geom2D.VertexOnCircle;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -19,7 +19,7 @@ package as3geometry.geom2D.intersection
 	{
 		private var _invalidated:InvalidationSignal;
 		private var _isInvalidated:Boolean;
-		
+
 		private var _circle:Circle;
 		private var _x:Number;
 		private var _y:Number;
@@ -29,41 +29,41 @@ package as3geometry.geom2D.intersection
 		{
 			_invalidated = new InvalidationSignal();
 			_isInvalidated = false;
-			
+
 			context.invalidationManager.addDependency(container, this);
-			
+
 			_circle = null;
 			_angle = Number.NaN;
 			_x = Number.NaN;
 			_y = Number.NaN;
 		}
-		
+
 		public function get circle():Circle
 		{
 			return _circle;
 		}
-		
+
 		public function get angle():Number
 		{
 			return _angle;
 		}
-		
+
 		public function get x():Number
 		{
 			return _x;
 		}
-		
+
 		public function get y():Number
 		{
 			return _y;
 		}
-		
+
 		public function invalidate(resolveImmediately:Boolean = false):void
 		{
 			_isInvalidated = true;
 			_invalidated.dispatch(this, resolveImmediately);
 		}
-		
+
 		public function resolve():void
 		{
 			// do nothing - in this unusual case resolve is deferred to the
@@ -72,13 +72,13 @@ package as3geometry.geom2D.intersection
 			// the container object is a definien, it must be resolved before
 			// this object
 		}
-		
+
 		internal function update(circle:Circle, x:Number, y:Number):void
 		{
 			_circle = circle;
 			_x = x;
 			_y = y;
-			
+
 			if (isNaN(_x) || isNaN(_y))
 			{
 				_angle = Number.NaN;
@@ -88,28 +88,28 @@ package as3geometry.geom2D.intersection
 				var center:Vertex = _circle.center;
 				_angle = Math.atan2(_y - center.y, _x - center.x);
 			}
-			
+
 			_isInvalidated = false;
 		}
-		
+
 		public function get invalidated():InvalidationSignal
 		{
 			return _invalidated;
 		}
-		
+
 		public function get isInvalid():Boolean
 		{
 			return _isInvalidated;
 		}
-		
+
 		public function set(x:Number, y:Number):void
 		{
 		}
-		
+
 		public function set x(value:Number):void
 		{
 		}
-		
+
 		public function set y(value:Number):void
 		{
 		}
