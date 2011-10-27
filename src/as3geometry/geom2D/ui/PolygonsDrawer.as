@@ -1,4 +1,4 @@
-package as3geometry.geom2D.ui 
+package as3geometry.geom2D.ui
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.AdditiveCollection;
@@ -11,19 +11,19 @@ package as3geometry.geom2D.ui
 	import flash.utils.Dictionary;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
 	 */
 	public class PolygonsDrawer extends UIDrawer
 	{
-		
+
 		private var _polygons:CollectionOfPolygons;
 
 		private var _drawers:Dictionary;
-		
+
 		public function PolygonsDrawer(context:AS3GeometryContext, polygons:CollectionOfPolygons, paint:Paint = null)
 		{
 			super(context, paint);
@@ -33,7 +33,7 @@ package as3geometry.geom2D.ui
 			addAdditiveListeners(_polygons);
 			generateDrawersForExistingPolygons();
 		}
-		
+
 
 		private function generateDrawersForExistingPolygons():void
 		{
@@ -44,13 +44,13 @@ package as3geometry.geom2D.ui
 				createPolygonDrawer(polygon);
 			}
 		}
-		
+
 		private function addAdditiveListeners(polygons:CollectionOfPolygons):void
 		{
 			var additive:AdditiveCollection = polygons as AdditiveCollection;
 			if (!additive)
 				return;
-			
+
 			additive.added.add(onPolygonAdded);
 			additive.removed.add(onPolygonRemoved);
 		}
@@ -59,21 +59,21 @@ package as3geometry.geom2D.ui
 		{
 			createPolygonDrawer(polygon);
 		}
-		
+
 		private function onPolygonRemoved(polygon:Polygon):void
 		{
 			var drawer:PolygonDrawer = _drawers[polygon];
 			if (!drawer)
 				return;
-			
+
 			removeChild(drawer);
 			delete _drawers[polygon];
 		}
-		
+
 		private function createPolygonDrawer(polygon:Polygon):void
 		{
 			var drawer:PolygonDrawer = new PolygonDrawer(context, polygon, paint);
-			
+
 			addChild(drawer);
 			_drawers[polygon] = drawer;
 		}

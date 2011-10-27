@@ -1,4 +1,4 @@
-package as3geometry.geom2D.polygons.test 
+package as3geometry.geom2D.polygons.test
 {
 	import alecmce.invalidation.Invalidates;
 	import alecmce.invalidation.signals.InvalidationSignal;
@@ -6,8 +6,8 @@ package as3geometry.geom2D.polygons.test
 	import as3geometry.geom2D.Vertex;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -17,7 +17,7 @@ package as3geometry.geom2D.polygons.test
 		private var _original:Vertex;
 
 		private var _invalidated:InvalidationSignal;
-		
+
 		public function OrignalPolygonVertexWrapper(original:Vertex, aIndex:int, bIndex:int)
 		{
 			_original = original;
@@ -25,7 +25,7 @@ package as3geometry.geom2D.polygons.test
 				_invalidated = Invalidates(_original).invalidated;
 			else
 				_invalidated = new InvalidationSignal();
-		
+
 			positionOnPolygonAAsCycle = aIndex;
 			positionOnPolygonBAsCycle = bIndex;
 			isReal = true;
@@ -46,20 +46,20 @@ package as3geometry.geom2D.polygons.test
 		{
 			return _invalidated;
 		}
-		
+
 		public function get target():Vertex
 		{
 			return _original;
 		}
-		
+
 		public function toString() : String
 		{
 			var str:String = "Vertex: (@X@,@Y@)";
 			str = str.replace("@X@", x);
 			str = str.replace("@Y@", y);
-			
+
 			return str;
 		}
-		
+
 	}
 }

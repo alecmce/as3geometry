@@ -1,4 +1,4 @@
-package as3geometry.geom2D.circle 
+package as3geometry.geom2D.circle
 {
 	import as3geometry.abstract.Mutable;
 	import as3geometry.errors.MutabilityError;
@@ -15,41 +15,41 @@ package as3geometry.geom2D.circle
 	 */
 	public class ImmutableCircle implements Circle
 	{
-		
+
 		/*********************************************************************/
 		// Member Variables
 		/*********************************************************************/
-		
-		
+
+
 		/** The center of the circle */
 		private var _center:Vertex;
-				
+
 		/** The radius of the circle */
 		private var _radius:Number;
-		
-		
+
+
 		/*********************************************************************/
 		// Public Methods
 		/*********************************************************************/
-		
-		
+
+
 		/**
 		 * Class Constructor
-		 * 
+		 *
 		 * @param center The center of the circle
 		 * @param radius The radius of the circle
 		 */
 		public function ImmutableCircle(center:Vertex = null, radius:Number = 1)
 		{
 			_center = center ? center : new ImmutableVertex(0, 0);
-			
+
 			if (_center is Mutable)
 				throw new MutabilityError("The ImmutableCircle's definitional center is mutable");
-			
+
 			_radius = radius;
 		}
-		
-		
+
+
 		/**
 		 * @return The center of the circle
 		 */
@@ -57,7 +57,7 @@ package as3geometry.geom2D.circle
 		{
 			return _center;
 		}
-		
+
 		/**
 		 * @return The radius of the circle
 		 */
@@ -65,7 +65,7 @@ package as3geometry.geom2D.circle
 		{
 			return _radius;
 		}
-		
+
 		/**
 		 * @return A user-readable string describing this circle
 		 */
@@ -73,6 +73,6 @@ package as3geometry.geom2D.circle
 		{
 			return "[CIRCLE " + center + ", r=" + radius + "]";
 		}
-		
+
 	}
 }

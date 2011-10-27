@@ -1,4 +1,4 @@
-package as3geometry.geom2D.vertices 
+package as3geometry.geom2D.vertices
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -14,47 +14,47 @@ package as3geometry.geom2D.vertices
 	 */
 	public class IndependentVertex extends Mutable implements InteractiveVertex
 	{
-		
+
 		private var _x:Number;
 		private var _y:Number;
-		
+
 		public function IndependentVertex(context:AS3GeometryContext, x:Number, y:Number)
 		{
 			super(context);
-			
+
 			_x = x;
 			_y = y;
 		}
-		
+
 		public function set x(value:Number):void
 		{
 			if (_x == value)
 				return;
-			
+
 			_x = value;
 			invalidate();
 		}
-		
+
 		public function get x():Number
 		{
 			return _x;
 		}
-		
+
 		public function set y(value:Number):void
 		{
 			if (_y == value)
 				return;
-			
+
 			_y = value;
 			invalidate();
 		}
-		
+
 		public function get y():Number
 		{
 			return _y;
 		}
-		
-		
+
+
 		public function set(x:Number, y:Number):void
 		{
 			_x = x;

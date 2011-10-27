@@ -1,10 +1,10 @@
-package alecmce.data.graph 
+package alecmce.data.graph
 {
 
 	/**
 	 * @author amceachran
 	 */
-	public class GraphJoin 
+	public class GraphJoin
 	{
 		private var _source:Object;		private var _destination:Object;
 		private var _cost:Number;
@@ -20,12 +20,12 @@ package alecmce.data.graph
 		{
 			return _source;
 		}
-				
+
 		public function get destination():Object
 		{
 			return _destination;
 		}
-		
+
 		public function get cost():Number
 		{
 			return _cost;

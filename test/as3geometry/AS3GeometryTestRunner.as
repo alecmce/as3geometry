@@ -1,4 +1,4 @@
-package as3geometry 
+package as3geometry
 {
 	import asunit.runners.TestRunner;
 

@@ -1,4 +1,4 @@
-package as3geometry.geom2D.polygons 
+package as3geometry.geom2D.polygons
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -17,7 +17,7 @@ package as3geometry.geom2D.polygons
 		private var _a:Vertex;
 		private var _b:Vertex;
 		private var _c:Vertex;
-		
+
 		public function MutableTriangle(context:AS3GeometryContext, a:Vertex, b:Vertex, c:Vertex)
 		{
 			super(context);
@@ -25,23 +25,23 @@ package as3geometry.geom2D.polygons
 			addDefinien(_c = c);
 			invalidate(true);
 		}
-		
+
 		public function get a():Vertex
 		{
 			return _a;
 		}
-		
+
 		public function set a(a:Vertex):void
 		{
 			if (_a == a)
 				return;
-			
+
 			removeDefinien(_a);
 			_a = a;
 			addDefinien(_a);
 			invalidate();
 		}
-		
+
 		public function get b():Vertex
 		{
 			return _b;
@@ -51,7 +51,7 @@ package as3geometry.geom2D.polygons
 		{
 			if (_b == b)
 				return;
-			
+
 			removeDefinien(_b);
 			_b = b;
 			addDefinien(_b);
@@ -62,12 +62,12 @@ package as3geometry.geom2D.polygons
 		{
 			return _c;
 		}
-		
+
 		public function set c(c:Vertex):void
 		{
 			if (_c == c)
 				return;
-			
+
 			removeDefinien(_c);
 			_c = c;
 			addDefinien(_c);

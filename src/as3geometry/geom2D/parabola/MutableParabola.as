@@ -1,4 +1,4 @@
-package as3geometry.geom2D.parabola 
+package as3geometry.geom2D.parabola
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -11,7 +11,7 @@ package as3geometry.geom2D.parabola
 	{
 		private var _focus:Vertex;
 		private var _directrix:Line;
-		
+
 		private var helper:ParabolaHelper;
 
 		public function MutableParabola(context:AS3GeometryContext, focus:Vertex, directrix:Line)
@@ -21,18 +21,18 @@ package as3geometry.geom2D.parabola
 			addDefinien(_directrix = directrix);
 			invalidate(true);
 		}
-		
+
 		public function getVertex(n:Number):Vertex
 		{
 			helper ||= new ParabolaHelper();
 			return helper.vertexFromParameter(this, n);
 		}
-		
+
 		public function get focus():Vertex
 		{
 			return _focus;
 		}
-		
+
 		public function get directrix():Line
 		{
 			return _directrix;

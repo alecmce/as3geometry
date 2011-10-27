@@ -1,4 +1,4 @@
-package com.alecmce.maths.geom.line 
+package com.alecmce.maths.geom.line
 {
 	import org.osflash.signals.Signal;
 
@@ -30,9 +30,9 @@ package com.alecmce.maths.geom.line
 			_fY = fY;
 			_cX = cX;
 			_cY = cY;
-			
+
 			_scX = _cX - _sX;			_scY = _cY - _sY;			_cfX = _fX - _cX;			_cfY = _fY - _cY;
-			
+
 			_changed = new Signal();
 		}
 
@@ -42,7 +42,7 @@ package com.alecmce.maths.geom.line
 			var s2cY:Number = _sY + _scY * value;
 			var c2fX:Number = _cX + _cfX * value;
 			var c2fY:Number = _cY + _cfY * value;
-			
+
 			return new Point(s2cX + (c2fX - s2cX) * value, s2cY + (c2fY - s2cY) * value);
 		}
 
@@ -50,43 +50,43 @@ package com.alecmce.maths.geom.line
 		{
 			var count:uint = positions.length;
 			var result:Vector.<Point> = new Vector.<Point>(count, true);
-			
+
 			for (var i:int = 0;i < count;i++)
 				result[i] = position(positions[i]);
-			
+
 			return result;
 		}
-		
+
 		public function cacheVectors(positions:Vector.<Number>):Vector.<Point>
 		{
 			var count:uint = positions.length;
 			var result:Vector.<Point> = new Vector.<Point>(count, true);
 			var p:Point = position(positions[0]);
-			
+
 			for (var i:int = 1; i < count; i++)
 			{
 				var q:Point = position(positions[i]);
 				var v:Point = new Point(q.x - p.x, q.y - p.y);
 				result[i] = v;
-				
+
 				p = q;
 			}
-			
+
 			return result;
 		}
 
 		public function variation(s:Number, f:Number, c:Number):QuadraticBezier
 		{
 			var angle:Number = Math.random() * TWO_PI;
-			
+
 			var sX:Number = _sX + Math.cos(angle) * s;			var sY:Number = _sY + Math.sin(angle) * s;
-			
+
 			var fX:Number = _fX + Math.cos(angle) * f;
 			var fY:Number = _fY + Math.sin(angle) * f;
-			
+
 			var cX:Number = _cX + Math.cos(angle) * c;
 			var cY:Number = _cY + Math.sin(angle) * c;
-			
+
 			return new QuadraticBezier(sX, sY, fX, fY, cX, cY);
 		}
 
@@ -94,10 +94,10 @@ package com.alecmce.maths.geom.line
 		{
 			_sX = x;
 			_sY = y;
-			
+
 			_scX = _cX - _sX;
 			_scY = _cY - _sY;
-			
+
 			_changed.dispatch();
 		}
 
@@ -105,12 +105,12 @@ package com.alecmce.maths.geom.line
 		{
 			_cX = x;
 			_cY = y;
-			
+
 			_scX = _cX - _sX;
 			_scY = _cY - _sY;
 			_cfX = _fX - _cX;
 			_cfY = _fY - _cY;
-			
+
 			_changed.dispatch();
 		}
 
@@ -118,10 +118,10 @@ package com.alecmce.maths.geom.line
 		{
 			_fX = x;
 			_fY = y;
-			
+
 			_cfX = _fX - _cX;
 			_cfY = _fY - _cY;
-			
+
 			_changed.dispatch();
 		}
 

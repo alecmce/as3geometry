@@ -1,4 +1,4 @@
-package as3geometry.geom2D.vertices 
+package as3geometry.geom2D.vertices
 {
 	import as3geometry.geom2D.Vertex;
 
@@ -9,30 +9,30 @@ package as3geometry.geom2D.vertices
 	 *
 	 * @author Alec McEachran
 	 */
-	public class ImmutableVertex implements Vertex 
+	public class ImmutableVertex implements Vertex
 	{
-		
+
 		private var _x:Number;
-		
+
 		private var _y:Number;
-		
-		
+
+
 		public function ImmutableVertex(x:Number, y:Number)
 		{
 			_x = x;
 			_y = y;
 		}
-		
+
 		public function get x():Number
 		{
 			return _x;
 		}
-		
+
 		public function get y():Number
 		{
 			return _y;
 		}
-		
-		
+
+
 	}
 }
