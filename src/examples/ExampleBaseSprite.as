@@ -1,10 +1,10 @@
-package examples 
+package examples
 {
 	import as3geometry.AS3GeometryContext;
 
 	import flash.display.Sprite;
 
-	public class ExampleBaseSprite extends Sprite 
+	public class ExampleBaseSprite extends Sprite
 	{
 		protected var _context:AS3GeometryContext;
 
@@ -19,10 +19,10 @@ package examples
 			return _context;
 		}
 
-		protected function init():void 
+		protected function init():void
 		{
 			// to be overridden
 		}
-		
+
 	}
 }

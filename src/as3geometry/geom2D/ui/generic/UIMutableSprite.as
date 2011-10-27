@@ -1,4 +1,4 @@
-package as3geometry.geom2D.ui.generic 
+package as3geometry.geom2D.ui.generic
 {
 	import alecmce.invalidation.Invalidates;
 	import alecmce.invalidation.signals.InvalidationSignal;
@@ -12,8 +12,8 @@ package as3geometry.geom2D.ui.generic
 	import flash.display.Sprite;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -22,12 +22,12 @@ package as3geometry.geom2D.ui.generic
 	{
 		private var _paint:Paint;
 		protected var _redraw:Boolean;
-		
+
 		private var _isInvalid:Boolean;
 		private var _invalidated:InvalidationSignal;
 		private var _context:AS3GeometryContext;
 
-		public function UIMutableSprite(context:AS3GeometryContext, paint:Paint) 
+		public function UIMutableSprite(context:AS3GeometryContext, paint:Paint)
 		{
 			_context = context;
 			_paint = paint;
@@ -48,12 +48,12 @@ package as3geometry.geom2D.ui.generic
 			_redraw = true;
 			invalidate();
 		}
-		
+
 		public function get context():AS3GeometryContext
 		{
 			return _context;
 		}
-		
+
 		protected function addDefinien(definien:*):void
 		{
 			var abstract:Mutable = definien;
@@ -67,7 +67,7 @@ package as3geometry.geom2D.ui.generic
 			if (abstract)
 				_context.invalidationManager.removeDependency(abstract, this);
 		}
-		
+
 		public function invalidate(resolveImmediately:Boolean = false):void
 		{
 			_isInvalid = true;
@@ -77,28 +77,28 @@ package as3geometry.geom2D.ui.generic
 		public function resolve():void
 		{
 			_isInvalid = false;
-			
+
 			if (_redraw)
 			{
 				_redraw = false;
 				redraw();
 			}
 		}
-		
+
 		protected function redraw():void
 		{
-			
+
 		}
-		
+
 		public function get invalidated():InvalidationSignal
 		{
 			return _invalidated;
 		}
-		
+
 		public function get isInvalid():Boolean
 		{
 			return false;
 		}
-		
+
 	}
 }

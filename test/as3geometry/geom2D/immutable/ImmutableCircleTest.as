@@ -1,4 +1,4 @@
-package as3geometry.geom2D.immutable 
+package as3geometry.geom2D.immutable
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.errors.MutabilityError;
@@ -9,7 +9,7 @@ package as3geometry.geom2D.immutable
 
 	import flash.display.Sprite;
 
-	public class ImmutableCircleTest 
+	public class ImmutableCircleTest
 	{
 		private var circle:ImmutableCircle;
 		private var context:AS3GeometryContext;
@@ -22,18 +22,18 @@ package as3geometry.geom2D.immutable
 		{
 			context = new AS3GeometryContext(sprite);
 		}
-		
+
 		[After]
 		public function tearDown():void
 		{
 			circle = null;
 		}
-		
+
 		[Test]
 		public function mutableErrorIsThrown():void
 		{
 			var a:IndependentVertex = new IndependentVertex(context, 1, 1);
-			
+
 			try
 			{
 				circle = new ImmutableCircle(a, 2);
@@ -42,9 +42,9 @@ package as3geometry.geom2D.immutable
 			{
 				return;
 			}
-			
+
 			fail("ImmutableCircle should throw a mutability error if a mutable vertex is used as its centre");
 		}
-		
+
 	}
 }

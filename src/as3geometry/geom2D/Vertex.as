@@ -1,9 +1,9 @@
-package as3geometry.geom2D 
+package as3geometry.geom2D
 {
 
 	/**
 	 * Defines a vertex on a cartesian plane.
-	 * 
+	 *
 	 * Vertex is preferred instead of flash.geom.Point because the Vertex class
 	 * is immutable.
 	 *
@@ -11,12 +11,12 @@ package as3geometry.geom2D
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface Vertex 
+	public interface Vertex
 	{
-		
+
 		function get x():Number;
-		
+
 		function get y():Number;
-		
+
 	}
 }

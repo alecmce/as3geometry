@@ -1,4 +1,4 @@
-package as3geometry.geom2D.vertices 
+package as3geometry.geom2D.vertices
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -7,8 +7,8 @@ package as3geometry.geom2D.vertices
 	import as3geometry.geom2D.VertexOnCircle;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
@@ -17,7 +17,7 @@ package as3geometry.geom2D.vertices
 	{
 		private var _circle:Circle;
 		private var _angle:Number;
-		
+
 		private var _x:Number;		private var _y:Number;
 		private var _recalculateAngle:Boolean;
 
@@ -28,17 +28,17 @@ package as3geometry.geom2D.vertices
 			_angle = angle;
 			invalidate();
 		}
-		
+
 		public function get circle():Circle
 		{
 			return _circle;
 		}
-		
+
 		public function get angle():Number
 		{
 			return _angle;
 		}
-		
+
 		public function set angle(value:Number):void
 		{
 			_angle = value;
@@ -49,28 +49,28 @@ package as3geometry.geom2D.vertices
 		{
 			return _x;
 		}
-		
+
 		public function get y():Number
 		{
 			return _y;
 		}
 
-		override public function resolve():void 
+		override public function resolve():void
 		{
 			super.resolve();
-			
+
 			var center:Vertex = _circle.center;
-			
+
 			if (_recalculateAngle)
 			{
 				_angle = Math.atan2(_y - center.y, _x - center.x);
 				_recalculateAngle = false;
 			}
-			
+
 			var radius:Number = _circle.radius;
 			_x = center.x + radius * Math.cos(_angle);			_y = center.y + radius * Math.sin(_angle);
 		}
-		
+
 		public function set(x:Number, y:Number):void
 		{
 			_x = x;
@@ -78,14 +78,14 @@ package as3geometry.geom2D.vertices
 			_recalculateAngle = true;
 			invalidate();
 		}
-		
+
 		public function set x(value:Number):void
 		{
 			_x = value;
 			_recalculateAngle = true;
 			invalidate();
 		}
-		
+
 		public function set y(value:Number):void
 		{
 			_y = value;

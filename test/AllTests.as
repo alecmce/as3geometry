@@ -1,11 +1,11 @@
-package  
+package
 {
 	import alecmce.data.AllDataTests;
 	import alecmce.invalidation.AllInvalidationTests;
 	import alecmce.math.AllMathTests;
 
 	[Suite]
-	public class AllTests 
+	public class AllTests
 	{
 		public var invalidation:AllInvalidationTests;
 		public var data:AllDataTests;

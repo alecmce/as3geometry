@@ -1,7 +1,7 @@
-package alecmce.data.bitwise 
+package alecmce.data.bitwise
 {
 
-	public class BitFieldUtil 
+	public class BitFieldUtil
 	{
 		/**
 		 * performs a bitwise disjunction (logical OR) on two bitfields and
@@ -11,16 +11,16 @@ package alecmce.data.bitwise
 		{
 			var result:BitField = a.clone();
 			var length:uint = b.length;
-			
+
 			for (var i:int = 0; i < length; i++)
 			{
 				if (b.getBit(i))
 					result.setBit(i, true);
 			}
-			
+
 			return result;
 		}
-		
+
 		/**
 		 * performs a bitwise disjunction (logical OR) on two bitfields, changing
 		 * the first bitfield as a result
@@ -34,7 +34,7 @@ package alecmce.data.bitwise
 					mutable.setBit(i, true);
 			}
 		}
-		
+
 		/**
 		 * performs a bitwise conjunction (logical AND) on two bitfields and
 		 * returns a new BitField as a result
@@ -43,16 +43,16 @@ package alecmce.data.bitwise
 		{
 			var result:BitField = a.clone();
 			var length:uint = b.length;
-			
+
 			for (var i:int = 0; i < length; i++)
 			{
 				if (result.getBit(i) && !b.getBit(i))
 					result.setBit(i, false);
 			}
-			
+
 			return result;
 		}
-		
+
 		/**
 		 * performs a bitwise conjunction (logical AND) on two bitfields, changing
 		 * the first bitfield as a result
@@ -66,7 +66,7 @@ package alecmce.data.bitwise
 					mutable.setBit(i, false);
 			}
 		}
-		
+
 		/**
 		 * 	a	b	carry	result	carry
 		 * 	0	0	0		0		(0)
@@ -85,12 +85,12 @@ package alecmce.data.bitwise
 			var length:uint = aLength > bLength ? aLength : bLength;
 			var result:BitField = new BitField();
 			var carry:Boolean = false;
-			
+
 			for (var i:int = 0; i < length; i++)
 			{
 				var aBit:Boolean = a.getBit(i);
 				var bBit:Boolean = b.getBit(i);
-				
+
 				if (aBit && bBit)		// when both are true
 				{
 					result.setBit(i, carry);
@@ -106,12 +106,12 @@ package alecmce.data.bitwise
 					carry = false;
 				}
 			}
-			
+
 			if (carry)
 				result.setBit(length, true);
-			
+
 			return result;
 		}
-		
+
 	}
 }

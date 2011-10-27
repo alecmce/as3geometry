@@ -1,4 +1,4 @@
-package alecmce.invalidation 
+package alecmce.invalidation
 {
 	import alecmce.invalidation.signals.InvalidationSignal;
 
@@ -8,7 +8,7 @@ package alecmce.invalidation
 		private var _isInvalid:Boolean;
 		private var _invalidated:InvalidationSignal;
 
-		public function ExampleInvalidator(id:String) 
+		public function ExampleInvalidator(id:String)
 		{
 			_id = id;
 			_isInvalid = false;
@@ -19,7 +19,7 @@ package alecmce.invalidation
 		{
 			if (_isInvalid)
 				return;
-			
+
 			_isInvalid = true;
 			_invalidated.dispatch(this);
 		}
@@ -28,21 +28,21 @@ package alecmce.invalidation
 		{
 			return _invalidated;
 		}
-		
+
 		public function get isInvalid():Boolean
 		{
 			return _isInvalid;
 		}
-		
+
 		public function resolve():void
 		{
 			_isInvalid = false;
 		}
-		
+
 		public function toString():String
 		{
 			return _id;
 		}
-		
+
 	}
 }

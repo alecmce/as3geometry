@@ -1,4 +1,4 @@
-package as3geometry.geom2D 
+package as3geometry.geom2D
 {
 
 	/**
@@ -8,12 +8,12 @@ package as3geometry.geom2D
 	 *
 	 * @author Alec McEachran
 	 */
-	public interface Circle 
+	public interface Circle
 	{
-		
+
 		function get center():Vertex;
-		
+
 		function get radius():Number;
-		
+
 	}
 }

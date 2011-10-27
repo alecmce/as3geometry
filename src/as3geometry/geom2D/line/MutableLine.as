@@ -1,4 +1,4 @@
-package as3geometry.geom2D.line 
+package as3geometry.geom2D.line
 {
 	import as3geometry.AS3GeometryContext;
 	import as3geometry.abstract.Mutable;
@@ -16,13 +16,13 @@ package as3geometry.geom2D.line
 	 */
 	public class MutableLine extends Mutable implements Line, SpatialVector
 	{
-		
+
 		private var _a:Vertex;
-		
+
 		private var _b:Vertex;
-		
+
 		private var _type:LineType;
-		
+
 		private var _i:Number;
 		private var _j:Number;
 		private var _length:Number;
@@ -35,40 +35,40 @@ package as3geometry.geom2D.line
 			_type = type ? type : LineType.LINE;
 			invalidate(true);
 		}
-		
+
 		public function get a():Vertex
 		{
 			return _a;
 		}
-		
+
 		public function set a(a:Vertex):void
 		{
 			if (_a == a)
 				return;
-			
+
 			removeDefinien(_a);
 			_a = a;
 			addDefinien(_a);
 			invalidate();
 		}
-		
+
 		public function get b():Vertex
 		{
 			return _b;
 		}
-		
+
 		public function set b(b:Vertex):void
 		{
 			if (_b == b)
 				return;
-			
+
 			removeDefinien(_b);
 			_b = b;
 			addDefinien(_b);
 			invalidate();
 		}
 
-		override public function resolve():void 
+		override public function resolve():void
 		{
 			_i = _b.x - _a.x;
 			_j = _b.y - _a.y;
@@ -79,36 +79,36 @@ package as3geometry.geom2D.line
 		{
 			return _i;
 		}
-		
+
 		public function get j():Number
 		{
 			return _j;
 		}
-		
+
 		public function get length():Number
 		{
 			return _length;
 		}
-		
+
 		public function get vector():SpatialVector
 		{
 			return this;
 		}
-		
+
 		public function get type():LineType
 		{
 			return _type;
 		}
-		
+
 		public function isSame(line:Line):Boolean
 		{
 			return (a == line.a && b == line.b) || (a == line.b && b == line.a);
 		}
-		
+
 		public function toString():String
 		{
 			return "[LINE " + a + ", " + b + "]";
 		}
-		
+
 	}
 }

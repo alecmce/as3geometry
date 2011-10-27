@@ -1,24 +1,24 @@
-package as3geometry.geom2D.ui.generic 
+package as3geometry.geom2D.ui.generic
 {
 	import as3geometry.AS3GeometryContext;
 
 	import alecmce.ui.Paint;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * (c) 2009 alecmce.com
 	 *
 	 * @author Alec McEachran
 	 */
-	public class UIDrawer extends UIMutableSprite 
+	public class UIDrawer extends UIMutableSprite
 	{
 		public function UIDrawer(context:AS3GeometryContext, paint:Paint = null)
 		{
 			super(context, paint);
 			invalidate();
 		}
-		
+
 		final override public function set x(value:Number):void
 		{
 			// do nothing
@@ -29,10 +29,10 @@ package as3geometry.geom2D.ui.generic
 			// do nothing
 		}
 
-		override public function resolve():void 
+		override public function resolve():void
 		{
 			super.resolve();
-			
+
 			var p:Paint = paint;
 			graphics.clear();
 			p.beginPaint(graphics);
@@ -42,8 +42,8 @@ package as3geometry.geom2D.ui.generic
 
 		protected function draw():void
 		{
-			
+
 		}
-		
+
 	}
 }

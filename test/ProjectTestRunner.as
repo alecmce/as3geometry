@@ -1,4 +1,4 @@
-package  
+package
 {
 	import asunit.core.TextCore;
 
@@ -6,12 +6,12 @@ package
 
 	public class ProjectTestRunner extends Sprite
 	{
-		
+
 		public function ProjectTestRunner()
 		{
 			var core:TextCore = new TextCore();
 			core.start(AllTests, null, this);
 		}
-		
+
 	}
 }

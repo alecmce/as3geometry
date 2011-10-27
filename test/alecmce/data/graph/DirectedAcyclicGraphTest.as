@@ -1,10 +1,10 @@
-package alecmce.data.graph 
+package alecmce.data.graph
 {
 
-	public class DirectedAcyclicGraphTest 
+	public class DirectedAcyclicGraphTest
 	{
 		private var graph:DirectedAcyclicGraph;
-		
+
 		private var a:Object;
 		private var b:Object;
 		private var c:Object;
@@ -17,17 +17,17 @@ package alecmce.data.graph
 			c = new MockGraphNode("c");
 			graph = new DirectedAcyclicGraph();
 		}
-		
+
 		[After]
 		public function after():void
 		{
 			a = null;
 			b = null;
 			c = null;
-			
+
 			graph = null;
 		}
-		
+
 		[Test(expects="Error")]
 		public function cyclic_associations():void
 		{
@@ -35,6 +35,6 @@ package alecmce.data.graph
 			graph.joinNodes(b, c);
 			graph.joinNodes(c, a);
 		}
-		
+
 	}
 }
